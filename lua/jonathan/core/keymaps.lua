@@ -13,8 +13,21 @@ keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
 
 keymap.set("n", "<leader>tn", ":tabnew<CR>") -- open new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
-keymap.set("n", "<leader>tw", ":tabn<CR>") --  go to next tab
-keymap.set("n", "<leader>tb", ":tabp<CR>") --  go to previous tab
+keymap.set("n", "<leader>tl", ":tabn<CR>") --  go to next tab
+keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
 
--- plugins
+-- allow copy to clipboard
+keymap.set("v", "<leader>y", '"+y')
+keymap.set("n", "<leader>yy", '"+yy')
+
+----------------------
+-- Plugin Keybinds
+----------------------
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+
+-- telescope
+keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
+keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
+keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
+keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- list open buffers in current neovim instance
+keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags

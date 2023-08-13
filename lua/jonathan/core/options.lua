@@ -28,9 +28,31 @@ opt.signcolumn = "yes"
 -- makes backspace work correctly
 opt.backspace = "indent,eol,start"
 
--- allows neovim to use the system clipboard 
+-- allows neovim to use the system clipboard
 -- opt.clipboard:append("unnamedplus")
 
 -- allow splitting horizontally and vertically
 opt.splitright = true
 opt.splitbelow = true
+
+vim.api.nvim_create_augroup("FileTypeGroup", {})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.cls", "*.trigger", "*.apex" },
+	command = "set filetype=apex",
+	group = "FileTypeGroup",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.soql" },
+	command = "set filetype=soql",
+	group = "FileTypeGroup",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.sosl" },
+	command = "set filetype=sosl",
+	group = "FileTypeGroup",
+})
+
+vim.lsp.set_log_level("debug")
