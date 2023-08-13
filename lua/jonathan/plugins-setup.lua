@@ -21,6 +21,8 @@ local plugins = {
 		config = function()
 			-- load the colorscheme here
 			vim.cmd([[colorscheme dracula]])
+			-- vim.cmd([[highlight DiffAdd guibg=#631d18 guifg=white]])
+			vim.cmd([[highlight DiffText guibg=#1d3450 guifg=#ffffff]])
 		end,
 	},
 	"nvim-lua/plenary.nvim", -- Lua functions that many other plugins depend on
@@ -96,6 +98,12 @@ local plugins = {
 	"lewis6991/gitsigns.nvim",
 	-- multiline cursors
 	"mg979/vim-visual-multi",
+	"mbbill/undotree",
+	-- provides :Git commands
+	"tpope/vim-fugitive",
+
+	-- makes resolving merge conflicts easy
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 }
 
 require("lazy").setup(plugins, opts)

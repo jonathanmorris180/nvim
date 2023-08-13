@@ -5,6 +5,42 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<ESC>")
 keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
+-- save (:update only saves if there are changes)
+keymap.set("n", "<leader>s", ":update<CR>")
+-- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
+keymap.set("n", "<leader>sa", ":wa<CR>")
+keymap.set("n", "<leader>qq", ":qa!<CR>")
+keymap.set("n", "<leader>q", ":q<CR>")
+
+-- refresh from buffer
+keymap.set("n", "<leader>r", ":e<CR>")
+
+-- open blame
+keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
+
+-- allow line movement when highlighted
+keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- toggle undo tree
+keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+-- keep cursor in middle
+keymap.set("n", "<C-d>", "<C-d>zz")
+keymap.set("n", "<C-u>", "<C-u>zz")
+keymap.set("n", "n", "nzzzv")
+keymap.set("n", "N", "Nzzzv")
+
+-- keep previous yank when pasting over highlight
+keymap.set("x", "<leader>p", '"_dP')
+
+-- delete without losing previous yank
+keymap.set("n", "<leader>d", '"_d')
+keymap.set("v", "<leader>d", '"_d')
+
+-- disable Q
+keymap.set("n", "Q", "<nop>")
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally

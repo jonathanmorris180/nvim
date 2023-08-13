@@ -35,6 +35,7 @@ opt.backspace = "indent,eol,start"
 opt.splitright = true
 opt.splitbelow = true
 
+-- recognize Salesforce files
 vim.api.nvim_create_augroup("FileTypeGroup", {})
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
