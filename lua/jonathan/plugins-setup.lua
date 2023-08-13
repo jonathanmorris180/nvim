@@ -94,6 +94,8 @@ local plugins = {
 
 	-- gitsigns
 	"lewis6991/gitsigns.nvim",
+	-- multiline cursors
+	"mg979/vim-visual-multi",
 }
 
 require("lazy").setup(plugins, opts)

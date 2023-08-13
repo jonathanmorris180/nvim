@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 local keymap = vim.keymap
 
 keymap.set("i", "jk", "<ESC>")
-keymap.set("n", "<leader>h", ":nohl<CR>") -- clears search highlights
+keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
@@ -11,10 +11,10 @@ keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
 keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
 
-keymap.set("n", "<leader>tn", ":tabnew<CR>") -- open new tab
-keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
-keymap.set("n", "<leader>tl", ":tabn<CR>") --  go to next tab
-keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
+keymap.set("n", "<leader>n", ":tabnew<CR>") -- open new tab
+keymap.set("n", "<leader>x", ":tabclose<CR>") -- close current tab
+keymap.set("n", "<leader>l", ":tabn<CR>") --  go to next tab
+keymap.set("n", "<leader>h", ":tabp<CR>") --  go to previous tab
 
 -- allow copy to clipboard
 keymap.set("v", "<leader>y", '"+y')
