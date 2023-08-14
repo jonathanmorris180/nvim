@@ -6,11 +6,11 @@ keymap.set("i", "jk", "<ESC>")
 keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
 -- save (:update only saves if there are changes)
-keymap.set("n", "<leader>s", ":update<CR>")
+keymap.set("n", "<leader>w", ":update<CR>")
 -- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
-keymap.set("n", "<leader>sa", ":wa<CR>")
+keymap.set("n", "<leader>W", ":wa<CR>")
 keymap.set("n", "<leader>qq", ":qa!<CR>")
-keymap.set("n", "<leader>q", ":q<CR>")
+keymap.set("n", "<leader>c", ":q<CR>")
 
 -- refresh from buffer
 keymap.set("n", "<leader>r", ":e<CR>")
@@ -62,7 +62,7 @@ keymap.set("n", "<leader>yy", '"+yy')
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- telescope
-keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
+keymap.set("n", "<C-o>", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
 keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
 keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- list open buffers in current neovim instance
