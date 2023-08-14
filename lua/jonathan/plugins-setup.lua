@@ -27,7 +27,14 @@ local plugins = {
 	},
 	"nvim-lua/plenary.nvim", -- Lua functions that many other plugins depend on
 	"tpope/vim-surround",
-	"folke/which-key.nvim",
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+	},
 	"numToStr/Comment.nvim", -- commenting with "gc"
 	"nvim-tree/nvim-tree.lua", -- file explorer
 	"nvim-tree/nvim-web-devicons", -- icons in file explorer
@@ -105,6 +112,24 @@ local plugins = {
 	-- makes resolving merge conflicts easy
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 	{ "metakirby5/codi.vim" },
+	{
+		"theprimeagen/harpoon",
+		config = function()
+			require("harpoon").setup()
+			vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, { desc = "[H]arpoon [A]dd file" })
+			vim.keymap.set(
+				"n",
+				"<leader>ht",
+				require("harpoon.ui").toggle_quick_menu,
+				{ desc = "[H]arpoon [T]oggle quick menu" }
+			)
+			vim.keymap.set("n", "<C-o>", require("harpoon.ui").nav_next)
+			vim.keymap.set("n", "<C-p>", require("harpoon.ui").nav_prev)
+		end,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
 }
 
 require("lazy").setup(plugins, opts)
