@@ -104,6 +104,7 @@ local plugins = {
 
 	-- makes resolving merge conflicts easy
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
+	{ "metakirby5/codi.vim" },
 }
 
 require("lazy").setup(plugins, opts)
