@@ -14,13 +14,20 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {}
 
 local plugins = {
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false, -- make sure we load this during startup if it is your main colorscheme
+	-- 	priority = 1000, -- make sure to load this before all the other start plugins
+	-- 	config = function()
+	-- 		vim.cmd([[colorscheme tokyonight-night]])
+	-- 	end,
 	{
 		"dracula/vim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
-			-- load the colorscheme here
 			vim.cmd([[colorscheme dracula]])
+			-- if altering defaults are needed (also see docs here: https://github.com/folke/tokyonight.nvim)
 			-- vim.cmd([[highlight DiffAdd guibg=#631d18 guifg=white]])
 			vim.cmd([[highlight DiffText guibg=#1d3450 guifg=#ffffff]])
 		end,
@@ -39,7 +46,11 @@ local plugins = {
 	"nvim-tree/nvim-tree.lua", -- file explorer
 	"nvim-tree/nvim-web-devicons", -- icons in file explorer
 	"nvim-lualine/lualine.nvim", -- adds a nice status line
-	{ "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } }, -- file searching
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-live-grep-args.nvim" },
+	}, -- file searching
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- makes telesope perform better
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "folke/neoconf.nvim", cmd = "Neoconf" },
