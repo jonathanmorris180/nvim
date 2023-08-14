@@ -41,6 +41,9 @@ keymap.set("v", "<leader>d", '"_d')
 -- disable Q
 keymap.set("n", "Q", "<nop>")
 
+-- close all buffers except current
+keymap.set("n", "<leader>bd", ":%bd|e#<CR>")
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
@@ -55,6 +58,9 @@ keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
 -- allow copy to clipboard
 keymap.set("v", "<leader>y", '"+y')
 keymap.set("n", "<leader>yy", '"+yy')
+
+-- copy relative path of current buffer
+keymap.set("n", "<leader>yp", ":Cppath<CR>")
 
 ----------------------
 -- Plugin Keybinds
