@@ -8,7 +8,7 @@ keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 -- save (:update only saves if there are changes)
 keymap.set("n", "<leader>w", ":update<CR>")
 -- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
-keymap.set("n", "<leader>W", ":wa<CR>")
+keymap.set("n", "<leader>sa", ":wa<CR>")
 keymap.set("n", "<leader>qq", ":qa!<CR>")
 keymap.set("n", "<leader>c", ":q<CR>")
 
@@ -75,3 +75,8 @@ keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- list open buffers
 keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
 keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>") -- list available help tags
 keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
+keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>") -- resumes the previous picker (sea
+
+-- debugging
+keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<cr>')
+keymap.set("n", "<leader>db", ":DapToggleBreakpoint<cr>")
