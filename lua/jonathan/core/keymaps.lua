@@ -13,7 +13,7 @@ keymap.set("n", "<leader>qq", ":qa!<CR>")
 keymap.set("n", "<leader>c", ":q<CR>")
 
 -- refresh from buffer
-keymap.set("n", "<leader>r", ":e<CR>")
+keymap.set("n", "<leader>r", ":e!<CR>")
 
 -- open blame
 keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
