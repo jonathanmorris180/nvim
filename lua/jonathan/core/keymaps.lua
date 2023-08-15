@@ -80,3 +80,15 @@ keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>") -- resumes the previo
 -- debugging
 keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<cr>')
 keymap.set("n", "<leader>db", ":DapToggleBreakpoint<cr>")
+
+-- SFDX
+vim.api.nvim_create_user_command("SfdxDiffFile", function()
+	local path = vim.fn.expand("%:p")
+	local command = "SFDX_DIFF_JSON=$(sfdx force:source:diff -p "
+		.. path
+		.. " --json) && git diff $(echo ${SFDX_DIFF_JSON} | jq '.result.remote' -r) $(echo ${SFDX_DIFF_JSON} | jq '.result.local' -r)"
+	local tmux = require("harpoon.tmux")
+	tmux.sendCommand("{next}", command)
+	tmux.gotoTerminal("{next}")
+end, {})
+keymap.set("n", "<leader>df", ":SfdxDiffFile<cr>")
