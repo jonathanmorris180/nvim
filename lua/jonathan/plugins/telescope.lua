@@ -23,7 +23,7 @@ telescope.setup({
 			},
 		},
 		path_display = {
-			"smart",
+			"shorten",
 		},
 	},
 	extensions = {
