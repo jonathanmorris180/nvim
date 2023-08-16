@@ -5,16 +5,6 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<ESC>")
 keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
--- save (:update only saves if there are changes)
-keymap.set("n", "<leader>w", ":update<CR>")
--- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
-keymap.set("n", "<leader>sa", ":wa<CR>")
-keymap.set("n", "<leader>qq", ":qa!<CR>")
-keymap.set("n", "<leader>c", ":q<CR>")
-
--- refresh from buffer
-keymap.set("n", "<leader>r", ":e!<CR>")
-
 -- open blame
 keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
 
@@ -44,6 +34,7 @@ keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
 keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
 
+-- tabs
 keymap.set("n", "<leader>tn", ":tabnew<CR>") -- open new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
 keymap.set("n", "<leader>tl", ":tabn<CR>") --  go to next tab
@@ -60,6 +51,14 @@ keymap.set("n", "<leader>yp", ":Cppath<CR>") -- copy relative path of current bu
 keymap.set("n", "<leader>bd", ":%bd|e#<CR>") -- close all buffers except current
 keymap.set("n", "<leader>n", ":bn<CR>") -- go to next buffer
 keymap.set("n", "<leader>p", ":bp<CR>") -- go to previous buffer
+keymap.set("n", "<leader>w", ":update<CR>") -- save (:update only saves if there are changes)
+-- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
+keymap.set("n", "<leader>sa", ":wa<CR>") -- save all buffers
+keymap.set("n", "<leader>qq", ":qa!<CR>") -- quit all buffers
+keymap.set("n", "<leader>c", ":q!<CR>") -- quit the current buffer
+keymap.set("n", "<leader>r", ":e!<CR>") -- refresh buffer
+keymap.set("n", "<Up>", "10<C-w>>") -- increase window width
+keymap.set("n", "<Down>", "10<C-w><") -- decrease window width
 
 ----------------------
 -- Plugin Keybinds

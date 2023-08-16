@@ -21,6 +21,9 @@ telescope.setup({
 				["<C-l>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
 				["<C-u>"] = false, -- allows default terminal action (clear line)
 			},
+			n = {
+				["x"] = actions.close,
+			},
 		},
 		path_display = {
 			"shorten",
