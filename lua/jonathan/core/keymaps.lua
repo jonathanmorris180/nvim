@@ -66,6 +66,7 @@ keymap.set("n", "<Down>", "10<C-w><") -- decrease window width
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- telescope
+-- <C-q> opens the quickfix list (already mapped)
 keymap.set("n", "<C-f>", "<CMD>Telescope find_files<CR>") -- find files within current working directory, respects .gitignore
 keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>") -- find string in current working directory as you type
 keymap.set("n", "<leader>fc", "<CMD>Telescope grep_string<CR>") -- find string under cursor in current working directory
@@ -74,6 +75,11 @@ keymap.set("n", "<leader>fh", "<CMD>Telescope help_tags<CR>") -- list available 
 keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
 keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
 keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
+
+-- quickfix
+keymap.set("n", "<leader>qo", "<CMD>copen<CR>") -- open the quickfix list
+keymap.set("n", "<leader>qx", "<CMD>cclose<CR>") -- close the quickfix list
+keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
 
 -- debugging
 keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<CR>')
