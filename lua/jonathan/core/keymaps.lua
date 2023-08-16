@@ -68,18 +68,18 @@ keymap.set("n", "<leader>yp", ":Cppath<CR>")
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- telescope
-keymap.set("n", "<C-f>", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
-keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
-keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
-keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- list open buffers in current neovim instance
-keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
-keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<cr>") -- list available help tags
+keymap.set("n", "<C-f>", "<CMD>Telescope find_files<CR>") -- find files within current working directory, respects .gitignore
+keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>") -- find string in current working directory as you type
+keymap.set("n", "<leader>fc", "<CMD>Telescope grep_string<CR>") -- find string under cursor in current working directory
+keymap.set("n", "<leader>fb", "<CMD>Telescope buffers sort_mru=true<CR>") -- list open buffers in current neovim instance
+keymap.set("n", "<leader>fh", "<CMD>Telescope help_tags<CR>") -- list available help tags
+keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
 keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
-keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>") -- resumes the previous picker (sea
+keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
 
 -- debugging
-keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<cr>')
-keymap.set("n", "<leader>db", ":DapToggleBreakpoint<cr>")
+keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<CR>')
+keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>")
 
 -- SFDX
 vim.api.nvim_create_user_command("SfdxDiffFile", function()
@@ -91,4 +91,4 @@ vim.api.nvim_create_user_command("SfdxDiffFile", function()
 	tmux.sendCommand("{next}", command)
 	tmux.gotoTerminal("{next}")
 end, {})
-keymap.set("n", "<leader>df", ":SfdxDiffFile<cr>")
+keymap.set("n", "<leader>df", ":SfdxDiffFile<CR>")
