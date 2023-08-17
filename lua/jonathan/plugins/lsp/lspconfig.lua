@@ -1,4 +1,7 @@
 -- import lspconfig plugin safely
+-- disable lsp logs unless needed so it doesn't create a huge file
+vim.lsp.set_log_level("off")
+
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status then
 	return
