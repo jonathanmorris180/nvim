@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
-keymap.set("i", "jk", "<ESC>")
+keymap.set("i", "jk", "<Esc>")
 keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
 -- open blame
@@ -11,6 +11,9 @@ keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
 -- allow line movement when highlighted
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Q to exit visual line mode
+keymap.set("v", "q", "<Esc>")
 
 -- toggle undo tree
 keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

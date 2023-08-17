@@ -120,7 +120,7 @@ local plugins = {
 	-- provides :Git commands
 	"tpope/vim-fugitive",
 
-	-- makes resolving merge conflicts easy
+	-- makes resolving merge conflicts easy ([x maps to next conflict)
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 	{ "metakirby5/codi.vim" },
 	{
