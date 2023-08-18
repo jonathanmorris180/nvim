@@ -12,6 +12,9 @@ keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+-- duplicate selection below (above can easily be done without keymap)
+keymap.set("v", "P", "y'>p")
+
 -- Q to exit visual line mode
 keymap.set("v", "q", "<Esc>")
 
@@ -92,6 +95,44 @@ keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
 keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<CR>')
 keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>")
 keymap.set("n", "<leader>dr", ":lua require('dap').repl.open()<CR>")
+
+local function get_test_runner(test_name, debug)
+	if debug then
+		return 'mvn test -Dmaven.surefire.debug -Dtest="' .. test_name .. '"'
+	end
+	return 'mvn test -Dtest="' .. test_name .. '"'
+end
+
+local function run_java_test_method(debug)
+	local utils = require("jonathan.core.utils")
+	local method_name = utils.get_current_full_method_name("#")
+	local tmux = require("harpoon.tmux")
+	tmux.sendCommand("{next}", get_test_runner(method_name, debug))
+	tmux.gotoTerminal("{next}")
+end
+
+local function run_java_test_class(debug)
+	local utils = require("jonathan.core.utils")
+	local class_name = utils.get_current_full_class_name()
+	local tmux = require("harpoon.tmux")
+	tmux.sendCommand("{next}", get_test_runner(class_name, debug))
+	tmux.gotoTerminal("{next}")
+end
+
+keymap.set("n", "<leader>tm", function()
+	run_java_test_method()
+end)
+keymap.set("n", "<leader>TM", function()
+	run_java_test_method(true)
+end)
+keymap.set("n", "<leader>tc", function()
+	run_java_test_class()
+end)
+keymap.set("n", "<leader>TC", function()
+	print("running test class in debug")
+	run_java_test_class(true)
+end)
+
 local function get_spring_boot_runner(profile, debug)
 	local debug_param = ""
 	local profile_param = ""
