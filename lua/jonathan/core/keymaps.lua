@@ -191,3 +191,7 @@ keymap.set("n", "<leader>df", ":SfdxDiffFile<CR>")
 -- markdown preview
 keymap.set("n", "<leader>md", ":MarkdownPreview<CR>")
 keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>")
+
+-- live server
+keymap.set("n", "<leader>ls", ":LiveServerStart<CR>")
+keymap.set("n", "<leader>lx", ":LiveServerStop<CR>")
