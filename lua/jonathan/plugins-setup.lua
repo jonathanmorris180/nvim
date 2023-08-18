@@ -207,6 +207,19 @@ local plugins = {
 	},
 	-- java
 	{ "mfussenegger/nvim-jdtls" },
+	-- markdown preview
+	{
+		"iamcco/markdown-preview.nvim",
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	},
+	-- live server
+	{
+		"barrett-ruth/live-server.nvim",
+		build = "npm install --legacy-peer-deps -g live-server",
+		config = true,
+	},
 }
 
 require("lazy").setup(plugins, opts)

@@ -187,3 +187,7 @@ vim.api.nvim_create_user_command("SfdxDiffFile", function()
 	tmux.gotoTerminal("{next}")
 end, {})
 keymap.set("n", "<leader>df", ":SfdxDiffFile<CR>")
+
+-- markdown preview
+keymap.set("n", "<leader>md", ":MarkdownPreview<CR>")
+keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>")
