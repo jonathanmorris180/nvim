@@ -198,6 +198,7 @@ local plugins = {
 	},
 	-- debugging
 	"mfussenegger/nvim-dap",
+	"rcarriga/cmp-dap",
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
 	{ "mxsdev/nvim-dap-vscode-js", dependencies = { "mfussenegger/nvim-dap" } },
 	{

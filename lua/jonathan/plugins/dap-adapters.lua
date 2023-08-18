@@ -40,6 +40,7 @@ for _, language in ipairs(languages) do
 			webRoot = "${workspaceFolder}",
 			userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
 		},
+		-- LWC jest
 		{
 			name = "Debug Spotify LWC Tests",
 			type = "pwa-node",

@@ -1,0 +1,6 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "find_node_by_type"
+    ]
+}

@@ -64,9 +64,9 @@ keymap.set("n", "<leader>r", ":e!<CR>") -- refresh buffer
 keymap.set("n", "<Up>", "10<C-w>>") -- increase window width
 keymap.set("n", "<Down>", "10<C-w><") -- decrease window width
 
-----------------------
--- Plugin Keybinds
-----------------------
+---------------------
+-- Plugin Keybinds --
+---------------------
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- telescope
@@ -85,9 +85,55 @@ keymap.set("n", "<leader>qo", "<CMD>copen<CR>") -- open the quickfix list
 keymap.set("n", "<leader>qx", "<CMD>cclose<CR>") -- close the quickfix list
 keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
 
--- debugging
+---------------
+-- Debugging --
+---------------
+
 keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<CR>')
 keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>")
+keymap.set("n", "<leader>dr", ":lua require('dap').repl.open()<CR>")
+local function get_spring_boot_runner(profile, debug)
+	local debug_param = ""
+	local profile_param = ""
+
+	if profile then
+		profile_param = " -Dspring-boot.run.profiles=" .. profile
+	end
+
+	if debug then
+		debug_param =
+			' -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"'
+	end
+
+	return "mvn spring-boot:run " .. profile_param .. debug_param
+end
+
+local function run_spring_boot(debug)
+	local tmux = require("harpoon.tmux")
+	tmux.sendCommand("{next}", get_spring_boot_runner("local", debug))
+	tmux.gotoTerminal("{next}")
+end
+
+vim.api.nvim_create_user_command("JavaAttachToDebugger", function()
+	local dap = require("dap")
+	dap.configurations.java = {
+		{
+			type = "java",
+			request = "attach",
+			name = "Java debug",
+			hostName = "localhost",
+			port = "5005",
+		},
+	}
+	dap.continue()
+end, {})
+keymap.set("n", "<leader>sb", function()
+	run_spring_boot()
+end)
+keymap.set("n", "<leader>sd", function()
+	run_spring_boot(true)
+end)
+keymap.set("n", "<leader>da", ":JavaAttachToDebugger<CR>")
 
 -- SFDX
 vim.api.nvim_create_user_command("SfdxDiffFile", function()

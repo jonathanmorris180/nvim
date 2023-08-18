@@ -3,6 +3,7 @@ local config_dir = jdtls_dir .. "/config_mac"
 local plugins_dir = jdtls_dir .. "/plugins"
 local path_to_jar = plugins_dir .. "/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar"
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
+local path_to_java_dap = "/Users/jonathanmorris/java-debug-0.48.0/com.microsoft.java.debug.plugin/target/"
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
 local status, jdtls_setup = pcall(require, "jdtls.setup")
@@ -64,7 +65,7 @@ local config = {
 				updateBuildConfiguration = "interactive",
 				runtimes = {
 					{
-						name = "Java17",
+						name = "JavaSE-17",
 						path = "/Library/Java/JavaVirtualMachines/jdk-17.0.3.jdk/Contents/Home",
 					},
 				},
@@ -128,7 +129,9 @@ local config = {
 		allow_incremental_sync = true,
 	},
 	init_options = {
-		bundles = {},
+		bundles = {
+			vim.fn.glob(path_to_java_dap .. "com.microsoft.java.debug.plugin-0.48.0.jar", 1),
+		},
 	},
 }
 
@@ -140,6 +143,12 @@ end
 
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
+
+local jdtls_status, jdtls = pcall(require, "jdtls")
+if not jdtls_status then
+	print("could not find jdtls")
+	return
+end
 
 local keymap = vim.keymap -- for conciseness
 local on_attach = function(client, bufnr)
@@ -158,6 +167,8 @@ local on_attach = function(client, bufnr)
 	keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
 	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
 	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
+
+	jdtls.setup_dap({ hotcodereplace = "auto" })
 end
 
 config["on_attach"] = on_attach
@@ -176,11 +187,5 @@ config["capabilities"] = capabilities
 -- 	-- 	},
 -- 	-- }, bufnr)
 -- end
-
-local jdtls_status, jdtls = pcall(require, "jdtls")
-if not jdtls_status then
-	print("could not find jdtls")
-	return
-end
 
 jdtls.start_or_attach(config)
