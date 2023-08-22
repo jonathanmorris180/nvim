@@ -31,6 +31,10 @@ nvimtree.setup({
 			},
 		},
 	},
+	git = {
+		enable = true,
+		ignore = false,
+	},
 	update_focused_file = {
 		enable = true,
 		update_root = false,
