@@ -15,6 +15,11 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- duplicate selection below (above can easily be done without keymap)
 keymap.set("v", "P", "y'>p")
 
+-- yanky keymaps
+keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+keymap.set("n", "N", "<Plug>(YankyCycleForward)")
+keymap.set("n", "P", "<Plug>(YankyCycleBackward)")
+
 -- Q to exit visual line mode
 keymap.set("v", "q", "<Esc>")
 
@@ -25,7 +30,7 @@ keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "n", "nzzzv")
-keymap.set("n", "N", "Nzzzv")
+-- keymap.set("n", "N", "Nzzzv") - removing to have yanky instead
 
 -- delete without losing previous yank
 keymap.set("n", "<leader>d", '"_d')

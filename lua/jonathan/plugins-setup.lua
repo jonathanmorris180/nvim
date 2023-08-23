@@ -220,6 +220,10 @@ local plugins = {
 		build = "npm install --legacy-peer-deps -g live-server",
 		config = true,
 	},
+	-- yank history
+	{
+		"gbprod/yanky.nvim",
+	},
 }
 
 require("lazy").setup(plugins, opts)
