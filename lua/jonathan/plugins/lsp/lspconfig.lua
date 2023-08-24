@@ -73,6 +73,13 @@ lspconfig["pyright"].setup({
 -- configure typescript server with plugin
 typescript.setup({
 	server = {
+		init_options = {
+			-- relative imports
+			preferences = {
+				importModuleSpecifierPreference = "relative",
+				importModuleSpecifierEnding = "minimal",
+			},
+		},
 		capabilities = capabilities,
 		on_attach = on_attach,
 	},
