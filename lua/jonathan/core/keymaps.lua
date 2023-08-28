@@ -17,8 +17,8 @@ keymap.set("v", "P", "y'>p")
 
 -- yanky keymaps
 keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-keymap.set("n", "N", "<Plug>(YankyCycleForward)")
-keymap.set("n", "P", "<Plug>(YankyCycleBackward)")
+keymap.set("n", "H", "<Plug>(YankyCycleForward)")
+keymap.set("n", "L", "<Plug>(YankyCycleBackward)")
 keymap.set("n", "<leader>yh", "<CMD>YankyRingHistory<CR>")
 
 -- Q to exit visual line mode
