@@ -91,6 +91,12 @@ lspconfig["cssls"].setup({
 	on_attach = on_attach,
 })
 
+-- configure bash server
+lspconfig["bashls"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 -- configure tailwindcss server
 lspconfig["tailwindcss"].setup({
 	capabilities = capabilities,
