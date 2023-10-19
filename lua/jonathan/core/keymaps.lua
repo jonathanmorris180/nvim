@@ -33,10 +33,6 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "n", "nzzzv")
 -- keymap.set("n", "N", "Nzzzv") - removing to have yanky instead
 
--- delete without losing previous yank
-keymap.set("n", "<leader>d", '"_d')
-keymap.set("v", "<leader>d", '"_d')
-
 -- disable Q
 keymap.set("n", "Q", "<nop>")
 
@@ -56,6 +52,11 @@ keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
 -- allow copy to clipboard
 keymap.set("v", "<leader>y", '"+y')
 keymap.set("n", "<leader>yy", '"+yy')
+
+-- quickfix
+keymap.set("n", "<leader>qo", "<CMD>copen<CR>") -- open the quickfix list
+keymap.set("n", "<leader>qx", "<CMD>cclose<CR>") -- close the quickfix list
+keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
 
 -------------
 -- Buffers --
@@ -88,11 +89,6 @@ keymap.set("n", "<leader>fh", "<CMD>Telescope help_tags<CR>") -- list available 
 keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
 keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
 keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
-
--- quickfix
-keymap.set("n", "<leader>qo", "<CMD>copen<CR>") -- open the quickfix list
-keymap.set("n", "<leader>qx", "<CMD>cclose<CR>") -- close the quickfix list
-keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
 
 ---------------
 -- Debugging --
