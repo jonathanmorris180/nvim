@@ -5,9 +5,6 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<Esc>")
 keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
--- open blame
-keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
-
 -- allow line movement when highlighted
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -15,17 +12,8 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- duplicate selection below (above can easily be done without keymap)
 keymap.set("v", "P", "y'>p")
 
--- yanky keymaps
-keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-keymap.set("n", "H", "<Plug>(YankyCycleForward)")
-keymap.set("n", "L", "<Plug>(YankyCycleBackward)")
-keymap.set("n", "<leader>yh", "<CMD>YankyRingHistory<CR>")
-
 -- Q to exit visual line mode
 keymap.set("v", "q", "<Esc>")
-
--- toggle undo tree
-keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- keep cursor in position
 keymap.set("n", "<C-d>", "<C-d>zz")
@@ -80,16 +68,17 @@ keymap.set("n", "<Down>", "10<C-w><") -- decrease window width
 ---------------------
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
--- telescope
--- <C-q> opens the quickfix list (already mapped)
-keymap.set("n", "<C-f>", "<CMD>Telescope find_files<CR>") -- find files within current working directory, respects .gitignore
-keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>") -- find string in current working directory as you type
-keymap.set("n", "<leader>fc", "<CMD>Telescope grep_string<CR>") -- find string under cursor in current working directory
-keymap.set("n", "<leader>fb", "<CMD>Telescope buffers sort_mru=true<CR>") -- list open buffers in current neovim instance
-keymap.set("n", "<leader>fh", "<CMD>Telescope help_tags<CR>") -- list available help tags
-keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
-keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
-keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
+-- open blame
+keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
+
+-- yanky keymaps
+keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+keymap.set("n", "H", "<Plug>(YankyCycleForward)")
+keymap.set("n", "L", "<Plug>(YankyCycleBackward)")
+keymap.set("n", "<leader>yh", "<CMD>YankyRingHistory<CR>")
+
+-- toggle undo tree
+keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 ---------------
 -- Debugging --
