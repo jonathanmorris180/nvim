@@ -29,6 +29,7 @@ return {
 			options = {
 				theme = dracula_theme,
 			},
+			-- can add custom sections to lualine with "sections" property here
 		})
 	end,
 }

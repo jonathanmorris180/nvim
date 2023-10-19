@@ -1,4 +1,5 @@
 return {
+	-- note: you can lazy load plugins on certain keybinds too with the "keys" property (see :h lazy.nvim)
 	"nvim-lua/plenary.nvim", -- Lua functions that many other plugins depend on
 	{
 		"tpope/vim-surround",

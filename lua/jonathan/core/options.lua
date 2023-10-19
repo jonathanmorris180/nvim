@@ -7,8 +7,16 @@ opt.number = true
 -- tabs and indentation
 opt.tabstop = 2
 opt.shiftwidth = 2
+opt.softtabstop = 4 -- how many spaces the cursor moves when pressing <Tab>
 opt.expandtab = true
 opt.autoindent = true
+opt.smartindent = true -- react to indentation in the file
+
+-- undo
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/.undo"
+opt.undofile = true
 
 -- line wrapping
 opt.wrap = true
@@ -20,7 +28,11 @@ opt.smartcase = true
 -- cursor line
 opt.cursorline = true
 
+-- time before vim waits to trigger an event (after typing, for example)
+opt.updatetime = 50
+
 -- appearance
+opt.scrolloff = 8 -- no fewer than 8 lines from bottom or top when you scroll down/up
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"

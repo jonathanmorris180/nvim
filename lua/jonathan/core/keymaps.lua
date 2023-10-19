@@ -27,11 +27,12 @@ keymap.set("v", "q", "<Esc>")
 -- toggle undo tree
 keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
--- keep cursor in middle
+-- keep cursor in position
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "n", "nzzzv")
--- keymap.set("n", "N", "Nzzzv") - removing to have yanky instead
+keymap.set("n", "N", "Nzzzv")
+keymap.set("n", "J", "mzJ`z")
 
 -- disable Q
 keymap.set("n", "Q", "<nop>")
