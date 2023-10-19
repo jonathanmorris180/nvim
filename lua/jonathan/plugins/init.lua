@@ -1,6 +1,9 @@
 return {
 	"nvim-lua/plenary.nvim", -- Lua functions that many other plugins depend on
-	"tpope/vim-surround",
+	{
+		"tpope/vim-surround",
+		event = { "BufEnter" },
+	},
 	{
 		"folke/which-key.nvim", -- displays a popup with possible key bindings of the command you started typing
 		event = "VeryLazy",
@@ -11,9 +14,7 @@ return {
 	},
 	{
 		"numToStr/Comment.nvim", -- commenting with "gc"
-		config = function()
-			require("Comment").setup()
-		end,
+		config = true,
 	},
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "folke/neodev.nvim", opts = {} }, -- Neovim setup for init.lua and plugin development with full signature help, docs, and completion for the nvim lua API
@@ -22,12 +23,10 @@ return {
 	"tpope/vim-fugitive",
 	-- makes resolving merge conflicts easy ([x maps to next conflict)
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
-	{ "metakirby5/codi.vim" },
+	{ "metakirby5/codi.vim", event = { "BufEnter" } },
 	{
 		"rcarriga/cmp-dap",
-		dependencies = {
-			"hrsh7th/nvim-cmp",
-		},
+		event = { "BufEnter" },
 	},
 	-- java
 	{ "mfussenegger/nvim-jdtls" },
