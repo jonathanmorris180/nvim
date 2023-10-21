@@ -15,6 +15,7 @@ opt.smartindent = true -- react to indentation in the file
 -- undo
 opt.swapfile = false
 opt.backup = false
+---@diagnostic disable-next-line: assign-type-mismatch
 opt.undodir = os.getenv("HOME") .. "/.vim/.undo"
 opt.undofile = true
 
@@ -68,6 +69,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	group = "FileTypeGroup",
 })
 
+local function root_file_exists(root_patterns)
+	return vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1])
+end
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	-- inspired by https://www.reddit.com/r/neovim/comments/15tpl36/format_your_code_using_prettier_without_nullls/
 	desc = "Format apex files on save with prettier",
@@ -75,7 +80,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	callback = function(opts)
 		if vim.bo[opts.buf].filetype == "apex" then
 			local clients = vim.lsp.get_active_clients()
-			if next(clients) == nil then
+			if next(clients) == nil or not root_file_exists({ "sfdx-project.json" }) then
 				return nil
 			end
 			local fmt_command = "%!npx prettier --stdin-filepath %"
