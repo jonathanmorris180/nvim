@@ -52,8 +52,8 @@ keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
 -------------
 keymap.set("n", "<leader>yp", ":Cppath<CR>") -- copy relative path of current buffer
 keymap.set("n", "<leader>bd", ":%bd|e#<CR>") -- close all buffers except current
-keymap.set("n", "<leader>n", ":bn<CR>") -- go to next buffer
-keymap.set("n", "<leader>p", ":bp<CR>") -- go to previous buffer
+keymap.set("n", "<Right>", ":bn<CR>") -- go to next buffer
+keymap.set("n", "<Left>", ":bp<CR>") -- go to previous buffer
 keymap.set("n", "<leader>w", ":update<CR>") -- save (:update only saves if there are changes)
 -- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
 keymap.set("n", "<leader>sa", ":wa<CR>") -- save all buffers
