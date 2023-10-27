@@ -31,6 +31,22 @@ return {
 						return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
 					end,
 				}),
+				diagnostics.pmd.with({
+					filetypes = { "apex" },
+					condition = function(utils)
+						return utils.root_has_file("rulesets/apex/pmd-apex-ruleset.xml")
+					end,
+					args = function(params)
+						return {
+							"--format",
+							"json",
+							"--rulesets",
+							"rulesets/apex/pmd-apex-ruleset.xml", -- path to ruleset in sfdx-spotifyb2b
+							"--dir",
+							params.bufname,
+						}
+					end,
+				}),
 			},
 			-- configure format on save
 			on_attach = function(current_client, bufnr)
