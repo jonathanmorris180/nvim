@@ -11,6 +11,10 @@ local ts_utils = require("nvim-treesitter.ts_utils")
 
 local M = {}
 
+function M.root_file_exists(root_patterns)
+	return vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1])
+end
+
 -- Find nodes by type
 local function find_node_by_type(expr, type_name)
 	while expr do
