@@ -13,10 +13,6 @@ return {
 			vim.o.timeoutlen = 300
 		end,
 	},
-	{
-		"numToStr/Comment.nvim", -- commenting with "gc"
-		config = true,
-	},
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "folke/neodev.nvim", opts = {} }, -- Neovim setup for init.lua and plugin development with full signature help, docs, and completion for the nvim lua API
 	"mg979/vim-visual-multi",
