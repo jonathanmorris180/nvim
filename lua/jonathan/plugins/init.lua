@@ -6,6 +6,10 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 	},
 	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+	{
 		"folke/which-key.nvim", -- displays a popup with possible key bindings of the command you started typing
 		event = "VeryLazy",
 		init = function()
