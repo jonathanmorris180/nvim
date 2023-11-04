@@ -1,5 +1,16 @@
 local opt = vim.opt
 
+-- file types
+vim.filetype.add({
+	extension = {
+		cls = "apex",
+		apex = "apex",
+		trigger = "apex",
+		soql = "soql",
+		sosl = "sosl",
+	},
+})
+
 -- line numbers
 opt.relativenumber = true
 opt.number = true
@@ -50,24 +61,6 @@ opt.splitbelow = true
 
 -- recognize Salesforce files
 vim.api.nvim_create_augroup("FileTypeGroup", {})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "*.cls", "*.trigger", "*.apex" },
-	command = "set filetype=apex",
-	group = "FileTypeGroup",
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "*.soql" },
-	command = "set filetype=soql",
-	group = "FileTypeGroup",
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "*.sosl" },
-	command = "set filetype=sosl",
-	group = "FileTypeGroup",
-})
 
 vim.api.nvim_create_user_command("Cppath", function()
 	local path = vim.fn.expand("%:p")
