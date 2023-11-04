@@ -61,6 +61,16 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			filetypes = { "python" },
+			settings = {
+				pyright = { autoImportCompletion = true }, -- see settings here: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+				python = {
+					analysis = {
+						autoSearchPaths = true,
+						diagnosticMode = "openFilesOnly",
+						useLibraryCodeForTypes = true,
+					},
+				},
+			},
 		})
 
 		-- configure typescript server with plugin
