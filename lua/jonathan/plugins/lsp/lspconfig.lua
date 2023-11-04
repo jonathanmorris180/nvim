@@ -70,7 +70,8 @@ return {
 						useLibraryCodeForTypes = true,
 					},
 				},
-			},
+			}, -- could probably get it to work with pyproject.toml by overriding the "cmd" property and adding the -p flag (-p pyproject.toml)
+			-- see here: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
 		})
 
 		-- configure typescript server with plugin
