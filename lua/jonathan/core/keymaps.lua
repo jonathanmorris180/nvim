@@ -42,6 +42,17 @@ keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
 keymap.set("v", "<leader>y", '"+y')
 keymap.set("n", "<leader>yy", '"+yy')
 
+-- enable/disable diagnostics
+keymap.set("n", "<leader>dd", ":DisableDiagnostics<CR>")
+keymap.set("n", "<leader>de", ":EnableDiagnostics<CR>")
+
+vim.api.nvim_create_user_command("DisableDiagnostics", function()
+	vim.diagnostic.disable()
+end, {})
+vim.api.nvim_create_user_command("EnableDiagnostics", function()
+	vim.diagnostic.enable()
+end, {})
+
 -- quickfix
 keymap.set("n", "<leader>qo", "<CMD>copen<CR>") -- open the quickfix list
 keymap.set("n", "<leader>qx", "<CMD>cclose<CR>") -- close the quickfix list
