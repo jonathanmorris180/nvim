@@ -6,6 +6,10 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 	},
 	{
+		"tpope/vim-repeat",
+		event = { "BufReadPre", "BufNewFile" },
+	},
+	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
