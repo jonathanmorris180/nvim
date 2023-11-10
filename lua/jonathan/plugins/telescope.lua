@@ -70,6 +70,7 @@ return {
 
 		telescope.load_extension("fzf")
 		telescope.load_extension("live_grep_args")
+		telescope.load_extension("git_worktree")
 
 		-- keymaps
 		local keymap = vim.keymap
@@ -82,5 +83,7 @@ return {
 		keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
 		keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
 		keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
+		keymap.set("n", "<leader>fw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>") -- <C-d> deletes a worktree, <C-f> toggles forcing of next deletion
+		keymap.set("n", "<leader>fn", ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
 	end,
 }

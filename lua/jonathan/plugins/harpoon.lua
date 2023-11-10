@@ -13,7 +13,7 @@ return {
 			require("harpoon.ui").toggle_quick_menu,
 			{ desc = "[H]arpoon [T]oggle quick menu" }
 		)
-		keymap.set("n", "<C-o>", require("harpoon.ui").nav_next)
-		keymap.set("n", "<C-p>", require("harpoon.ui").nav_prev)
+		keymap.set("n", "<S-n>", require("harpoon.ui").nav_next)
+		keymap.set("n", "<S-p>", require("harpoon.ui").nav_prev)
 	end,
 }
