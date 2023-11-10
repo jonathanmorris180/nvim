@@ -4,6 +4,7 @@ local plugins_dir = jdtls_dir .. "/plugins"
 local path_to_jar = plugins_dir .. "/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar"
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
 local path_to_java_dap = "/Users/jonathanmorris/java-debug-0.48.0/com.microsoft.java.debug.plugin/target/"
+local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.3.6.1-amzn")
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
 local status, jdtls_setup = pcall(require, "jdtls.setup")
@@ -26,7 +27,7 @@ local config = {
 	-- The command that starts the language server
 	-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 	cmd = {
-		"/Library/Java/JavaVirtualMachines/jdk-17.0.3.jdk/Contents/Home/bin/java",
+		java_home .. "/bin/java",
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -57,7 +58,7 @@ local config = {
 	-- for a list of options
 	settings = {
 		java = {
-			home = "/Library/Java/JavaVirtualMachines/jdk-17.0.3.jdk/Contents/Home", -- java home
+			home = java_home, -- java home
 			eclipse = {
 				downloadSources = true,
 			},
@@ -66,7 +67,7 @@ local config = {
 				runtimes = {
 					{
 						name = "JavaSE-17",
-						path = "/Library/Java/JavaVirtualMachines/jdk-17.0.3.jdk/Contents/Home",
+						path = java_home,
 					},
 				},
 			},

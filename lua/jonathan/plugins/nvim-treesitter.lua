@@ -9,38 +9,6 @@ return {
 	config = function()
 		-- import nvim-treesitter plugin safely
 		local treesitter = require("nvim-treesitter.configs")
-		local treesitter_configs = require("nvim-treesitter.parsers")
-
-		local parser_config = treesitter_configs.get_parser_configs()
-
-		parser_config.apex = {
-			install_info = {
-				url = "/Users/jonathanmorris/Documents/neovim/tree-sitter-sfapex/apex", -- local path or git repo
-				files = { "src/parser.c" },
-				-- optional entries:
-				generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-				requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-			},
-		}
-
-		parser_config.soql = {
-			install_info = {
-				url = "/Users/jonathanmorris/Documents/neovim/tree-sitter-sfapex/soql", -- local path or git repo
-				files = { "src/parser.c" },
-				generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-				requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-			},
-		}
-
-		parser_config.sosl = {
-			install_info = {
-				url = "/Users/jonathanmorris/Documents/neovim/tree-sitter-sfapex/sosl", -- local path or git repo
-				files = { "src/parser.c" },
-				generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-				requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-			},
-		}
-
 		-- configure treesitter
 		treesitter.setup({
 			-- enable syntax highlighting
