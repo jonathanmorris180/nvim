@@ -27,7 +27,12 @@ return {
 	},
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "folke/neodev.nvim", opts = {} }, -- Neovim setup for init.lua and plugin development with full signature help, docs, and completion for the nvim lua API
-	"mg979/vim-visual-multi",
+	{
+		"mg979/vim-visual-multi",
+		config = function()
+			vim.keymap.set("n", "<C-m>", "<Plug>(VM-Find-Under)")
+		end,
+	},
 	"mbbill/undotree",
 	"tpope/vim-fugitive",
 	-- makes resolving merge conflicts easy ([x maps to next conflict)
