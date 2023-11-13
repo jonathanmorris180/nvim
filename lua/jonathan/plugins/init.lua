@@ -6,6 +6,10 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 	},
 	{
+		"zbirenbaum/copilot-cmp",
+		config = true,
+	},
+	{
 		"tpope/vim-repeat",
 		event = { "BufReadPre", "BufNewFile" },
 	},
