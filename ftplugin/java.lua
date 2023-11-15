@@ -3,7 +3,7 @@ local config_dir = jdtls_dir .. "/config_mac"
 local plugins_dir = jdtls_dir .. "/plugins"
 local path_to_jar = plugins_dir .. "/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar"
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
-local path_to_java_dap = "/Users/jonathanmorris/java-debug-0.48.0/com.microsoft.java.debug.plugin/target/"
+local path_to_java_dap = vim.fn.expand("$HOME/java-debug-0.48.0/com.microsoft.java.debug.plugin/target")
 local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.3.6.1-amzn")
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
@@ -131,7 +131,7 @@ local config = {
 	},
 	init_options = {
 		bundles = {
-			vim.fn.glob(path_to_java_dap .. "com.microsoft.java.debug.plugin-0.48.0.jar", 1),
+			vim.fn.glob(path_to_java_dap .. "/com.microsoft.java.debug.plugin-0.48.0.jar", 1),
 		},
 	},
 }
@@ -174,19 +174,4 @@ end
 
 config["on_attach"] = on_attach
 config["capabilities"] = capabilities
-
--- config["on_attach"] = function(client, bufnr)
--- 	print("attaching with nvim-jdtls")
--- 	-- need to map keys here that are specific to java
---
--- 	-- require("lsp_signature").on_attach({
--- 	-- 	bind = true, -- This is mandatory, otherwise border config won't get registered.
--- 	-- 	floating_window_above_cur_line = false,
--- 	-- 	padding = "",
--- 	-- 	handler_opts = {
--- 	-- 		border = "rounded",
--- 	-- 	},
--- 	-- }, bufnr)
--- end
-
 jdtls.start_or_attach(config)
