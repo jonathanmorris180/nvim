@@ -25,6 +25,7 @@ return {
 			vim.o.timeoutlen = 300
 		end,
 	},
+	{ "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{ "folke/neodev.nvim", opts = {} }, -- Neovim setup for init.lua and plugin development with full signature help, docs, and completion for the nvim lua API
 	{
@@ -36,7 +37,6 @@ return {
 	"mbbill/undotree",
 	"tpope/vim-fugitive",
 	-- makes resolving merge conflicts easy ([x maps to next conflict)
-	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 	{ "metakirby5/codi.vim", event = { "BufReadPre", "BufNewFile" } },
 	{
 		"rcarriga/cmp-dap",
