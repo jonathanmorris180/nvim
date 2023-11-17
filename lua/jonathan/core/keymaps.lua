@@ -79,9 +79,11 @@ keymap.set("n", "<Down>", "10<C-w><") -- decrease window width
 ---------------------
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
--- open blame
+-- Git
 keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
 keymap.set("n", "<leader>gd", ":Gvdiffsplit!<CR>")
+keymap.set("n", "<leader>do", ":DiffviewOpen<CR>")
+keymap.set("n", "<leader>dc", ":DiffviewClose<CR>")
 
 -- yanky keymaps
 keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
