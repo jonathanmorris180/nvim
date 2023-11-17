@@ -81,6 +81,7 @@ keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- open blame
 keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
+keymap.set("n", "<leader>gd", ":Gvdiffsplit!<CR>")
 
 -- yanky keymaps
 keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
