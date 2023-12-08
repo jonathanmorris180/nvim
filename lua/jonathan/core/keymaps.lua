@@ -9,6 +9,9 @@ keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+-- format xml
+keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>")
+
 -- duplicate selection below (above can easily be done without keymap)
 keymap.set("v", "P", "y'>p")
 
