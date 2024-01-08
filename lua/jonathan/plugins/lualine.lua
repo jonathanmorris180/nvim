@@ -30,6 +30,14 @@ return {
 				theme = dracula_theme,
 			},
 			-- can add custom sections to lualine with "sections" property here
+			sections = {
+				lualine_c = {
+					"filename",
+					{
+						"require'sf.org'.get()",
+					},
+				},
+			},
 		})
 	end,
 }
