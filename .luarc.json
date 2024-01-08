@@ -3,7 +3,9 @@
   "runtime": {
     "version": "LuaJIT"
   },
-  "diagnostics.globals": ["vim"],
+  "diagnostics": {
+    "globals": ["vim"]
+  },
   "workspace": {
     "library": ["$VIMRUNTIME/lua", "$XDG_DATA_HOME/lua"],
     "checkThirdParty": false
