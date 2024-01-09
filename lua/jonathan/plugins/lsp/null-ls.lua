@@ -1,6 +1,5 @@
 return {
-	"nvimtools/none-ls.nvim", -- configure formatters & linters
-	lazy = true,
+	"jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"jay-babu/mason-null-ls.nvim",
