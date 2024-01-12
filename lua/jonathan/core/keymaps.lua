@@ -268,6 +268,7 @@ end, {})
 -- recursively search for the file
 local function find_file(path, target)
 	local scanner = vim.loop.fs_scandir(path)
+	-- if scanner is nil, then path is not a valid dir
 	if scanner then
 		local file, type = vim.loop.fs_scandir_next(scanner)
 		while file do
@@ -279,6 +280,7 @@ local function find_file(path, target)
 			elseif file == target then
 				return path .. "/" .. file
 			end
+			-- get the next file and type
 			file, type = vim.loop.fs_scandir_next(scanner)
 		end
 	end
@@ -315,6 +317,8 @@ local function get_metadata_type(filePath)
 end
 
 local function get_file_name_without_extension(fileName)
+	-- (.-) makes the match non-greedy
+	-- see https://www.lua.org/manual/5.3/manual.html#6.4.1
 	return fileName:match("(.-)%.%w+%-meta%.xml$") or fileName:match("(.-)%.[^%.]+$")
 end
 
@@ -395,6 +399,9 @@ local function push_to_org()
 				return
 			end
 		end
+	elseif sfdx_response.code and sfdx_response.code == 1 then
+		vim.notify(sfdx_response.message, vim.log.levels.ERROR)
+		return
 	end
 	vim.notify("Pushed " .. file_name .. " successfully!")
 end
