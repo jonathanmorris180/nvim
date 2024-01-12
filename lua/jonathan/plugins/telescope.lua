@@ -74,7 +74,7 @@ return {
 
 		-- keymaps
 		local keymap = vim.keymap
-		-- <C-q> opens the quickfix list (already mapped)
+		-- <C-q> opens the current files in the quickfix list (already mapped)
 		keymap.set("n", "<C-f>", "<CMD>Telescope find_files<CR>") -- find files within current working directory, respects .gitignore
 		keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>") -- find string in current working directory as you type
 		keymap.set("n", "<leader>fc", "<CMD>Telescope grep_string<CR>") -- find string under cursor in current working directory
