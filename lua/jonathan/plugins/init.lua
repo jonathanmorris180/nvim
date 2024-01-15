@@ -1,13 +1,7 @@
 return {
 	-- note: you can lazy load plugins on certain keybinds too with the "keys" property (see :h lazy.nvim)
 	"nvim-lua/plenary.nvim", -- Lua functions that many other plugins depend on
-	{
-		dir = "/Users/jonathanmorris/Documents/repos/salesforce.nvim",
-		name = "salesforce.nvim",
-		opts = {
-			debug = true,
-		},
-	},
+	{ "echasnovski/mini.nvim", version = "*" },
 	{
 		"tpope/vim-surround",
 		event = { "BufReadPre", "BufNewFile" },

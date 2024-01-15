@@ -35,6 +35,7 @@ return {
 					"filename",
 					{
 						"require'sf.org'.get()",
+						icon = "󰢎",
 					},
 				},
 			},

@@ -16,7 +16,7 @@ function M.root_file_exists(root_patterns)
 end
 
 -- Find nodes by type
-local function find_node_by_type(expr, type_name)
+local function find_parent_by_type(expr, type_name)
 	while expr do
 		if expr:type() == type_name then
 			break
@@ -48,7 +48,7 @@ function M.get_current_method_name()
 		return nil
 	end
 
-	local expr = find_node_by_type(current_node, "method_declaration")
+	local expr = find_parent_by_type(current_node, "method_declaration")
 	if not expr then
 		return nil
 	end
@@ -57,7 +57,7 @@ function M.get_current_method_name()
 	if not child then
 		return nil
 	end
-	return vim.treesitter.query.get_node_text(child, 0)
+	return vim.treesitter.get_node_text(child, 0)
 end
 
 -- Get Current Class Name
@@ -67,7 +67,7 @@ function M.get_current_class_name()
 		return nil
 	end
 
-	local class_declaration = find_node_by_type(current_node, "class_declaration")
+	local class_declaration = find_parent_by_type(current_node, "class_declaration")
 	if not class_declaration then
 		return nil
 	end
@@ -76,7 +76,7 @@ function M.get_current_class_name()
 	if not child then
 		return nil
 	end
-	return vim.treesitter.query.get_node_text(child, 0)
+	return vim.treesitter.get_node_text(child, 0)
 end
 
 -- Get Current Package Name
@@ -86,7 +86,7 @@ function M.get_current_package_name()
 		return nil
 	end
 
-	local program_expr = find_node_by_type(current_node, "program")
+	local program_expr = find_parent_by_type(current_node, "program")
 	if not program_expr then
 		return nil
 	end
