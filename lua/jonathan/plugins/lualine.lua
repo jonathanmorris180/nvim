@@ -34,7 +34,7 @@ return {
 				lualine_c = {
 					"filename",
 					{
-						"require'sf.org'.get()",
+						"require'salesforce.org_manager':get_default_alias()",
 						icon = "󰢎",
 					},
 				},

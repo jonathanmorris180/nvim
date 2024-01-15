@@ -4,10 +4,10 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 	},
-	dev = false,
+	dev = true,
 	config = function()
 		require("salesforce").setup({
-			debug = false,
+			debug = true,
 			file_manager = {
 				ignore_conflicts = true,
 			},
