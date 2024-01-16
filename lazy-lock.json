@@ -40,7 +40,7 @@
   "nvim-ts-autotag": { "branch": "main", "commit": "8515e48a277a2f4947d91004d9aa92c29fdc5e18" },
   "nvim-web-devicons": { "branch": "master", "commit": "140edfcf25093e8b321d13e154cbce89ee868ca0" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
-  "salesforce.nvim": { "branch": "main", "commit": "5c32e69b13c660e76cd43b981874b739256215fa" },
+  "salesforce.nvim": { "branch": "main", "commit": "f8346b82bcb107c605928dd80127ed6f49f3173f" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "6c921ca12321edaa773e324ef64ea301a1d0da62" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "731a046da7dd3adff9de871a42f9b7fb85f60f47" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "d90956833d7c27e73c621a61f20b29fdb7122709" },
