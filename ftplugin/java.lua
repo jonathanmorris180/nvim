@@ -1,26 +1,27 @@
 local jdtls_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
 local config_dir = jdtls_dir .. "/config_mac"
-local plugins_dir = jdtls_dir .. "/plugins"
-local path_to_jar = plugins_dir .. "/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar"
+-- this path may need to be updated if you update jdtls
+local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.600.v20231106-1826.jar"
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
+-- see https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 local path_to_java_dap = vim.fn.expand("$HOME/java-debug-0.48.0/com.microsoft.java.debug.plugin/target")
-local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.3.6.1-amzn")
+local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.8-amzn")
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
 local status, jdtls_setup = pcall(require, "jdtls.setup")
 if not status then
-	print("could not find jdtls.setup")
+	vim.notify("Could not load jdtls.setup", vim.log.levels.ERROR)
 	return
 end
 local root_dir = jdtls_setup.find_root(root_markers)
 if root_dir == "" then
-	print("could not find root dir")
+	vim.notify("Could not find root dir for jdtls")
 	return
 end
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name -- this is where jdtls saves the cache files
-os.execute("mkdir -p " .. workspace_dir)
+os.execute("mkdir -p " .. workspace_dir) -- create the workspace dir if it doesn't exist
 
 -- Main Config
 local config = {
@@ -139,6 +140,7 @@ local config = {
 -- import cmp-nvim-lsp plugin safely
 local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not cmp_nvim_lsp_status then
+	vim.notify("Could not load cmp_nvim_lsp", vim.log.levels.ERROR)
 	return
 end
 
@@ -147,12 +149,12 @@ local capabilities = cmp_nvim_lsp.default_capabilities()
 
 local jdtls_status, jdtls = pcall(require, "jdtls")
 if not jdtls_status then
-	print("could not find jdtls")
+	vim.notify("Could not load jdtls", vim.log.levels.ERROR)
 	return
 end
 
 local keymap = vim.keymap -- for conciseness
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
 	-- keybind options
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
