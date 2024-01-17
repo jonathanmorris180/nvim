@@ -4,10 +4,13 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 	},
-	dev = false,
+	dev = true,
 	config = function()
 		require("salesforce").setup({
-			debug = false,
+			debug = {
+				to_file = true,
+				to_console = false,
+			},
 			file_manager = {
 				ignore_conflicts = true,
 			},
@@ -22,5 +25,6 @@ return {
 		keymap.set("n", "<leader>sr", "<cmd>SalesforceRetrieveFromOrg<cr>")
 		keymap.set("n", "<leader>sd", "<cmd>SalesforceDiffFile<cr>")
 		keymap.set("n", "<leader>so", "<cmd>SalesforceSetDefaultOrg<cr>")
+		keymap.set("n", "<leader>ss", "<cmd>SalesforceRefreshOrgInfo<cr>")
 	end,
 }
