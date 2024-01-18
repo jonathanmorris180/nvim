@@ -7,10 +7,6 @@ return {
 	dev = false,
 	config = function()
 		require("salesforce").setup({
-			debug = {
-				to_file = false,
-				to_command_line = false,
-			},
 			file_manager = {
 				ignore_conflicts = true,
 			},
@@ -19,6 +15,7 @@ return {
 
 		keymap.set("n", "<leader>se", "<cmd>SalesforceExecuteFile<cr>")
 		keymap.set("n", "<leader>sc", "<cmd>SalesforceClosePopup<cr>")
+		keymap.set("n", "<leader>sS", "<cmd>SalesforceRefocusPopup<cr>")
 		keymap.set("n", "<leader>stm", "<cmd>SalesforceExecuteCurrentMethod<cr>")
 		keymap.set("n", "<leader>stc", "<cmd>SalesforceExecuteCurrentClass<cr>")
 		keymap.set("n", "<leader>sp", "<cmd>SalesforcePushToOrg<cr>")
