@@ -49,6 +49,8 @@ return {
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
 
+				vim.cmd([[highlight GitSignsCurrentLineBlame guifg=#ff0000]]) -- sets the text color so it's visible
+
 				local function map(mode, l, r, opts)
 					opts = opts or {}
 					opts.buffer = bufnr
@@ -85,12 +87,18 @@ return {
 				-- map('n', '<leader>hu', gs.undo_stage_hunk)
 				-- map('n', '<leader>hR', gs.reset_buffer)
 				-- map('n', '<leader>td', gs.toggle_deleted)
-				map("n", "<leader>hp", gs.preview_hunk)
+				map("n", "<leader>hp", function()
+					gs.preview_hunk()
+				end)
 				map("n", "<leader>hb", function()
 					gs.blame_line({ full = true })
 				end)
-				map("n", "<leader>tb", gs.toggle_current_line_blame) -- doesn't seem to work for some reason
-				map("n", "<leader>hd", gs.diffthis)
+				map("n", "<leader>tb", function()
+					gs.toggle_current_line_blame()
+				end)
+				map("n", "<leader>hd", function()
+					gs.diffthis()
+				end)
 				map("n", "<leader>hD", function()
 					gs.diffthis("~")
 				end)
