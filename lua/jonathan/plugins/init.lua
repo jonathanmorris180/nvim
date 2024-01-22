@@ -1,6 +1,11 @@
 return {
 	-- note: you can lazy load plugins on certain keybinds too with the "keys" property (see :h lazy.nvim)
-	"nvim-lua/plenary.nvim", -- Lua functions that many other plugins depend on
+	{
+		"nvim-lua/plenary.nvim",
+		init = function()
+			require("plenary.filetype").add_file("apex")
+		end,
+	}, -- Lua functions that many other plugins depend on
 	{ "echasnovski/mini.nvim", version = "*" },
 	{
 		"tpope/vim-surround",
