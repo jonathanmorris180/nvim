@@ -8,6 +8,12 @@ return {
 	}, -- Lua functions that many other plugins depend on
 	{ "echasnovski/mini.nvim", version = "*" },
 	{
+		"z0rzi/ai-chat.nvim",
+		config = function()
+			require("ai-chat").setup()
+		end,
+	},
+	{
 		"tpope/vim-surround",
 		event = { "BufReadPre", "BufNewFile" },
 	},
@@ -30,6 +36,7 @@ return {
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
+		-- opts = {}, -- uncomment to enable which-key
 	},
 	{ "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "christoomey/vim-tmux-navigator", lazy = false },
