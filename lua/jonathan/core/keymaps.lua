@@ -12,6 +12,14 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- format xml
 keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>")
 
+local function format_json()
+	vim.cmd(":set filetype=json")
+	vim.cmd(":%!jq '.'")
+end
+
+-- format json
+keymap.set("n", "<leader>fj", format_json)
+
 -- duplicate selection below (above can easily be done without keymap)
 keymap.set("v", "P", "y'>p")
 
