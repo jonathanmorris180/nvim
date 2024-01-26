@@ -12,9 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "jonathan.plugins" }, { import = "jonathan.plugins.lsp" } }, {
-	install = {
-		colorscheme = { "dracula" },
-	},
 	checker = {
 		enabled = true,
 		notify = false,
