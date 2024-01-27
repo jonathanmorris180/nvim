@@ -1,4 +1,4 @@
-local current_scheme = "kanagawa"
+local current_scheme = "catppuccin"
 local M = {}
 
 M.dracula = {
