@@ -12,6 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "jonathan.plugins" }, { import = "jonathan.plugins.lsp" } }, {
+	install = {
+		-- try to load one of these colorschemes when starting an installation during startup
+		colorscheme = { "catppuccin" },
+	},
 	checker = {
 		enabled = true,
 		notify = false,

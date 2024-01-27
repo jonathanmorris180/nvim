@@ -43,15 +43,6 @@ return {
 			automatic_installation = true,
 		})
 
-		mason_null_ls.setup({
-			-- list of formatters & linters for mason to install
-			ensure_installed = {
-				"prettier", -- ts/js formatter
-				"stylua", -- lua formatter
-				"eslint_d", -- ts/js linter
-			},
-			-- auto-install configured formatters & linters (with null-ls)
-			automatic_installation = true,
-		})
+		mason_null_ls.setup() -- source of truth is null-ls so not adding here (see https://github.com/jay-babu/mason-null-ls.nvim?tab=readme-ov-file#primary-source-of-truth-is-mason-null-ls)
 	end,
 }

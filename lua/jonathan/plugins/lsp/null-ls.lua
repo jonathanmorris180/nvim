@@ -1,9 +1,7 @@
 return {
-	"jose-elias-alvarez/null-ls.nvim", -- configure formatters & linters
+	"nvimtools/none-ls.nvim", -- configure formatters & linters
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"jay-babu/mason-null-ls.nvim",
-	},
+	dependencies = { "mason.nvim" },
 	config = function()
 		local null_ls = require("null-ls")
 
@@ -26,16 +24,11 @@ return {
 					extra_filetypes = { "apex" },
 				}), -- js/ts/apex formatter
 				formatting.stylua, -- lua formatter
-				diagnostics.eslint_d.with({ -- js/ts linter
-					-- only enable eslint if root has .eslintrc.js
-					condition = function(utils)
-						return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
-					end,
-				}),
 				diagnostics.pmd.with({
 					filetypes = { "apex" },
 					condition = function(utils)
-						return utils.root_has_file("rulesets/apex/pmd-apex-ruleset.xml")
+						local result = utils.root_has_file("rulesets/apex/pmd-apex-ruleset.xml") -- doesn't work with git worktree unfortunately
+						return result
 					end,
 					args = function(params)
 						return {
