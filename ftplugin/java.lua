@@ -1,7 +1,7 @@
 local jdtls_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
-local config_dir = jdtls_dir .. "/config_mac"
+local config_dir = jdtls_dir .. "/config_mac_arm"
 -- this path may need to be updated if you update jdtls
-local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.600.v20231106-1826.jar"
+local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar"
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
 -- see https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 local path_to_java_dap = vim.fn.expand("$HOME/java-debug-0.48.0/com.microsoft.java.debug.plugin/target")
@@ -20,6 +20,7 @@ if root_dir == "" then
 end
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+-- if the server fails to start, try deleting vim.fn.stdpath("data") .. "/site" (see https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#troubleshooting)
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name -- this is where jdtls saves the cache files
 os.execute("mkdir -p " .. workspace_dir) -- create the workspace dir if it doesn't exist
 

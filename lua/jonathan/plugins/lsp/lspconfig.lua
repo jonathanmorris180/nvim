@@ -5,7 +5,7 @@ return {
 		"jose-elias-alvarez/typescript.nvim", -- additional functionality for typescript server (e.g. rename file & update imports)
 	},
 	config = function()
-		-- disable lsp logs unless needed so it doesn't create a huge file
+		-- disable lsp logs ("off") unless needed so it doesn't create a huge file (switch to "debug" if needed)
 		vim.lsp.set_log_level("off")
 
 		local lspconfig = require("lspconfig")
