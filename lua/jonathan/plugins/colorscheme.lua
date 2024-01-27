@@ -1,4 +1,4 @@
-local current_scheme = "catppuccin"
+local current_scheme = "kanagawa"
 local M = {}
 
 M.dracula = {
@@ -11,13 +11,44 @@ M.dracula = {
 	end,
 }
 
+M.kanagawa = {
+	"rebelot/kanagawa.nvim",
+	lazy = false,
+	priority = 1000,
+	config = function()
+		vim.cmd([[colorscheme kanagawa]])
+	end,
+}
+
+M.nightfox = {
+	"EdenEast/nightfox.nvim",
+	lazy = false,
+	priority = 1000,
+	config = function()
+		require("nightfox").setup({
+			options = {
+				colorblind = {
+					enable = true,
+					severity = {
+						protan = 0.5, -- tested from here: https://daltonlens.org/evaluating-cvd-simulation/#Generating-Ishihara-like-plates-for-self-evaluation
+						deutan = 1,
+						tritan = 0.3,
+					},
+				},
+			},
+		})
+		vim.cmd([[colorscheme nightfox]])
+	end,
+}
+
 M.catppuccin = {
 	"catppuccin/nvim",
 	name = "catppuccin",
 	priority = 1000,
 	lazy = false,
 	config = function()
-		vim.cmd([[colorscheme catppuccin]])
+		require("catppuccin").setup({})
+		vim.cmd([[colorscheme catppuccin-mocha]])
 	end,
 }
 

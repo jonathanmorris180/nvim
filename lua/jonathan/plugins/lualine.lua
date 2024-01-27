@@ -27,7 +27,6 @@ return {
 
 		lualine.setup({
 			options = {
-				theme = "catppuccin",
 				disabled_filetypes = { "NvimTree" },
 			},
 			-- can add custom sections to lualine with "sections" property here
