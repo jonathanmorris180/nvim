@@ -41,6 +41,19 @@ M.nightfox = {
 	end,
 }
 
+M.vscode = {
+	"Mofiqul/vscode.nvim",
+	lazy = false,
+	priority = 1000,
+	config = function()
+		local vscode = require("vscode")
+		vscode.setup({
+			italic_comments = true,
+		})
+		vscode.load()
+	end,
+}
+
 M.catppuccin = {
 	"catppuccin/nvim",
 	name = "catppuccin",
