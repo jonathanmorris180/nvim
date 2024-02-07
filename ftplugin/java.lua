@@ -86,7 +86,7 @@ local config = {
 				includeDecompiledSources = true,
 			},
 			format = {
-				enabled = true,
+				enabled = true, -- format on save (this doesn't seem to work consistently) see https://github.com/mfussenegger/nvim-jdtls/issues/533 for a potential solution
 				settings = {
 					url = vim.fn.stdpath("config") .. "/java/intellij-java-google-style.xml",
 					profile = "GoogleStyle",
