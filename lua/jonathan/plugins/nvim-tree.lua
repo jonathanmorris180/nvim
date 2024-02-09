@@ -4,6 +4,8 @@ return {
 	config = function()
 		local nvimtree = require("nvim-tree")
 
+		-- some settings that used to be set on vim.g have been moved to setup: https://github.com/nvim-tree/nvim-tree.lua/issues/674
+
 		-- recommended settings
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
@@ -21,6 +23,7 @@ return {
 						},
 					},
 				},
+				group_empty = true,
 			},
 			-- disable window_picker for
 			-- explorer to work well with
