@@ -30,6 +30,7 @@ return {
 					window_picker = {
 						enable = false,
 					},
+					resize_window = false,
 				},
 			},
 			git = {
