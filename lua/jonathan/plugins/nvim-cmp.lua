@@ -31,10 +31,13 @@ return {
 				["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
 				["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 				["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+				["<C-u>"] = cmp.mapping.select_prev_item({ count = 10 }), -- see https://github.com/hrsh7th/nvim-cmp/issues/307
+				["<C-d>"] = cmp.mapping.select_next_item({ count = 10 }),
 				["<C-o>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
 			}),
+
 			-- sources for autocompletion
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" }, -- lsp
