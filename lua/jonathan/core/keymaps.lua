@@ -120,20 +120,20 @@ local function get_test_runner(test_name, debug)
 	return 'mvn test -Dtest="' .. test_name .. '"'
 end
 
+local function tmux_execute_in_next_window(command)
+	os.execute(string.format('tmux next-window && tmux send-keys "%s" C-m', command))
+end
+
 local function run_java_test_method(debug)
 	local utils = require("jonathan.core.utils")
 	local method_name = utils.get_current_full_method_name("#")
-	local tmux = require("harpoon.tmux")
-	tmux.sendCommand("{next}", get_test_runner(method_name, debug))
-	tmux.gotoTerminal("{next}")
+	tmux_execute_in_next_window(get_test_runner(method_name, debug))
 end
 
 local function run_java_test_class(debug)
 	local utils = require("jonathan.core.utils")
 	local class_name = utils.get_current_full_class_name()
-	local tmux = require("harpoon.tmux")
-	tmux.sendCommand("{next}", get_test_runner(class_name, debug))
-	tmux.gotoTerminal("{next}")
+	tmux_execute_in_next_window(get_test_runner(class_name, debug))
 end
 
 keymap.set("n", "<leader>tm", function()
@@ -167,9 +167,7 @@ local function get_spring_boot_runner(profile, debug)
 end
 
 local function run_spring_boot(debug)
-	local tmux = require("harpoon.tmux")
-	tmux.sendCommand("{next}", get_spring_boot_runner("local", debug))
-	tmux.gotoTerminal("{next}")
+	tmux_execute_in_next_window(get_spring_boot_runner("local", debug))
 end
 
 vim.api.nvim_create_user_command("JavaAttachToDebugger", function()
