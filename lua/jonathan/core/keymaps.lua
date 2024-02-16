@@ -17,8 +17,15 @@ local function format_json()
 	vim.cmd(":%!jq '.'")
 end
 
+local function format_file()
+	vim.lsp.buf.format()
+end
+
 -- format json
 keymap.set("n", "<leader>fj", format_json)
+
+-- format current file
+keymap.set("n", "<leader>ff", format_file)
 
 -- duplicate selection below (above can easily be done without keymap)
 keymap.set("v", "P", "y'>p")
@@ -217,7 +224,7 @@ local function switch_case()
 		-- convert camelCase to snake_case
 		local snake_case_word = word:gsub("([a-z])([A-Z])", "%1_%2"):lower()
 		vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { snake_case_word })
-	-- detect snake_case
+		-- detect snake_case
 	elseif word:find("_[a-z]") then
 		-- convert snake_case to camelCase
 		local camel_case_word = word:gsub("(_)([a-z])", function(_, l)
