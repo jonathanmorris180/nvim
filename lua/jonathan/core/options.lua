@@ -8,6 +8,7 @@ vim.filetype.add({
 		trigger = "apex",
 		soql = "soql",
 		sosl = "sosl",
+		page = "html",
 	},
 })
 

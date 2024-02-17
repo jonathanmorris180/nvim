@@ -3,7 +3,8 @@ return {
 	{
 		"nvim-lua/plenary.nvim",
 		init = function()
-			require("plenary.filetype").add_file("apex")
+			require("plenary.filetype").add_file("apex") -- add filetype to plenary so that telescope previewer can use it
+			require("plenary.filetype").add_file("visualforce")
 		end,
 	}, -- Lua functions that many other plugins depend on
 	{ "echasnovski/mini.nvim", version = "*" },
