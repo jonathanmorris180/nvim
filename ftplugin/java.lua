@@ -5,7 +5,7 @@ local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.700.
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
 -- see https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 local path_to_java_dap = vim.fn.expand("$HOME/java-debug-0.48.0/com.microsoft.java.debug.plugin/target")
-local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/17.0.8-amzn")
+local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/current")
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
 local status, jdtls_setup = pcall(require, "jdtls.setup")
