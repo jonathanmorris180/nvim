@@ -19,7 +19,9 @@ if root_dir == "" then
 	return
 end
 
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:h:t")
+	.. "_"
+	.. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t") -- fixes issue where root dir isn't unique
 -- if the server fails to start, try deleting vim.fn.stdpath("data") .. "/site" (see https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#troubleshooting)
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name -- this is where jdtls saves the cache files
 os.execute("mkdir -p " .. workspace_dir) -- create the workspace dir if it doesn't exist
