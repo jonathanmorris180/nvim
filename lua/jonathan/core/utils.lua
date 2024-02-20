@@ -1,18 +1,17 @@
---[[
-Implements 4 methods:
-  get_current_method_name() - return a method name.
-  get_current_class_name() - return a class name where the cursor is
-  get_current_package_name() - return a package name of the current file
-  get_current_full_class_name() - return a full class name (package + class name)
-  get_current_full_method_name(delimiter) - return a full method name (package + class + [delimiter] + method name)
---]]
-
 local ts_utils = require("nvim-treesitter.ts_utils")
 
 local M = {}
 
-function M.root_file_exists(root_patterns)
+function M.parent_pattern_exists(root_patterns)
 	return vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1])
+end
+
+function M.is_worktree()
+	return M.parent_pattern_exists({ "packed-refs" }) ~= nil
+end
+
+function M.is_submodule()
+	return M.parent_pattern_exists({ ".gitmodules" }) ~= nil
 end
 
 -- Find nodes by type

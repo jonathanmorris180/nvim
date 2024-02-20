@@ -36,6 +36,7 @@ return {
 					resize_window = false,
 				},
 			},
+			sync_root_with_cwd = true, -- changes the root directory to the worktree directory when changing worktrees with git-worktree
 			git = {
 				enable = true,
 				ignore = false,

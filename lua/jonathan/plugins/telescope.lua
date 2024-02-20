@@ -71,6 +71,34 @@ return {
 		telescope.load_extension("fzf")
 		telescope.load_extension("live_grep_args")
 		telescope.load_extension("git_worktree")
+		local function is_valid_for_worktree()
+			local utils = require("jonathan.core.utils")
+			if not utils.is_worktree() then
+				vim.notify("Not in bare repository", vim.log.levels.ERROR)
+				return false
+			end
+			if utils.is_submodule() then
+				vim.notify("Cannot create worktree with submodules", vim.log.levels.ERROR)
+				return false
+			end
+			return true
+		end
+		local function find_worktree()
+			local continue = is_valid_for_worktree()
+			if not continue then
+				return
+			end
+			local worktree = require("telescope").extensions.git_worktree
+			worktree.git_worktrees()
+		end
+		local function create_worktree()
+			local continue = is_valid_for_worktree()
+			if not continue then
+				return
+			end
+			local worktree = require("telescope").extensions.git_worktree
+			worktree.create_git_worktree()
+		end
 
 		-- keymaps
 		local keymap = vim.keymap
@@ -83,7 +111,7 @@ return {
 		keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
 		keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
 		keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
-		keymap.set("n", "<leader>fw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>") -- <C-d> deletes a worktree, <C-f> toggles forcing of next deletion
-		keymap.set("n", "<leader>fn", ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
+		keymap.set("n", "<leader>fw", find_worktree) -- <C-d> deletes a worktree, <C-f> toggles forcing of next deletion
+		keymap.set("n", "<leader>fn", create_worktree)
 	end,
 }
