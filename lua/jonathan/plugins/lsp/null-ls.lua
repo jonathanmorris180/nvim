@@ -20,6 +20,9 @@ return {
 				diagnostics.mypy, -- python
 				diagnostics.ruff, -- python
 				formatting.black, -- python
+				formatting.sql_formatter.with({ -- install with npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
+					extra_args = { "--config", '{"language": "postgresql", "tabWidth": 2, "keywordCase": "upper"}' },
+				}),
 				formatting.prettier.with({
 					extra_filetypes = { "apex" },
 				}), -- js/ts/apex formatter
