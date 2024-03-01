@@ -9,9 +9,6 @@ keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- format xml
-keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>")
-
 local function format_json()
 	vim.cmd(":set filetype=json")
 	vim.cmd(":%!jq '.'")
@@ -20,6 +17,9 @@ end
 local function format_file()
 	vim.lsp.buf.format()
 end
+
+-- format xml
+keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>")
 
 -- format json
 keymap.set("n", "<leader>fj", format_json)
