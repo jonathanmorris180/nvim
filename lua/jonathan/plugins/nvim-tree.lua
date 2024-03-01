@@ -13,6 +13,7 @@ return {
 		-- change color for arrows in tree to light blue
 		vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
+		-- maybe add ability to interact with multiple files from here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#modify-you-on_attach-function-to-have-ability-to-operate-multiple-files-at-once
 		nvimtree.setup({
 			renderer = {
 				icons = {
