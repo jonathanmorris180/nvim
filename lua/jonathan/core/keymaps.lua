@@ -99,7 +99,7 @@ keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- Git
 keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
-keymap.set("n", "<leader>gd", ":Gvdiffsplit!<CR>")
+keymap.set("n", "<leader>gg", ":G<CR>") -- Opens the fugitive window (dd can be used for vertical diff, select a file in the fugitive window to exit)
 keymap.set("n", "<leader>do", ":DiffviewOpen<CR>")
 keymap.set("n", "<leader>dc", ":DiffviewClose<CR>")
 
