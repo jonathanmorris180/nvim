@@ -10,22 +10,47 @@ return {
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
 
-		-- change color for arrows in tree to light blue
-		vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
-
-		-- maybe add ability to interact with multiple files from here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#modify-you-on_attach-function-to-have-ability-to-operate-multiple-files-at-once
+		-- partially inspired by: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#modify-you-on_attach-function-to-have-ability-to-operate-multiple-files-at-once
+		-- didn't implement all the methods since bulk actions are supported out of the box (bm = bulk move, bd = bulk delete, bt = bulk trash)
 		nvimtree.setup({
 			renderer = {
 				icons = {
 					glyphs = {
 						folder = {
-							arrow_closed = "", -- arrow when folder is closed
-							arrow_open = "", -- arrow when folder is open
+							arrow_closed = "",
+							arrow_open = "",
 						},
 					},
 				},
 				group_empty = true,
 			},
+			on_attach = function(bufnr)
+				local api = require("nvim-tree.api")
+				local opts = function(desc)
+					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+				end
+
+				local mark_move_j = function()
+					api.marks.toggle()
+					vim.cmd("norm j")
+				end
+				local mark_move_k = function()
+					api.marks.toggle()
+					vim.cmd("norm k")
+				end
+
+				-- default mappings
+				api.config.mappings.default_on_attach(bufnr)
+
+				-- collapse all: W
+				-- help: g?
+				vim.keymap.set("n", "B", api.node.navigate.sibling.last, opts("Last sibling"))
+				vim.keymap.set("n", "T", api.node.navigate.sibling.first, opts("First sibling"))
+				vim.keymap.set("n", "J", mark_move_j, opts("Mark and move down"))
+				vim.keymap.set("n", "K", mark_move_k, opts("Mark and move up"))
+
+				vim.keymap.set("n", "bm", api.marks.bulk.move, opts("Move marked files"))
+			end,
 			-- disable window_picker for
 			-- explorer to work well with
 			-- window splits
