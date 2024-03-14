@@ -9,6 +9,9 @@ vim.filetype.add({
 		soql = "soql",
 		sosl = "sosl",
 		page = "html",
+		cmp = "html",
+		auradoc = "html",
+		design = "html",
 	},
 })
 
@@ -17,9 +20,9 @@ opt.relativenumber = true
 opt.number = true
 
 -- tabs and indentation (see https://stackoverflow.com/questions/51995128/setting-autoindentation-to-spaces-in-neovim)
-opt.tabstop = 4
-opt.shiftwidth = 4 -- replicate value doesn't work from above post
-opt.softtabstop = 4
+opt.tabstop = 2
+opt.shiftwidth = 2 -- replicate value doesn't work from above post
+opt.softtabstop = 2
 opt.expandtab = true
 opt.autoindent = true
 opt.smartindent = true

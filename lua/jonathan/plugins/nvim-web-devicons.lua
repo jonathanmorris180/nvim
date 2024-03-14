@@ -12,6 +12,13 @@ local visualforce = {
 	name = "Visualforce",
 }
 
+local aura = {
+	icon = "",
+	color = "#4E9A06",
+	cterm_color = "71",
+	name = "Aura",
+}
+
 return {
 	"nvim-tree/nvim-web-devicons",
 	opts = {
@@ -19,6 +26,9 @@ return {
 			apex = apex,
 			cls = apex,
 			page = visualforce,
+			cmp = aura,
+			auradoc = aura,
+			design = aura,
 		},
 	},
 }
