@@ -41,6 +41,8 @@ return {
 							"rulesets/apex/pmd-apex-ruleset.xml", -- path to ruleset in sfdx-spotifyb2b
 							"--dir",
 							params.bufname,
+							"--cache",
+							vim.fn.stdpath("cache") .. "/pmd-cache",
 						}
 					end,
 				}),
