@@ -7,6 +7,9 @@ return {
 			require("plenary.filetype").add_file("visualforce")
 		end,
 	}, -- Lua functions that many other plugins depend on
+	-- {
+	-- 	"LunarVim/bigfile.nvim", -- Could be useful for large files
+	-- },
 	{ "echasnovski/mini.nvim", version = "*" },
 	{
 		"z0rzi/ai-chat.nvim",
