@@ -19,9 +19,15 @@ if root_dir == "" then
 	return
 end
 
+local maven_module = require("jonathan.core.utils").get_maven_module()
+
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:h:t")
 	.. "_"
 	.. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t") -- fixes issue where root dir isn't unique
+if maven_module then
+  project_name = project_name .. "_" .. maven_module
+end
+
 -- if the server fails to start, try deleting vim.fn.stdpath("data") .. "/site" (see https://github.com/mfussenegger/nvim-jdtls?tab=readme-ov-file#troubleshooting)
 local workspace_dir = vim.fn.stdpath("data") .. "/site/java/workspace-root/" .. project_name -- this is where jdtls saves the cache files
 os.execute("mkdir -p " .. workspace_dir) -- create the workspace dir if it doesn't exist
