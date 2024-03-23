@@ -25,7 +25,7 @@ keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>")
 keymap.set("n", "<leader>fj", format_json)
 
 -- format current file
-keymap.set("n", "<leader>ff", format_file)
+keymap.set("n", "<leader>F", format_file)
 
 -- duplicate selection below (above can easily be done without keymap)
 keymap.set("v", "P", "y'>p")
