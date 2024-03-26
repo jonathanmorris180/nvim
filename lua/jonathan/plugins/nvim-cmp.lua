@@ -15,6 +15,14 @@ return {
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 
+		-- set keymaps for snippets
+		vim.keymap.set({ "i" }, "<M-l>", function()
+			luasnip.jump(1)
+		end, { silent = true })
+		vim.keymap.set({ "i" }, "<M-h>", function()
+			luasnip.jump(-1)
+		end, { silent = true })
+
 		-- load vs-code like snippets from plugins (e.g. friendly-snippets)
 		require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -39,10 +47,12 @@ return {
 			}),
 
 			-- sources for autocompletion
+			-- these are ranked in order of priority (first element is highest priority)
+			-- you can also set "priority" to rank results and "max_item_count" to limit the number of suggestions
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" }, -- lsp
-				{ name = "luasnip" }, -- snippets
-				{ name = "buffer" }, -- text within current buffer
+				{ name = "luasnip", keyword_length = 2 }, -- snippets
+				{ name = "buffer", keyword_length = 5 }, -- text within current buffer but only if I've already typed 5 characters
 				{ name = "path" }, -- file system paths
 				{ name = "copilot" },
 			}),
