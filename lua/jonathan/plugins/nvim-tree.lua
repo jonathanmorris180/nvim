@@ -30,6 +30,17 @@ return {
 					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
 				end
 
+				local mark_copy = function()
+					local marks = api.marks.list()
+					if #marks == 0 then
+						table.insert(marks, api.tree.get_node_under_cursor())
+					end
+					for _, node in pairs(marks) do
+						api.fs.copy.node(node)
+					end
+					api.marks.clear()
+					api.tree.reload()
+				end
 				local mark_move_j = function()
 					api.marks.toggle()
 					vim.cmd("norm j")
@@ -48,7 +59,7 @@ return {
 				vim.keymap.set("n", "T", api.node.navigate.sibling.first, opts("First sibling"))
 				vim.keymap.set("n", "J", mark_move_j, opts("Mark and move down"))
 				vim.keymap.set("n", "K", mark_move_k, opts("Mark and move up"))
-
+				vim.keymap.set("n", "by", mark_copy, opts("Copy File(s)"))
 				vim.keymap.set("n", "bm", api.marks.bulk.move, opts("Move marked files"))
 			end,
 			-- disable window_picker for
