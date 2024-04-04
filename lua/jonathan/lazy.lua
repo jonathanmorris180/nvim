@@ -21,7 +21,7 @@ require("lazy").setup({ { import = "jonathan.plugins" }, { import = "jonathan.pl
 		notify = false,
 	},
 	dev = {
-		path = vim.fn.expand("$HOME/Documents/vs-code"),
+		path = vim.fn.expand("$HOME/Documents/repos"),
 		fallback = false,
 	},
 	change_detection = {
