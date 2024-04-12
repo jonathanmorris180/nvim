@@ -8,6 +8,7 @@ return {
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
+		"micangl/cmp-vimtex", -- autocompletion for vimtex
 	},
 	config = function()
 		-- import nvim-cmp plugin safely for autocompletion
@@ -55,6 +56,7 @@ return {
 				{ name = "buffer", keyword_length = 5 }, -- text within current buffer but only if I've already typed 5 characters
 				{ name = "path" }, -- file system paths
 				{ name = "copilot" },
+				{ name = "vimtex" },
 			}),
 			-- configure lspkind
 			formatting = {

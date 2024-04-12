@@ -8,6 +8,7 @@
   "cmp-dap": { "branch": "master", "commit": "ea92773e84c0ad3288c3bc5e452ac91559669087" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "5af77f54de1b16c34b23cba810150689a3a90312" },
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
+  "cmp-vimtex": { "branch": "master", "commit": "613fbfc54d9488252b0b0289d6d1d60242513558" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "codi.vim": { "branch": "master", "commit": "83b9859aaf8066d95892e01eb9c01571a4b325dd" },
   "copilot-cmp": { "branch": "master", "commit": "72fbaa03695779f8349be3ac54fa8bd77eed3ee3" },
