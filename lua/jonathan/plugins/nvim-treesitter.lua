@@ -39,7 +39,7 @@ return {
 			},
 			-- auto install above language parsers
 			auto_install = true,
-			ignore_install = { "latex" }, -- use vimtex parser instead - see :h vimtex-faq-treesitter
+			-- ignore_install = { "latex" }, -- uncomment if needed for imap completions (mostly needed for maths) - see :h vimtex-faq-treesitter
 		})
 	end,
 }
