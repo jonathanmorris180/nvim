@@ -117,34 +117,56 @@ function M.get_current_full_method_name(delimiter)
 end
 
 local function escape_pattern(text)
-    return text:gsub("([^%w])", "%%%1")
+	return text:gsub("([^%w])", "%%%1")
 end
 
 function M.get_maven_module()
-  local utils = require("jonathan.core.utils")
-  local current_file = vim.fn.expand("%:p")
-  local is_java_file = vim.bo.filetype == "java" -- just in case this isn't used in ftplugin/java.lua
-  local root_dir = utils.parent_pattern_exists({ "pom.xml" })
-  if not root_dir or not is_java_file then
-    return nil
-  end
-  local relative_path_to_current_file = current_file:gsub(escape_pattern(root_dir .. "/"), "")
-  local first_element = vim.split(relative_path_to_current_file, "/")[1]
-  local root_contents = vim.split(vim.fn.glob(root_dir .. "/*"), "\n", {trimempty = true})
-  local module_paths = vim.split(vim.fn.glob(root_dir .. '/*/pom.xml'), '\n')
-  local modules_exist = #module_paths > 0
-  if modules_exist then
-    -- check if the current file is in a maven module 
-    for _, path in ipairs(root_contents) do
-      local file_or_dir = vim.fn.fnamemodify(path, ":t")
-      if vim.fn.isdirectory(path) == 1 and first_element == file_or_dir then
-        -- the first element of the relative path to the current file is a directory 
-        -- and we know we are in a multi-module maven project
-        return first_element
-      end
-    end
-  end
-  return nil
+	local utils = require("jonathan.core.utils")
+	local current_file = vim.fn.expand("%:p")
+	local is_java_file = vim.bo.filetype == "java" -- just in case this isn't used in ftplugin/java.lua
+	local root_dir = utils.parent_pattern_exists({ "pom.xml" })
+	if not root_dir or not is_java_file then
+		return nil
+	end
+	local relative_path_to_current_file = current_file:gsub(escape_pattern(root_dir .. "/"), "")
+	local first_element = vim.split(relative_path_to_current_file, "/")[1]
+	local root_contents = vim.split(vim.fn.glob(root_dir .. "/*"), "\n", { trimempty = true })
+	local module_paths = vim.split(vim.fn.glob(root_dir .. "/*/pom.xml"), "\n")
+	local modules_exist = #module_paths > 0
+	if modules_exist then
+		-- check if the current file is in a maven module
+		for _, path in ipairs(root_contents) do
+			local file_or_dir = vim.fn.fnamemodify(path, ":t")
+			if vim.fn.isdirectory(path) == 1 and first_element == file_or_dir then
+				-- the first element of the relative path to the current file is a directory
+				-- and we know we are in a multi-module maven project
+				return first_element
+			end
+		end
+	end
+	return nil
+end
+
+-- Check if the root .gitignore contains .fdb_latexmk (which should be ignored in a LaTeX project)
+function M.is_tex_project()
+	local root = require("jonathan.core.utils").parent_pattern_exists(".gitignore")
+
+	if not root then
+		return false
+	end
+
+	local lines = vim.fn.readfile(root .. "/.gitignore")
+
+	if #lines == 0 then
+		return false
+	end
+
+	for _, line in ipairs(lines) do
+		if line:match("%.fdb_latexmk") then
+			return true
+		end
+	end
+	return false
 end
 
 return M

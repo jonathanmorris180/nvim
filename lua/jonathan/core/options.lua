@@ -15,6 +15,17 @@ vim.filetype.add({
 	},
 })
 
+-- conditional file type for .cls files
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*.cls" },
+	callback = function()
+		local is_tex_project = require("jonathan.core.utils").is_tex_project()
+		if not is_tex_project then
+			vim.bo.filetype = "apex"
+		end
+	end,
+})
+
 -- line numbers
 opt.relativenumber = true
 opt.number = true
