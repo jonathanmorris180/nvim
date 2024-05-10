@@ -5,6 +5,8 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<Esc>")
 keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
 
+keymap.set("v", "<leader>p", '"_dP') -- paste without yanking
+
 -- allow line movement when highlighted
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
