@@ -27,6 +27,7 @@ return {
 				"emmet_ls",
 				"apex_ls",
 				"bashls",
+				"eslint",
 				"pyright",
 				"sqlls",
 			},
