@@ -60,7 +60,7 @@ keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
 
 -- allow copy to clipboard
 keymap.set("v", "<leader>y", '"+y')
-keymap.set("n", "<leader>yy", '"+yy')
+keymap.set("n", "<leader>y", '"+y')
 
 -- enable/disable diagnostics
 keymap.set("n", "<leader>dd", ":DisableDiagnostics<CR>")
