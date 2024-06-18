@@ -114,7 +114,7 @@ return {
 			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 		})
 
-		lspconfig["eslint"].setup({
+		lspconfig["eslint"].setup({ -- search for current issues: https://github.com/neovim/nvim-lspconfig/issues?q=is%3Aissue+eslint (this has broken with new versions of eslint-lsp in the past, downgrade with :MasonInstall eslint-lsp@<version> if needed)
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
