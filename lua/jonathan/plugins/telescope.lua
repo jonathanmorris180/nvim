@@ -22,8 +22,8 @@ return {
 						["<C-j>"] = actions.move_selection_next, -- move to next result
 						["<C-l>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
 						["<C-c>"] = actions.close,
-						["<C-n>"] = actions.cycle_history_next,
-						["<C-p>"] = actions.cycle_history_prev,
+						["<C-]>"] = actions.cycle_history_next,
+						["<C-[>"] = actions.cycle_history_prev,
 						["<C-d>"] = function(prompt_bufnr)
 							local results_win = state.get_status(prompt_bufnr).results_win
 							local height = vim.api.nvim_win_get_height(results_win)
@@ -39,8 +39,8 @@ return {
 						["<C-c>"] = actions.close,
 						["<C-k>"] = actions.move_selection_previous, -- move to prev result
 						["<C-j>"] = actions.move_selection_next, -- move to next result
-						["<C-n>"] = actions.cycle_history_next,
-						["<C-p>"] = actions.cycle_history_prev,
+						["<C-]>"] = actions.cycle_history_next,
+						["<C-[>"] = actions.cycle_history_prev,
 						["<C-d>"] = function(prompt_bufnr)
 							local results_win = state.get_status(prompt_bufnr).results_win
 							local height = vim.api.nvim_win_get_height(results_win)
