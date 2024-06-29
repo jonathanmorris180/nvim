@@ -26,14 +26,16 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	end,
 })
 
+opt.conceallevel = 1 -- for obsidian.nvim
+
 -- line numbers
 opt.relativenumber = true
 opt.number = true
 
 -- tabs and indentation (see https://stackoverflow.com/questions/51995128/setting-autoindentation-to-spaces-in-neovim)
-opt.tabstop = 2
-opt.shiftwidth = 2 -- replicate value doesn't work from above post
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.shiftwidth = 4 -- replicate value doesn't work from above post
+opt.softtabstop = 4
 opt.expandtab = true
 opt.autoindent = true
 opt.smartindent = true
