@@ -25,7 +25,6 @@ return {
 				}),
 				formatting.prettier.with({
 					extra_filetypes = { "apex" },
-					disabled_filetypes = { "markdown" }, -- formatting isn't great for markdown
 				}), -- js/ts/apex formatter
 				formatting.stylua, -- lua formatter
 				diagnostics.pmd.with({
