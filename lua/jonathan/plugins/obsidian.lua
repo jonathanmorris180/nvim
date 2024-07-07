@@ -21,6 +21,7 @@ return {
 			{
 				name = "personal",
 				path = "~/Documents/repos/obsidian",
+				notes_subdir = "tech",
 			},
 		},
 	},
