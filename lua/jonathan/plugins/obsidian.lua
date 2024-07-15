@@ -24,5 +24,8 @@ return {
 				notes_subdir = "tech",
 			},
 		},
+		ui = {
+			enable = false, -- prevents clashes with markdown.nvim
+		},
 	},
 }
