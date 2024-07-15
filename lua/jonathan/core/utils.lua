@@ -14,6 +14,10 @@ function M.is_submodule()
 	return M.parent_pattern_exists({ ".gitmodules" }) ~= nil
 end
 
+function M.is_obsidian_vault()
+	return M.parent_pattern_exists({ ".obsidian" }) ~= nil
+end
+
 -- Find nodes by type
 local function find_parent_by_type(expr, type_name)
 	while expr do
@@ -167,6 +171,20 @@ function M.is_tex_project()
 		end
 	end
 	return false
+end
+
+function M.format_bullet_list()
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+	-- Uses the same regex pattern as in obsidian-plugin-prettier: https://github.com/hipstersmoothie/obsidian-plugin-prettier/blob/main/src/main.ts
+	local pattern = "^([ ]*)[-*][ ]+"
+	local replacement = "%1- "
+
+	for i, line in ipairs(lines) do
+		lines[i] = line:gsub(pattern, replacement)
+	end
+
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 end
 
 return M
