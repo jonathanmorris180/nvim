@@ -20,7 +20,7 @@ return {
 				--  "formatting.prettier.with({disabled_filetypes = {}})" (see null-ls docs)
 				diagnostics.mypy, -- python
 				formatting.black, -- python
-				formatting.sql_formatter.with({ -- install with npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
+				formatting.sql_formatter.with({ -- install with Mason or npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
 					extra_args = { "--config", '{"language": "postgresql", "tabWidth": 2, "keywordCase": "upper"}' },
 				}),
 				formatting.prettier.with({
