@@ -167,6 +167,87 @@ local on_attach = function(_, bufnr)
 	-- keybind options
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
+	---------------
+	-- Debugging --
+	---------------
+	local function get_test_runner(test_name, debug)
+		if debug then
+			return 'mvn test -Dmaven.surefire.debug -Dtest="' .. test_name .. '"'
+		end
+		return 'mvn test -Dtest="' .. test_name .. '"'
+	end
+
+	local function tmux_execute_in_next_window(command)
+		os.execute(string.format('tmux next-window && tmux send-keys "%s" C-m', command))
+	end
+
+	local function run_java_test_method(debug)
+		local utils = require("jonathan.core.utils")
+		local method_name = utils.get_current_full_method_name("#")
+		tmux_execute_in_next_window(get_test_runner(method_name, debug))
+	end
+
+	local function run_java_test_class(debug)
+		local utils = require("jonathan.core.utils")
+		local class_name = utils.get_current_full_class_name()
+		tmux_execute_in_next_window(get_test_runner(class_name, debug))
+	end
+
+	keymap.set("n", "<leader>tm", function()
+		run_java_test_method()
+	end)
+	keymap.set("n", "<leader>TM", function()
+		run_java_test_method(true)
+	end)
+	keymap.set("n", "<leader>tc", function()
+		run_java_test_class()
+	end)
+	keymap.set("n", "<leader>TC", function()
+		run_java_test_class(true)
+	end)
+
+	local function get_spring_boot_runner(profile, debug)
+		local debug_param = ""
+		local profile_param = ""
+
+		if profile then
+			profile_param = " -Dspring-boot.run.profiles=" .. profile
+		end
+
+		if debug then
+			debug_param =
+				' -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"'
+		end
+
+		return "mvn spring-boot:run " .. profile_param .. debug_param
+	end
+
+	local function run_spring_boot(debug)
+		tmux_execute_in_next_window(get_spring_boot_runner("local", debug))
+	end
+
+	vim.api.nvim_create_user_command("JavaAttachToDebugger", function()
+		local dap = require("dap")
+		dap.configurations.java = {
+			{
+				type = "java",
+				request = "attach",
+				name = "Java debug",
+				hostName = "localhost",
+				port = "5005",
+			},
+		}
+		dap.continue()
+	end, {})
+
+	keymap.set("n", "<leader>sb", function()
+		run_spring_boot()
+	end)
+	keymap.set("n", "<leader>sd", function()
+		run_spring_boot(true)
+	end)
+	keymap.set("n", "<leader>da", ":JavaAttachToDebugger<CR>")
+
 	-- set keybinds
 	keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts) -- show definition, references
 	keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- go to declaration

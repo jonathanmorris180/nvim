@@ -102,7 +102,7 @@ function M.get_current_package_name()
 	if not child then
 		return nil
 	end
-	return vim.treesitter.query.get_node_text(child, 0)
+	return vim.treesitter.get_node_text(child, 0)
 end
 
 -- Get Current Full Class Name

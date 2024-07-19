@@ -32,6 +32,7 @@ return {
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {},
 	},
 	{
 		"folke/which-key.nvim", -- displays a popup with possible key bindings of the command you started typing
