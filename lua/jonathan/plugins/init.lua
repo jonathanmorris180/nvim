@@ -37,6 +37,7 @@ return {
 	{
 		"folke/which-key.nvim", -- displays a popup with possible key bindings of the command you started typing
 		event = "VeryLazy",
+		enabled = false,
 		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
