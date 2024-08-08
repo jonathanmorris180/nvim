@@ -68,10 +68,4 @@ return {
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
-	-- live server
-	{
-		"barrett-ruth/live-server.nvim",
-		build = "npm install --legacy-peer-deps -g live-server",
-		config = true,
-	},
 }
