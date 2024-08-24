@@ -3,6 +3,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"mason.nvim",
+		"nvimtools/none-ls-extras.nvim",
 	},
 	config = function()
 		local null_ls = require("null-ls")
@@ -20,8 +21,9 @@ return {
 			sources = {
 				--  to disable file types use
 				--  "formatting.prettier.with({disabled_filetypes = {}})" (see null-ls docs)
-				diagnostics.mypy, -- python
-				formatting.black, -- python
+				require("none-ls.diagnostics.flake8"), -- shows ruff (not flake8) language server issues in buffer for some reason but seems to work
+				diagnostics.mypy, -- python types
+				formatting.black, -- python formatting
 				formatting.sql_formatter.with({ -- install with Mason or npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
 					extra_args = { "--config", '{"language": "postgresql", "tabWidth": 2, "keywordCase": "upper"}' },
 				}),
