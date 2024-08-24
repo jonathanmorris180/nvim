@@ -74,6 +74,13 @@ return {
 			-- see here: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
 		})
 
+		lspconfig["ruff"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "python" },
+			cmd = { "ruff", "server", "--preview" },
+		})
+
 		-- configure typescript server with plugin
 		typescript.setup({
 			server = {

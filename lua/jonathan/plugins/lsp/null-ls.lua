@@ -1,7 +1,9 @@
 return {
 	"nvimtools/none-ls.nvim", -- configure formatters & linters
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "mason.nvim" },
+	dependencies = {
+		"mason.nvim",
+	},
 	config = function()
 		local null_ls = require("null-ls")
 
