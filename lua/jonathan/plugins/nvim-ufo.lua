@@ -25,6 +25,7 @@ return {
 		vim.o.foldenable = true
 		vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:󰐕]]
 
+		-- Use "zo" and "zc" to open and close folds at the current level
 		-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 		vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 		vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
