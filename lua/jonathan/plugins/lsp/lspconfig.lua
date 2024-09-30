@@ -85,6 +85,8 @@ return {
 			filetypes = {
 				"javascript",
 				"typescript",
+				"typescriptreact",
+				"javascriptreact",
 				"vue",
 			},
 			capabilities = capabilities,
