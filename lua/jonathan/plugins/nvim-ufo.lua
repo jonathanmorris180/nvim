@@ -27,6 +27,7 @@ return {
 
 		-- Use "zo" and "zc" to open and close folds at the current level
 		-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+		-- Use "zA" to open all folds at the current level recursively
 		vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 		vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 		vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
