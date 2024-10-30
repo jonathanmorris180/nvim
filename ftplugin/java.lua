@@ -1,7 +1,7 @@
 local jdtls_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
 local config_dir = jdtls_dir .. "/config_mac_arm"
 -- this path may need to be updated if you update jdtls
-local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.800.v20240330-1250.jar"
+local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar"
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
 -- see https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 local path_to_java_dap = vim.fn.expand("$HOME/java-debug-0.48.0/com.microsoft.java.debug.plugin/target")
