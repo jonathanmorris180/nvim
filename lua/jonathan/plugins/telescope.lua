@@ -108,7 +108,7 @@ return {
 		keymap.set("n", "<leader>fc", "<CMD>Telescope grep_string<CR>") -- find string under cursor in current working directory
 		keymap.set("n", "<leader>fb", "<CMD>Telescope buffers sort_mru=true<CR>") -- list open buffers in current neovim instance
 		keymap.set("n", "<leader>fh", "<CMD>Telescope help_tags<CR>") -- list available help tags
-		keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available help tags
+		keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available key mappings (!)
 		keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
 		keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
 		keymap.set("n", "<leader>fw", find_worktree) -- <C-d> deletes a worktree, <C-f> toggles forcing of next deletion
