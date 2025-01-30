@@ -217,6 +217,7 @@ function M.get_visual_selection_text()
 	end
 end
 
+-- unused because the nvim-markdown plugin has a better implementation but keeping for reference as replacing a highlighted selection in the future might be useful
 function M.add_markdown_link()
 	local _, srow, scol = unpack(vim.fn.getpos("v"))
 	local _, erow, ecol = unpack(vim.fn.getpos("."))
@@ -249,6 +250,21 @@ function M.switch_case()
 	else
 		print("Not a snake_case or camelCase word")
 	end
+end
+
+-- formats bullets so that there are only two spaces instead of four since this is the default formatting used in Obsidian (this setting can't be changed as far as I know)
+function M.format_bullet_list()
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+	-- Uses the same regex pattern as in obsidian-plugin-prettier: https://github.com/hipstersmoothie/obsidian-plugin-prettier/blob/main/src/main.ts
+	local pattern = "^([ ]*)[-*][ ]+"
+	local replacement = "%1- "
+
+	for i, line in ipairs(lines) do
+		lines[i] = line:gsub(pattern, replacement)
+	end
+
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 end
 
 return M

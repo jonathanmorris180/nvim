@@ -140,9 +140,6 @@ keymap.set("n", "<leader>lx", ":LiveServerStop<CR>")
 vim.api.nvim_create_user_command("SwitchCase", utils.switch_case, {})
 keymap.set("n", "<leader>sc", ":SwitchCase<CR>")
 
--- quickly adds markdown link
-keymap.set("v", "<C-k>", utils.add_markdown_link)
-
 -- conditional file type for .cls files
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	pattern = { "*.cls" },
