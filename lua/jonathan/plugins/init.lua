@@ -11,6 +11,7 @@ return {
 	-- 	"LunarVim/bigfile.nvim", -- Could be useful for large files
 	-- },
 	{ "echasnovski/mini.nvim", version = "*" },
+	{ "ixru/nvim-markdown" },
 	{
 		"z0rzi/ai-chat.nvim",
 		config = function()

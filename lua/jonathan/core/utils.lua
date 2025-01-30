@@ -173,18 +173,82 @@ function M.is_tex_project()
 	return false
 end
 
-function M.format_bullet_list()
-	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+--- Return the visually selected text as an array with an entry for each line
+--- Pulled from https://www.reddit.com/r/neovim/comments/1b1sv3a/function_to_get_visually_selected_text/
+--- @return string[]|nil lines The selected text as an array of lines.
+function M.get_visual_selection_text()
+	local _, srow, scol = unpack(vim.fn.getpos("v"))
+	local _, erow, ecol = unpack(vim.fn.getpos("."))
 
-	-- Uses the same regex pattern as in obsidian-plugin-prettier: https://github.com/hipstersmoothie/obsidian-plugin-prettier/blob/main/src/main.ts
-	local pattern = "^([ ]*)[-*][ ]+"
-	local replacement = "%1- "
-
-	for i, line in ipairs(lines) do
-		lines[i] = line:gsub(pattern, replacement)
+	-- visual line mode
+	if vim.fn.mode() == "V" then
+		if srow > erow then
+			return vim.api.nvim_buf_get_lines(0, erow - 1, srow, true)
+		else
+			return vim.api.nvim_buf_get_lines(0, srow - 1, erow, true)
+		end
 	end
 
-	vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+	-- regular visual mode
+	if vim.fn.mode() == "v" then
+		if srow < erow or (srow == erow and scol <= ecol) then
+			return vim.api.nvim_buf_get_text(0, srow - 1, scol - 1, erow - 1, ecol, {})
+		else
+			return vim.api.nvim_buf_get_text(0, erow - 1, ecol - 1, srow - 1, scol, {})
+		end
+	end
+
+	-- visual block mode
+	if vim.fn.mode() == "\22" then
+		local lines = {}
+		if srow > erow then
+			srow, erow = erow, srow
+		end
+		if scol > ecol then
+			scol, ecol = ecol, scol
+		end
+		for i = srow, erow do
+			table.insert(
+				lines,
+				vim.api.nvim_buf_get_text(0, i - 1, math.min(scol - 1, ecol), i - 1, math.max(scol - 1, ecol), {})[1]
+			)
+		end
+		return lines
+	end
+end
+
+function M.add_markdown_link()
+	local _, srow, scol = unpack(vim.fn.getpos("v"))
+	local _, erow, ecol = unpack(vim.fn.getpos("."))
+	local text = M.get_visual_selection_text()
+	local result = string.format("[%s]()", vim.fn.join(text, ""))
+	vim.api.nvim_buf_set_text(vim.api.nvim_get_current_buf(), srow - 1, scol - 1, erow - 1, ecol, { result })
+	-- Exit visual mode
+	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+	vim.api.nvim_feedkeys(esc, "x", false)
+	vim.api.nvim_feedkeys("f(", "i", true) -- move cursor to the first bracket
+end
+
+function M.switch_case()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local word = vim.fn.expand("<cword>")
+	local word_start = vim.fn.matchstrpos(vim.fn.getline("."), "\\k*\\%" .. (col + 1) .. "c\\k*")[2]
+
+	-- detect camelCase
+	if word:find("[a-z][A-Z]") then
+		-- convert camelCase to snake_case
+		local snake_case_word = word:gsub("([a-z])([A-Z])", "%1_%2"):lower()
+		vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { snake_case_word })
+		-- detect snake_case
+	elseif word:find("_[a-z]") then
+		-- convert snake_case to camelCase
+		local camel_case_word = word:gsub("(_)([a-z])", function(_, l)
+			return l:upper()
+		end)
+		vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { camel_case_word })
+	else
+		print("Not a snake_case or camelCase word")
+	end
 end
 
 return M

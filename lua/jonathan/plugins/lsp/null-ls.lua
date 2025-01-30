@@ -53,7 +53,6 @@ return {
 			},
 			-- configure format on save
 			on_attach = function(current_client, bufnr)
-				local utils = require("jonathan.core.utils")
 				if current_client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 					vim.api.nvim_create_autocmd("BufWritePre", {
@@ -68,9 +67,6 @@ return {
 								bufnr = bufnr,
 								timeout_ms = 3000, -- add because apex prettier formatting is slow
 							})
-							if utils.is_obsidian_vault() then
-								utils.format_bullet_list()
-							end
 						end,
 					})
 				end

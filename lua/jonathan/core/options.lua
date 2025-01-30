@@ -1,4 +1,5 @@
 local opt = vim.opt
+vim.g.mapleader = " "
 
 -- file types
 vim.filetype.add({
@@ -13,17 +14,6 @@ vim.filetype.add({
 		auradoc = "html",
 		design = "html",
 	},
-})
-
--- conditional file type for .cls files
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*.cls" },
-	callback = function()
-		local is_tex_project = require("jonathan.core.utils").is_tex_project()
-		if not is_tex_project then
-			vim.bo.filetype = "apex"
-		end
-	end,
 })
 
 -- opt.conceallevel = 1 -- for obsidian.nvim (only use if markdown.nvim is diabled)

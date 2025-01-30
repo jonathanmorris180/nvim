@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+local utils = require("jonathan.core.utils")
 
 local keymap = vim.keymap
 
@@ -67,7 +67,7 @@ keymap.set("n", "<leader>dd", ":DisableDiagnostics<CR>")
 keymap.set("n", "<leader>de", ":EnableDiagnostics<CR>")
 
 vim.api.nvim_create_user_command("DisableDiagnostics", function()
-	vim.diagnostic.disable()
+	vim.diagnostic.enable(false)
 end, {})
 vim.api.nvim_create_user_command("EnableDiagnostics", function()
 	vim.diagnostic.enable()
@@ -136,28 +136,20 @@ keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>")
 keymap.set("n", "<leader>ls", ":LiveServerStart<CR>")
 keymap.set("n", "<leader>lx", ":LiveServerStop<CR>")
 
--- switch case
-local function switch_case()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	local word = vim.fn.expand("<cword>")
-	local word_start = vim.fn.matchstrpos(vim.fn.getline("."), "\\k*\\%" .. (col + 1) .. "c\\k*")[2]
-
-	-- detect camelCase
-	if word:find("[a-z][A-Z]") then
-		-- convert camelCase to snake_case
-		local snake_case_word = word:gsub("([a-z])([A-Z])", "%1_%2"):lower()
-		vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { snake_case_word })
-		-- detect snake_case
-	elseif word:find("_[a-z]") then
-		-- convert snake_case to camelCase
-		local camel_case_word = word:gsub("(_)([a-z])", function(_, l)
-			return l:upper()
-		end)
-		vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { camel_case_word })
-	else
-		print("Not a snake_case or camelCase word")
-	end
-end
-
-vim.api.nvim_create_user_command("SwitchCase", switch_case, {})
+-- switch from camelCase to snake_case and vice versa
+vim.api.nvim_create_user_command("SwitchCase", utils.switch_case, {})
 keymap.set("n", "<leader>sc", ":SwitchCase<CR>")
+
+-- quickly adds markdown link
+keymap.set("v", "<C-k>", utils.add_markdown_link)
+
+-- conditional file type for .cls files
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*.cls" },
+	callback = function()
+		local is_tex_project = utils.is_tex_project()
+		if not is_tex_project then
+			vim.bo.filetype = "apex"
+		end
+	end,
+})
