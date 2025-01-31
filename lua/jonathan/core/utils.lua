@@ -230,6 +230,26 @@ function M.add_markdown_link()
 	vim.api.nvim_feedkeys("f(", "i", true) -- move cursor to the first bracket
 end
 
+function M.set_markdown_header(delta)
+	local current_line = vim.api.nvim_get_current_line()
+	local fist_char = string.sub(current_line, 1, 1)
+	local hashes, rest = current_line:match("^(#*)(.*)$")
+	if #hashes == 1 and delta < 0 then
+		vim.notify("Header at minimum", vim.log.levels.INFO)
+		return
+	elseif #hashes == 6 and delta > 0 then
+		vim.notify("Header at maximum", vim.log.levels.INFO)
+		return
+	end
+	if fist_char == "#" then
+		local new_count = math.max(1, math.min(6, #hashes + delta))
+		local line_with_new_header = string.rep("#", new_count) .. rest
+		vim.api.nvim_set_current_line(line_with_new_header)
+	else
+		vim.notify("No markdown header found", vim.log.levels.INFO)
+	end
+end
+
 function M.switch_case()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local word = vim.fn.expand("<cword>")

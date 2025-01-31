@@ -8,7 +8,16 @@
 vim.opt_local.spell = true
 vim.opt_local.spelllang = "en_us"
 
+local utils = require("jonathan.core.utils")
+
 local arrows = { [">>"] = "→", ["<<"] = "←", ["^^"] = "↑", ["VV"] = "↓" }
 for key, val in pairs(arrows) do
 	vim.cmd(string.format("iabbrev %s %s", key, val))
 end
+
+vim.keymap.set("n", "<C-]>", function()
+	utils.set_markdown_header(1)
+end)
+vim.keymap.set("n", "<C-[>", function()
+	utils.set_markdown_header(-1)
+end)
