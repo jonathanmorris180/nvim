@@ -150,3 +150,39 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		end
 	end,
 })
+
+-- cool commands to capture the output of a command
+-- see here: https://www.reddit.com/r/neovim/comments/1g1xyi3/capture_the_command_output/
+vim.keymap.set("n", "y:", function()
+	local ok, input_cmd = pcall(vim.fn.input, {
+		prompt = "(yank) :",
+		default = "",
+		completion = "command",
+		cancelreturn = "",
+	})
+	if not ok or input_cmd == "" then
+		return
+	end
+	local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
+	vim.fn.setreg(vim.v.register, output)
+end)
+
+vim.keymap.set("n", "<C-W>:", function()
+	local ok, input_cmd = pcall(vim.fn.input, {
+		prompt = "(capture) :",
+		default = "",
+		completion = "command",
+		cancelreturn = "",
+	})
+	if not ok or input_cmd == "" then
+		return
+	end
+	local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, "\n"))
+	vim.api.nvim_open_win(buf, true, {
+		height = vim.o.cmdwinheight,
+		split = "right",
+		win = 0,
+	})
+end)
