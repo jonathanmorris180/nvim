@@ -27,4 +27,7 @@ require("lazy").setup({ { import = "jonathan.plugins" }, { import = "jonathan.pl
 	change_detection = {
 		notify = false,
 	},
+	rocks = { -- installs hererocks into vim.fn.stdpath("data") .. "/lazy-rocks", see https://lazy.folke.io/configuration (for image.nvim)
+		hererocks = true,
+	},
 })
