@@ -17,8 +17,8 @@ return {
 				icons = {
 					glyphs = {
 						folder = {
-							arrow_closed = "",
-							arrow_open = "",
+							arrow_closed = "", -- pulled from https://www.nerdfonts.com/cheat-sheet
+							arrow_open = "",
 						},
 					},
 				},
