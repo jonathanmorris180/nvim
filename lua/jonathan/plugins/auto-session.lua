@@ -2,7 +2,9 @@ return {
 	"rmagatti/auto-session",
 	lazy = true,
 	config = function()
-		vim.notify("starting auto-session")
+		if vim.g.started_by_firenvim == true then
+			return
+		end
 		require("auto-session").setup({
 			log_level = "error",
 			auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
@@ -24,6 +26,9 @@ return {
 		})
 	end,
 	init = function()
+		if vim.g.started_by_firenvim == true then
+			return
+		end
 		-- taken from: https://github.com/rmagatti/auto-session/issues/223
 		local autocmd = vim.api.nvim_create_autocmd
 

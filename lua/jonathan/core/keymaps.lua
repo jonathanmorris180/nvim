@@ -2,14 +2,13 @@ local utils = require("jonathan.core.utils")
 
 local keymap = vim.keymap
 
-keymap.set("i", "jk", "<Esc>")
-keymap.set("n", "<leader>j", ":nohl<CR>") -- clears search highlights
+keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+keymap.set("n", "<leader>j", ":nohl<CR>", { desc = "Clear search highlights" })
 
-keymap.set("v", "<leader>p", '"_dP') -- paste without yanking
+keymap.set("v", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 
--- allow line movement when highlighted
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line down" })
 
 local function format_json()
 	vim.cmd(":set filetype=json")
@@ -20,51 +19,46 @@ local function format_file()
 	vim.lsp.buf.format()
 end
 
--- format xml
-keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>")
+keymap.set("n", "<leader>fx", ":%!xmllint '%' --format<CR>", { desc = "Format XML" })
 
--- format json
-keymap.set("n", "<leader>fj", format_json)
+keymap.set("n", "<leader>fj", format_json, { desc = "Format JSON" })
 
--- format current file
-keymap.set("n", "<leader>F", format_file)
+keymap.set("n", "<leader>F", format_file, { desc = "Format file" })
 
--- duplicate selection below (above can easily be done without keymap)
-keymap.set("v", "P", "y'>p")
+keymap.set("v", "P", "y'>p", { desc = "Duplicate selection below" })
 
--- Q to exit visual line mode
-keymap.set("v", "q", "<Esc>")
+keymap.set("v", "q", "<Esc>", { desc = "Exit visual line mode" })
 
 -- keep cursor in position
-keymap.set("n", "<C-d>", "<C-d>zz")
-keymap.set("n", "<C-u>", "<C-u>zz")
-keymap.set("n", "n", "nzzzv")
-keymap.set("n", "N", "Nzzzv")
-keymap.set("n", "J", "mzJ`z")
+keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move half page down but center cursor" })
+keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move half page up but center cursor" })
+keymap.set("n", "n", "nzzzv", { desc = "Next result with cursor centered" })
+keymap.set("n", "N", "Nzzzv", { desc = "Previous result with cursor centered" })
+keymap.set("n", "J", "mzJ`z", { desc = "Join line beneath with current line but keep cursor in place" })
 
 -- disable Q
-keymap.set("n", "Q", "<nop>")
+keymap.set("n", "Q", "<nop>", { desc = "Do nothing" })
 
 -- window management
-keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
-keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
-keymap.set("n", "<leader>on", ":vnew<CR>") -- open a new split window
+keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
+keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make split windows equal width & height" })
+keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current split window" })
+keymap.set("n", "<leader>on", ":vnew<CR>", { desc = "Open a new split window" })
 
 -- tabs
-keymap.set("n", "<leader>tn", ":tabnew<CR>") -- open new tab
-keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
-keymap.set("n", "<leader>tl", ":tabn<CR>") --  go to next tab
-keymap.set("n", "<leader>th", ":tabp<CR>") --  go to previous tab
+keymap.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Open new tab" })
+keymap.set("n", "<leader>tx", ":tabclose<CR>", { desc = "Close current tab" })
+keymap.set("n", "<leader>tl", ":tabn<CR>", { desc = "Go to next tab" })
+keymap.set("n", "<leader>th", ":tabp<CR>", { desc = "Go to previous tab" })
 
 -- allow copy to clipboard
-keymap.set("v", "<leader>y", '"+y')
-keymap.set("n", "<leader>y", '"+y')
+keymap.set("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+keymap.set("n", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 
 -- enable/disable diagnostics
-keymap.set("n", "<leader>dd", ":DisableDiagnostics<CR>")
-keymap.set("n", "<leader>de", ":EnableDiagnostics<CR>")
+keymap.set("n", "<leader>dd", ":DisableDiagnostics<CR>", { desc = "Disable diagnostics" })
+keymap.set("n", "<leader>de", ":EnableDiagnostics<CR>", { desc = "Enable diagnostics" })
 
 vim.api.nvim_create_user_command("DisableDiagnostics", function()
 	vim.diagnostic.enable(false)
@@ -74,53 +68,58 @@ vim.api.nvim_create_user_command("EnableDiagnostics", function()
 end, {})
 
 -- quickfix
-keymap.set("n", "<leader>qo", "<CMD>copen<CR>") -- open the quickfix list
-keymap.set("n", "<leader>qx", "<CMD>cclose<CR>") -- close the quickfix list
-keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>") -- clear the quickfix list
+keymap.set("n", "<leader>qo", "<CMD>copen<CR>", { desc = "Open the quickfix list" })
+keymap.set("n", "<leader>qx", "<CMD>cclose<CR>", { desc = "Close the quickfix list" })
+keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>", { desc = "Clear the quickfix list" })
 
 -------------
 -- Buffers --
 -------------
-keymap.set("n", "<leader>yp", ":Cppath<CR>") -- copy relative path of current buffer
-keymap.set("n", "<leader>bd", ":%bd|e#<CR>") -- close all buffers except current
-keymap.set("n", "<leader>n", ":bn<CR>") -- go to next buffer (in order of when they were opened)
-keymap.set("n", "<leader>p", ":bp<CR>") -- go to previous buffer (in order of when they were opened)
-keymap.set("n", "<leader>w", ":update<CR>") -- save (:update only saves if there are changes)
+keymap.set("n", "<leader>yp", ":Cppath<CR>", { desc = "Copy relative path of current buffer to the system clipboard" })
+keymap.set("n", "<leader>bd", ":%bd|e#<CR>", { desc = "Close all buffers except current" })
+keymap.set("n", "<leader>n", ":bn<CR>", { desc = "Go to next buffer (in order of when they were opened)" })
+keymap.set("n", "<leader>p", ":bp<CR>", { desc = "Go to previous buffer (in order of when they were opened)" })
+keymap.set("n", "<leader>w", ":update<CR>", { desc = "Save (:update only saves if there are changes)" })
 -- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
-keymap.set("n", "<leader>sa", ":wa<CR>") -- save all buffers
-keymap.set("n", "<leader>qq", ":qa!<CR>") -- quit all buffers
-keymap.set("n", "<leader>c", ":q!<CR>") -- quit the current buffer
-keymap.set("n", "<leader>r", ":e!<CR>") -- refresh buffer
-keymap.set("n", "<Up>", "10<C-w>>") -- increase window width
-keymap.set("n", "<Down>", "10<C-w><") -- decrease window width
+keymap.set("n", "<leader>sa", ":wa<CR>", { desc = "Save all buffers" })
+keymap.set("n", "<leader>qq", ":qa!<CR>", { desc = "Quit all buffers" })
+keymap.set("n", "<leader>c", ":q!<CR>", { desc = "Close the current buffer" })
+keymap.set("n", "<leader>r", ":e!<CR>", { desc = "Refresh the current buffer" })
+keymap.set("n", "<Up>", "10<C-w>>", { desc = "Increase window width" })
+keymap.set("n", "<Down>", "10<C-w><", { desc = "Decrease window width" })
 
 ---------------------
 -- Plugin Keybinds --
 ---------------------
-keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "(nvim-tree) Toggle nvim-tree" })
 
 -- Git
-keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>")
-keymap.set("n", "<leader>gg", ":G<CR>") -- Opens the fugitive window (dd can be used for vertical diff, select a file in the fugitive window to exit)
-keymap.set("n", "<leader>do", ":DiffviewOpen<CR>")
-keymap.set("n", "<leader>dc", ":DiffviewClose<CR>")
+keymap.set("n", "<leader>gb", ":Git<Space>blame<CR>", { desc = "(Fugitive) Open git blame" })
+keymap.set(
+	"n",
+	"<leader>gg",
+	":G<CR>",
+	{ desc = "(Fugitive) Opens the fugitive window (dd can be used for vertical diff)" }
+)
+keymap.set("n", "<leader>do", ":DiffviewOpen<CR>", { desc = "(Diffview) Open diffview (conflicts)" })
+keymap.set("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "(Diffview) Close diffview (conflicts)" })
 
 -- yanky keymaps
-keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-keymap.set("n", "H", "<Plug>(YankyCycleForward)")
-keymap.set("n", "L", "<Plug>(YankyCycleBackward)")
-keymap.set("n", "<leader>yh", "<CMD>YankyRingHistory<CR>")
+keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", { desc = "(Yanky) Paste" })
+keymap.set("n", "H", "<Plug>(YankyCycleForward)", { desc = "(Yanky) Cycle next pasted item" })
+keymap.set("n", "L", "<Plug>(YankyCycleBackward)", { desc = "(Yanky) Cycle previous pasted item" })
+keymap.set("n", "<leader>yh", "<CMD>YankyRingHistory<CR>", { desc = "(Yanky) Open yanky history" })
 
 -- toggle undo tree
-keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "(Undotree) Toggle undotree" })
 
 ---------------
 -- Debugging --
 ---------------
 
-keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<CR>')
-keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>")
-keymap.set("n", "<leader>dr", ":lua require('dap').repl.open()<CR>")
+keymap.set("n", "<leader>dt", ':lua require("dapui").toggle()<CR>', { desc = "(nvim-dap-ui) Toggle dapui" })
+keymap.set("n", "<leader>db", ":DapToggleBreakpoint<CR>", { desc = "(nvim-dap) Set breakpoint" })
+keymap.set("n", "<leader>dr", ":lua require('dap').repl.open()<CR>", { desc = "(nvim-dap) Open REPL" })
 
 vim.api.nvim_create_user_command("Cppath", function()
 	local path = vim.fn.expand("%:p")
@@ -129,16 +128,12 @@ vim.api.nvim_create_user_command("Cppath", function()
 end, {})
 
 -- markdown preview
-keymap.set("n", "<leader>md", ":MarkdownPreview<CR>")
-keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>")
-
--- live server
-keymap.set("n", "<leader>ls", ":LiveServerStart<CR>")
-keymap.set("n", "<leader>lx", ":LiveServerStop<CR>")
+keymap.set("n", "<leader>md", ":MarkdownPreview<CR>", { desc = "(markdown-preview) Markdown preview" })
+keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>", { desc = "(markdown-preview) Stop markdown preview" })
 
 -- switch from camelCase to snake_case and vice versa
 vim.api.nvim_create_user_command("SwitchCase", utils.switch_case, {})
-keymap.set("n", "<leader>sc", ":SwitchCase<CR>")
+keymap.set("n", "<leader>sc", ":SwitchCase<CR>", { desc = "Switch from camelCase to snake_case and back" })
 
 -- conditional file type for .cls files
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
@@ -171,7 +166,7 @@ vim.keymap.set("n", "y:", function()
 	end
 	local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
 	vim.fn.setreg(vim.v.register, output)
-end)
+end, { desc = "Yank output of command mode command" })
 
 vim.keymap.set("n", "<C-W>:", function()
 	local ok, input_cmd = pcall(vim.fn.input, {
@@ -191,4 +186,4 @@ vim.keymap.set("n", "<C-W>:", function()
 		split = "right",
 		win = 0,
 	})
-end)
+end, { desc = "Open output of command-mode command in new buffer" })

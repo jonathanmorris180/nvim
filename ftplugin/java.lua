@@ -165,7 +165,9 @@ end
 local keymap = vim.keymap -- for conciseness
 local on_attach = function(_, bufnr)
 	-- keybind options
-	local opts = { noremap = true, silent = true, buffer = bufnr }
+	local opts = function(desc)
+		return { desc = "Lspsaga: " .. desc, buffer = bufnr, noremap = true, silent = true }
+	end
 
 	---------------
 	-- Debugging --
@@ -195,16 +197,16 @@ local on_attach = function(_, bufnr)
 
 	keymap.set("n", "<leader>tm", function()
 		run_java_test_method()
-	end)
+	end, { desc = "Run Java test method" })
 	keymap.set("n", "<leader>TM", function()
 		run_java_test_method(true)
-	end)
+	end, { desc = "Run Java test method with maven.surefire.debug enabled" })
 	keymap.set("n", "<leader>tc", function()
 		run_java_test_class()
-	end)
+	end, { desc = "Run Java test class" })
 	keymap.set("n", "<leader>TC", function()
 		run_java_test_class(true)
-	end)
+	end, { desc = "Run Java test class with maven.surefire.debug enabled" })
 
 	local function get_spring_boot_runner(profile, debug)
 		local debug_param = ""
@@ -242,25 +244,36 @@ local on_attach = function(_, bufnr)
 
 	keymap.set("n", "<leader>sb", function()
 		run_spring_boot()
-	end)
+	end, { desc = "Run Spring Boot program" })
 	keymap.set("n", "<leader>sd", function()
 		run_spring_boot(true)
-	end)
-	keymap.set("n", "<leader>da", ":JavaAttachToDebugger<CR>")
+	end, {
+		desc = 'Run Spring Boot with -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"',
+	})
+	keymap.set("n", "<leader>da", ":JavaAttachToDebugger<CR>", { desc = "Attach Java debugger" })
 
 	-- set keybinds
-	keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts) -- show definition, references
-	keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- go to declaration
-	-- Can't use lspsaga for this next one - doesn't work with Java, see https://github.com/nvimdev/lspsaga.nvim/issues/1132
-	keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts) -- see definition and make edits in window
-	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-	keymap.set("n", "<leader>ga", "<cmd>Lspsaga code_action<CR>", opts) -- go to available code actions
-	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-	keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
-	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-	keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
+	keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts("(Lspsaga) Show definition/references"))
+	keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts("Go to declaration"))
+	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts("(Lspsaga) See definition and make edits in window"))
+	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Go to implementation"))
+	keymap.set("n", "<leader>ga", "<cmd>Lspsaga code_action<CR>", opts("(Lspsaga) Show available code actions"))
+	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("(Lspsaga) Smart rename"))
+	keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts("(Lspsaga) Show diagnostics for line"))
+	keymap.set(
+		"n",
+		"<leader>d",
+		"<cmd>Lspsaga show_cursor_diagnostics<CR>",
+		opts("(Lspsaga) Show diagnostics for cursor")
+	)
+	keymap.set(
+		"n",
+		"[d",
+		"<cmd>Lspsaga diagnostic_jump_prev<CR>",
+		opts("(Lspsaga) Jump to previous diagnostic in buffer")
+	)
+	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts("(Lspsaga) Jump to next diagnostic in buffer"))
+	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts("(Lspsaga) Show documentation for what is under cursor"))
 
 	jdtls.setup_dap({ hotcodereplace = "auto" })
 end

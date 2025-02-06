@@ -1,6 +1,9 @@
 return {
 	"nvim-lualine/lualine.nvim", -- adds a nice status line
 	config = function()
+		if vim.g.started_by_firenvim == true then
+			return
+		end
 		local lualine = require("lualine")
 		local dracula_theme = require("lualine.themes.dracula")
 

@@ -63,7 +63,7 @@ return {
 						gs.next_hunk()
 					end)
 					return "<Ignore>"
-				end, { expr = true })
+				end, { expr = true, desc = "(Gitsigns) next hunk" })
 
 				map("n", "[c", function()
 					if vim.wo.diff then
@@ -73,7 +73,7 @@ return {
 						gs.prev_hunk()
 					end)
 					return "<Ignore>"
-				end, { expr = true })
+				end, { expr = true, desc = "(Gitsigns) previous hunk" })
 
 				-- Actions
 				-- map('n', '<leader>hs', gs.stage_hunk)
@@ -86,22 +86,16 @@ return {
 				-- map('n', '<leader>td', gs.toggle_deleted)
 				map("n", "<leader>hp", function()
 					gs.preview_hunk()
-				end)
+				end, { desc = "(Gitsigns) preview hunk" })
 				map("n", "<leader>hb", function()
 					gs.blame_line({ full = true })
-				end)
+				end, { desc = "(Gitsigns) line blame with diff" })
 				map("n", "<leader>tb", function()
 					gs.toggle_current_line_blame()
-				end)
+				end, { desc = "(Gitsigns) toggle current line blame (virtual text)" })
 				map("n", "<leader>hd", function()
 					gs.diffthis()
-				end)
-				map("n", "<leader>hD", function()
-					gs.diffthis("~")
-				end)
-
-				-- Text object
-				-- map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+				end, { desc = "(Gitsigns) Diff changes for current file against index" })
 			end,
 		})
 	end,

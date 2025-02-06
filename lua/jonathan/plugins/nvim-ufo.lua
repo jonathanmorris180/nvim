@@ -28,19 +28,25 @@ return {
 		-- Use "zo" and "zc" to open and close folds at the current level
 		-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 		-- Use "zA" to open all folds at the current level recursively
-		vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-		vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-		vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
-		vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+		vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "(nvim-ufo) Open all folds" })
+		vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "(nvim-ufo) Close all folds" })
+		vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds, { desc = "(nvim-ufo) Open folds except kinds" })
+		vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "(nvim-ufo) Close folds with" }) -- closeAllFolds == closeFoldsWith(0)
 		vim.keymap.set("n", "K", function()
 			local winid = require("ufo").peekFoldedLinesUnderCursor()
 			if not winid then
 				-- choose one of coc.nvim and nvim lsp
 				vim.lsp.buf.hover()
 			end
-		end)
+		end, { desc = "(nvim-ufo) Peek folded lines under cursor" })
 
 		require("ufo").setup({
+			open_fold_hl_timeout = 150,
+			close_fold_kinds_for_ft = {
+				default = { "imports", "comment" },
+				json = { "array" },
+				c = { "comment", "region" },
+			},
 			provider_selector = function(_, _, _)
 				return {
 					"lsp",

@@ -103,15 +103,62 @@ return {
 		-- keymaps
 		local keymap = vim.keymap
 		-- <C-q> opens the current files in the quickfix list (already mapped)
-		keymap.set("n", "<C-f>", "<CMD>Telescope find_files<CR>") -- find files within current working directory, respects .gitignore
-		keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>") -- find string in current working directory as you type
-		keymap.set("n", "<leader>fc", "<CMD>Telescope grep_string<CR>") -- find string under cursor in current working directory
-		keymap.set("n", "<leader>fb", "<CMD>Telescope buffers sort_mru=true<CR>") -- list open buffers in current neovim instance
-		keymap.set("n", "<leader>fh", "<CMD>Telescope help_tags<CR>") -- list available help tags
-		keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>") -- list available key mappings (!)
-		keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>") -- live grep args extension
-		keymap.set("n", "<leader>fr", "<CMD>Telescope resume<CR>") -- resumes the previous picker (sea
-		keymap.set("n", "<leader>fw", find_worktree) -- <C-d> deletes a worktree, <C-f> toggles forcing of next deletion
-		keymap.set("n", "<leader>fn", create_worktree)
+		keymap.set(
+			"n",
+			"<C-f>",
+			"<CMD>Telescope find_files<CR>",
+			{ desc = "(Telescope) Find files within current working directory, respects .gitignore" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fs",
+			"<CMD>Telescope live_grep<CR>",
+			{ desc = "(Telescope) Find string in current working directory" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fc",
+			"<CMD>Telescope grep_string<CR>",
+			{ desc = "(Telescope) Find string under cursor in current working directory" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fb",
+			"<CMD>Telescope buffers sort_mru=true<CR>",
+			{ desc = "(Telescope) Search most recently used open buffers" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fh",
+			"<CMD>Telescope help_tags<CR>",
+			{ desc = "(Telescope) Search available help tags" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fk",
+			"<CMD>Telescope keymaps<CR>",
+			{ desc = "(Telescope) Search available key mappings (!)" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fg",
+			":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+			{ desc = "(Telescope) Live grep args telescope extension" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fr",
+			"<CMD>Telescope resume<CR>",
+			{ desc = "(Telescope) Resume the previous telescope search" }
+		)
+		keymap.set(
+			"n",
+			"<leader>fw",
+			find_worktree,
+			{
+				desc = "(Telescope) Find git worktree (<C-d> deletes a worktree, <C-f> toggles forcing of next deletion)",
+			}
+		)
+		keymap.set("n", "<leader>fn", create_worktree, { desc = "(Telescope) Create git worktree" })
 	end,
 }

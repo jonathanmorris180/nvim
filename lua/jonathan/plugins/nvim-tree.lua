@@ -55,12 +55,12 @@ return {
 
 				-- collapse all: W
 				-- help: g?
-				vim.keymap.set("n", "B", api.node.navigate.sibling.last, opts("Last sibling"))
-				vim.keymap.set("n", "T", api.node.navigate.sibling.first, opts("First sibling"))
-				vim.keymap.set("n", "J", mark_move_j, opts("Mark and move down"))
-				vim.keymap.set("n", "K", mark_move_k, opts("Mark and move up"))
-				vim.keymap.set("n", "by", mark_copy, opts("Copy File(s)"))
-				vim.keymap.set("n", "bm", api.marks.bulk.move, opts("Move marked files"))
+				vim.keymap.set("n", "B", api.node.navigate.sibling.last, opts("(nvim-tree) Go to last sibling"))
+				vim.keymap.set("n", "T", api.node.navigate.sibling.first, opts("(nvim-tree) Go to first sibling"))
+				vim.keymap.set("n", "J", mark_move_j, opts("(nvim-tree) Mark file and move down"))
+				vim.keymap.set("n", "K", mark_move_k, opts("(nvim-tree) Mark file and move up"))
+				vim.keymap.set("n", "by", mark_copy, opts("(nvim-tree) Copy marked file(s)"))
+				vim.keymap.set("n", "bm", api.marks.bulk.move, opts("(nvim-tree) Move marked files"))
 			end,
 			-- disable window_picker for
 			-- explorer to work well with
@@ -84,8 +84,5 @@ return {
 				ignore_list = {},
 			},
 		})
-		-- kaymaps
-		local keymap = vim.keymap
-		keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 	end,
 }

@@ -6,4 +6,4 @@ end
 vim.g.maplocalleader = " "
 local keymap = vim.keymap
 
-keymap.set("n", "K", ":VimtexDocPackage<CR>")
+keymap.set("n", "K", ":VimtexDocPackage<CR>", { desc = "(Vimtex) Open texdoc documentation" })

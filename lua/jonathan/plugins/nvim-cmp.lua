@@ -19,10 +19,10 @@ return {
 		-- set keymaps for snippets
 		vim.keymap.set({ "i" }, "<M-l>", function()
 			luasnip.jump(1)
-		end, { silent = true })
+		end, { silent = true, desc = "(Luasnip) Jump to next snippet entry" })
 		vim.keymap.set({ "i" }, "<M-h>", function()
 			luasnip.jump(-1)
-		end, { silent = true })
+		end, { silent = true, desc = "(Luasnip) Jump to previous snippet entry" })
 
 		-- load vs-code like snippets from plugins (e.g. friendly-snippets)
 		require("luasnip/loaders/from_vscode").lazy_load()

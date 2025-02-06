@@ -13,7 +13,7 @@ return {
 					takeover = "never", -- don't automatically create a Neovim instance inside a text box - Cmd+e to open it
 				},
 				[".*atlassian.net.*"] = {
-					content = "html",
+					content = "html", -- allows for editing Jira tickets while keeping formatting (don't try and format the file though - it has to stay in the weird minified state)
 					priority = 1,
 				},
 			},

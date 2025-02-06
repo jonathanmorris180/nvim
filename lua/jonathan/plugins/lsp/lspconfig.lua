@@ -1,5 +1,5 @@
 return {
-	"neovim/nvim-lspconfig", -- in-built Neovim LSP
+	"neovim/nvim-lspconfig",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp", -- autocompletion
 	},
@@ -15,20 +15,52 @@ return {
 		-- enable keybinds when lsp is available
 		local on_attach = function(_, bufnr)
 			-- keybind options
-			local opts = { noremap = true, silent = true, buffer = bufnr }
+			local opts = function(desc)
+				return { desc = desc, buffer = bufnr, noremap = true, silent = true }
+			end
 
 			-- set keybinds
-			keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts) -- show definition, references
-			keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- go to declaration
-			keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-			keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-			keymap.set("n", "<leader>ga", "<cmd>Lspsaga code_action<CR>", opts) -- go to available code actions
-			keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-			keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show diagnostics for line
-			keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-			keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-			keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-			keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
+			keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts("(Lspsaga) Show definition/references"))
+			keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts("Go to declaration"))
+			keymap.set(
+				"n",
+				"gd",
+				"<cmd>Lspsaga peek_definition<CR>",
+				opts("(Lspsaga) See definition and make edits in window")
+			)
+			keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Go to implementation"))
+			keymap.set("n", "<leader>ga", "<cmd>Lspsaga code_action<CR>", opts("(Lspsaga) Show available code actions"))
+			keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("(Lspsaga) Smart rename"))
+			keymap.set(
+				"n",
+				"<leader>D",
+				"<cmd>Lspsaga show_line_diagnostics<CR>",
+				opts("(Lspsaga) Show diagnostics for line")
+			)
+			keymap.set(
+				"n",
+				"<leader>d",
+				"<cmd>Lspsaga show_cursor_diagnostics<CR>",
+				opts("(Lspsaga) Show diagnostics for cursor")
+			)
+			keymap.set(
+				"n",
+				"[d",
+				"<cmd>Lspsaga diagnostic_jump_prev<CR>",
+				opts("(Lspsaga) Jump to previous diagnostic in buffer")
+			)
+			keymap.set(
+				"n",
+				"]d",
+				"<cmd>Lspsaga diagnostic_jump_next<CR>",
+				opts("(Lspsaga) Jump to next diagnostic in buffer")
+			)
+			keymap.set(
+				"n",
+				"K",
+				"<cmd>Lspsaga hover_doc<CR>",
+				opts("(Lspsaga) Show documentation for what is under cursor")
+			)
 		end
 
 		-- used to enable autocompletion (assign to every lsp server config)

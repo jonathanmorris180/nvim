@@ -38,21 +38,12 @@ return {
 	{
 		"folke/which-key.nvim", -- displays a popup with possible key bindings of the command you started typing
 		event = "VeryLazy",
-		enabled = false,
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
-		-- opts = {}, -- uncomment to enable which-key
+		opts = {
+			delay = 2000,
+		},
 	},
 	{ "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "christoomey/vim-tmux-navigator", lazy = false },
-	{
-		"mg979/vim-visual-multi",
-		config = function()
-			vim.keymap.set("n", "<C-m>", "<Plug>(VM-Find-Under)")
-		end,
-	},
 	"mbbill/undotree",
 	"tpope/vim-fugitive",
 	-- makes resolving merge conflicts easy ([x maps to next conflict)

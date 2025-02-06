@@ -17,7 +17,7 @@ end
 
 vim.keymap.set("n", "<C-]>", function()
 	utils.set_markdown_header(1)
-end)
+end, { desc = "Increase markdown header" })
 vim.keymap.set("n", "<C-[>", function()
 	utils.set_markdown_header(-1)
-end)
+end, { desc = "Decrease markdown header" })
