@@ -12,6 +12,10 @@ return {
 					selector = "textarea",
 					takeover = "never", -- don't automatically create a Neovim instance inside a text box - Cmd+e to open it
 				},
+				[".*atlassian.net.*"] = {
+					content = "html",
+					priority = 1,
+				},
 			},
 		}
 	end,

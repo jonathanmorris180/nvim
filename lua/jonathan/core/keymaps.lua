@@ -151,6 +151,12 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	end,
 })
 
+-- set filetype to markdown for all firenvim GitHub buffers
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = "github.com_*.txt",
+	command = "set filetype=markdown",
+})
+
 -- cool commands to capture the output of a command
 -- see here: https://www.reddit.com/r/neovim/comments/1g1xyi3/capture_the_command_output/
 vim.keymap.set("n", "y:", function()
