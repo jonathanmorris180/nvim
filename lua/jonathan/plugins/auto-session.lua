@@ -12,9 +12,9 @@ return {
 			pre_save_cmds = {
 				"NvimTreeClose", -- helps nvim-tree work well with auto-session and git-worktree
 			},
-			post_restore_cmds = {
-				"NvimTreeOpen", -- helps nvim-tree work well with auto-session and git-worktree
-			},
+			-- post_restore_cmds = {
+			-- 	"NvimTreeOpen", -- helps nvim-tree work well with auto-session and git-worktree (disabling for now to better support firenvim and since I don't really use worktrees anymore - firenvim shouldn't show the tree when it opens)
+			-- },
 
 			cwd_change_handling = {
 				post_cwd_changed_hook = function()
