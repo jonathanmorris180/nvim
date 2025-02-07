@@ -217,39 +217,6 @@ function M.get_visual_selection_text()
 	end
 end
 
--- unused because the nvim-markdown plugin has a better implementation but keeping for reference as replacing a highlighted selection in the future might be useful
-function M.add_markdown_link()
-	local _, srow, scol = unpack(vim.fn.getpos("v"))
-	local _, erow, ecol = unpack(vim.fn.getpos("."))
-	local text = M.get_visual_selection_text()
-	local result = string.format("[%s]()", vim.fn.join(text, ""))
-	vim.api.nvim_buf_set_text(vim.api.nvim_get_current_buf(), srow - 1, scol - 1, erow - 1, ecol, { result })
-	-- Exit visual mode
-	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
-	vim.api.nvim_feedkeys(esc, "x", false)
-	vim.api.nvim_feedkeys("f(", "i", true) -- move cursor to the first bracket
-end
-
-function M.set_markdown_header(delta)
-	local current_line = vim.api.nvim_get_current_line()
-	local fist_char = string.sub(current_line, 1, 1)
-	local hashes, rest = current_line:match("^(#*)(.*)$")
-	if #hashes == 1 and delta < 0 then
-		vim.notify("Header at minimum", vim.log.levels.INFO)
-		return
-	elseif #hashes == 6 and delta > 0 then
-		vim.notify("Header at maximum", vim.log.levels.INFO)
-		return
-	end
-	if fist_char == "#" then
-		local new_count = math.max(1, math.min(6, #hashes + delta))
-		local line_with_new_header = string.rep("#", new_count) .. rest
-		vim.api.nvim_set_current_line(line_with_new_header)
-	else
-		vim.notify("No markdown header found", vim.log.levels.INFO)
-	end
-end
-
 function M.switch_case()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local word = vim.fn.expand("<cword>")
@@ -269,6 +236,91 @@ function M.switch_case()
 		vim.api.nvim_buf_set_text(0, line - 1, word_start, line - 1, word_start + #word, { camel_case_word })
 	else
 		print("Not a snake_case or camelCase word")
+	end
+end
+
+function M.edit_visual_selection(formatted_string)
+	local _, srow, scol = unpack(vim.fn.getpos("v"))
+	local _, erow, ecol = unpack(vim.fn.getpos("."))
+	-- in case we start selecting from the end of the selection
+	if srow > erow then
+		srow, erow = erow, srow
+	end
+	if scol > ecol then
+		scol, ecol = ecol, scol
+	end
+	local text = M.get_visual_selection_text()
+	local result = string.format(formatted_string, vim.fn.join(text, ""))
+	vim.api.nvim_buf_set_text(vim.api.nvim_get_current_buf(), srow - 1, scol - 1, erow - 1, ecol, { result })
+end
+
+----------------
+--- Markdown ---
+----------------
+
+-- unused because the nvim-markdown plugin has a better implementation but keeping for reference as replacing a highlighted selection in the future might be useful
+function M.add_markdown_link()
+	M.edit_visual_selection("[%s](%s)")
+	-- Exit visual mode
+	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+	vim.api.nvim_feedkeys(esc, "x", false)
+	vim.api.nvim_feedkeys("f(", "i", true) -- move cursor to the first bracket
+end
+
+function M.markdown_bold()
+	M.edit_visual_selection("**%s**")
+	-- Exit visual mode because selection is now different - TODO: Select the surrounded word instead
+	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+	vim.api.nvim_feedkeys(esc, "x", false)
+end
+
+function M.markdown_italic()
+	M.edit_visual_selection("*%s*")
+	-- Exit visual mode
+	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+	vim.api.nvim_feedkeys(esc, "x", false)
+end
+
+function M.markdown_strikethrough()
+	M.edit_visual_selection("~~%s~~")
+	-- Exit visual mode
+	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
+	vim.api.nvim_feedkeys(esc, "x", false)
+end
+
+function M.toggle_markdown_bullet()
+	local line = vim.api.nvim_get_current_line()
+
+	-- Matches a line that starts with 0 or more spaces (^%s*), followed by a bullet (%-), followed by a space
+	local pattern = "^%s*%- "
+	if line:match(pattern) then
+		-- Remove bullet
+		line = line:gsub(pattern, "", 1)
+	else
+		-- Add bullet
+		line = "- " .. line
+	end
+
+	vim.api.nvim_set_current_line(line)
+end
+
+function M.set_markdown_header(delta)
+	local current_line = vim.api.nvim_get_current_line()
+	local fist_char = string.sub(current_line, 1, 1)
+	local hashes, rest = current_line:match("^(#*)(.*)$")
+	if #hashes == 1 and delta < 0 then
+		vim.notify("Header at minimum", vim.log.levels.INFO)
+		return
+	elseif #hashes == 6 and delta > 0 then
+		vim.notify("Header at maximum", vim.log.levels.INFO)
+		return
+	end
+	if fist_char == "#" then
+		local new_count = math.max(1, math.min(6, #hashes + delta))
+		local line_with_new_header = string.rep("#", new_count) .. rest
+		vim.api.nvim_set_current_line(line_with_new_header)
+	else
+		vim.notify("No markdown header found", vim.log.levels.INFO)
 	end
 end
 

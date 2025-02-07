@@ -100,6 +100,7 @@ keymap.set(
 	":G<CR>",
 	{ desc = "(Fugitive) Opens the fugitive window (dd can be used for vertical diff)" }
 )
+-- Note that it seems there are no plans to add an equivalent of "git add ." to fugitive: https://github.com/tpope/vim-fugitive/issues/2366
 keymap.set("n", "<leader>do", ":DiffviewOpen<CR>", { desc = "(Diffview) Open diffview (conflicts)" })
 keymap.set("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "(Diffview) Close diffview (conflicts)" })
 
