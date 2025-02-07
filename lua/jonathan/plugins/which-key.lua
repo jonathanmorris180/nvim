@@ -135,8 +135,8 @@ return {
 				spacing = 3, -- spacing between columns
 			},
 			keys = {
-				scroll_down = "<c-j>", -- binding to scroll down inside the popup
-				scroll_up = "<c-k>", -- binding to scroll up inside the popup
+				scroll_down = "<C-d>", -- binding to scroll down inside the popup
+				scroll_up = "<C-u>", -- binding to scroll up inside the popup
 			},
 			---@type (string|wk.Sorter)[]
 			--- Mappings are sorted using configured sorters and natural sort of the keys
