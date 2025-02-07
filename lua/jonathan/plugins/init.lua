@@ -13,12 +13,6 @@ return {
 	{ "echasnovski/mini.nvim", version = "*" },
 	{ "ixru/nvim-markdown" },
 	{
-		"z0rzi/ai-chat.nvim",
-		config = function()
-			require("ai-chat").setup()
-		end,
-	},
-	{
 		"tpope/vim-surround",
 		event = { "BufReadPre", "BufNewFile" },
 	},
@@ -34,13 +28,6 @@ return {
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {},
-	},
-	{
-		"folke/which-key.nvim", -- displays a popup with possible key bindings of the command you started typing
-		event = "VeryLazy",
-		opts = {
-			delay = 2000,
-		},
 	},
 	{ "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "christoomey/vim-tmux-navigator", lazy = false },
