@@ -44,7 +44,6 @@ keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make split windows equal width & height" })
 keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current split window" })
-keymap.set("n", "<leader>on", ":vnew<CR>", { desc = "Open a new split window" })
 
 -- tabs
 keymap.set("n", "<leader>tn", ":tabnew<CR>", { desc = "Open new tab" })
