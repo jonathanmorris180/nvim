@@ -2,6 +2,10 @@ return {
 	"glacambre/firenvim",
 	build = ":call firenvim#install(0)",
 	config = function()
+		vim.api.nvim_create_autocmd({ "BufEnter" }, {
+			pattern = "leetcode.com_problems*.txt",
+			command = "set filetype=python",
+		})
 		vim.g.firenvim_config = {
 			globalSettings = { alt = "all" },
 			localSettings = {

@@ -6,6 +6,9 @@ return {
 		"nvimtools/none-ls-extras.nvim",
 	},
 	config = function()
+		if vim.g.started_by_firenvim == true then
+			return
+		end
 		local null_ls = require("null-ls")
 
 		local formatting = null_ls.builtins.formatting -- to setup formatters

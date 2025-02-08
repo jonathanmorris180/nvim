@@ -80,29 +80,32 @@ return {
 		})
 
 		-- configure python server
-		lspconfig["pyright"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "python" },
-			settings = {
-				pyright = { autoImportCompletion = true }, -- see settings here: https://github.com/microsoft/pyright/blob/main/docs/settings.md
-				python = {
-					analysis = {
-						autoSearchPaths = true,
-						diagnosticMode = "openFilesOnly",
-						useLibraryCodeForTypes = true,
-					},
-				},
-			}, -- could probably get it to work with pyproject.toml by overriding the "cmd" property and adding the -p flag (-p pyproject.toml)
-			-- see here: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
-		})
 
-		lspconfig["ruff"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "python" },
-			cmd = { "ruff", "server", "--preview" },
-		})
+		if not vim.g.started_by_firenvim == true then
+			lspconfig["pyright"].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				filetypes = { "python" },
+				settings = {
+					pyright = { autoImportCompletion = true }, -- see settings here: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+					python = {
+						analysis = {
+							autoSearchPaths = true,
+							diagnosticMode = "openFilesOnly",
+							useLibraryCodeForTypes = true,
+						},
+					},
+				}, -- could probably get it to work with pyproject.toml by overriding the "cmd" property and adding the -p flag (-p pyproject.toml)
+				-- see here: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
+			})
+
+			lspconfig["ruff"].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+				filetypes = { "python" },
+				cmd = { "ruff", "server", "--preview" },
+			})
+		end
 
 		-- configure typescript server with plugin
 		lspconfig["ts_ls"].setup({

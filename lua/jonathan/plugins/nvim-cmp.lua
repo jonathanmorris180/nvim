@@ -52,7 +52,7 @@ return {
 				{ name = "luasnip", keyword_length = 2 }, -- snippets
 				{ name = "buffer", keyword_length = 5 }, -- text within current buffer but only if I've already typed 5 characters
 				{ name = "path" }, -- file system paths
-				{ name = "copilot" },
+				-- { name = "copilot" }, disable for now since it's getting annoying
 				{ name = "vimtex" },
 			}),
 			-- configure lspkind
