@@ -76,8 +76,6 @@ keymap.set("n", "<leader>qc", "<CMD>cexpr []<CR>", { desc = "Clear the quickfix 
 -------------
 keymap.set("n", "<leader>yp", ":Cppath<CR>", { desc = "Copy relative path of current buffer to the system clipboard" })
 keymap.set("n", "<leader>bd", ":%bd|e#<CR>", { desc = "Close all buffers except current" })
-keymap.set("n", "<leader>n", ":bn<CR>", { desc = "Go to next buffer (in order of when they were opened)" })
-keymap.set("n", "<leader>p", ":bp<CR>", { desc = "Go to previous buffer (in order of when they were opened)" })
 keymap.set("n", "<leader>w", ":update<CR>", { desc = "Save (:update only saves if there are changes)" })
 -- :wa actually uses :update according to this: https://vi.stackexchange.com/questions/42066/updateall-command-to-update-all-files
 keymap.set("n", "<leader>sa", ":wa<CR>", { desc = "Save all buffers" })
