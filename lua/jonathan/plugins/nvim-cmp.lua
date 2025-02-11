@@ -17,9 +17,9 @@ return {
 		local lspkind = require("lspkind")
 
 		-- set keymaps for snippets
-		vim.keymap.set({ "i" }, "<Tab>", function()
+		vim.keymap.set({ "i" }, "<C-s>", function()
 			luasnip.jump(1)
-		end, { silent = true, desc = "(Luasnip) Jump to next snippet entry" })
+		end, { silent = true, desc = "(Luasnip) Jump to next [s]nippet entry" })
 
 		-- load vs-code like snippets from plugins (e.g. friendly-snippets)
 		require("luasnip/loaders/from_vscode").lazy_load()
