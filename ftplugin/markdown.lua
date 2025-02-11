@@ -3,6 +3,7 @@
 -- To navigate to the next misspelled word, use `]s`
 -- To navigate to the previous misspelled word, use `[s`
 -- To add a word to the dictionary, use `zg`
+-- To remove an added word from the dictionary, use `zug`
 -- To mark a word as incorrect, use `zw`
 -- To see suggestions, use `z=`
 vim.opt_local.spell = true
