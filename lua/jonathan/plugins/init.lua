@@ -10,6 +10,9 @@ return {
 	-- {
 	-- 	"LunarVim/bigfile.nvim", -- Could be useful for large files
 	-- },
+	{
+		"subnut/nvim-ghost.nvim",
+	},
 	{ "echasnovski/mini.nvim", version = "*" },
 	{ "ixru/nvim-markdown" },
 	{
