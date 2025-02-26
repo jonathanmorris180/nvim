@@ -11,7 +11,8 @@ return {
 	-- 	"LunarVim/bigfile.nvim", -- Could be useful for large files
 	-- },
 	{
-		"subnut/nvim-ghost.nvim",
+		"zapling/mason-lock.nvim", -- Adds lockfile support to Mason until this is resolved: https://github.com/williamboman/mason.nvim/issues/1701
+		config = true, -- Config written to vim.fn.stdpath("config") .. "/mason-lock.json"
 	},
 	{ "echasnovski/mini.nvim", version = "*" },
 	{ "ixru/nvim-markdown" },

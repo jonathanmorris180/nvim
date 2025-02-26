@@ -1,0 +1,23 @@
+{
+  "apex-language-server": "v63.1.1",
+  "bash-language-server": "5.4.3",
+  "black": "25.1.0",
+  "css-lsp": "4.10.0",
+  "emmet-ls": "0.4.2",
+  "eslint-lsp": "4.10.0",
+  "eslint_d": "14.3.0",
+  "flake8": "7.1.2",
+  "html-lsp": "4.10.0",
+  "java-debug-adapter": "0.58.1",
+  "java-test": "0.43.0",
+  "jdtls": "v1.44.0",
+  "lua-language-server": "3.13.6",
+  "mypy": "1.15.0",
+  "prettier": "3.5.2",
+  "pyright": "1.1.394",
+  "ruff": "0.9.7",
+  "sqlls": "1.7.1",
+  "stylua": "v2.0.2",
+  "tailwindcss-language-server": "0.14.7",
+  "typescript-language-server": "4.3.3"
+}
