@@ -1,11 +1,70 @@
 local jdtls_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
-local config_dir = jdtls_dir .. "/config_mac_arm"
--- this path may need to be updated if you update jdtls
-local path_to_jar = jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar"
+
+local function get_config_dir()
+	---@diagnostic disable-next-line: undefined-field
+	local arch = vim.uv.os_uname().machine
+	if arch == "x86_64" then
+		return "/config_mac"
+	end
+	return "/config_mac_arm"
+end
+
+local config_dir = jdtls_dir .. get_config_dir()
+
+-- Dynamically find jar so it doesn't break on updates to jdtls
+local function find_jar()
+	local plugins_dir = jdtls_dir .. "/plugins/"
+	for file in vim.fs.dir(plugins_dir) do
+		if file:find("org.eclipse.equinox.launcher_") then
+			return plugins_dir .. file
+		end
+	end
+end
+
+local function find_highest_temurin()
+	local java_candidates = vim.fn.expand("$HOME/.sdkman/candidates/java")
+	local versions = {}
+
+	-- Iterate over the installed Java versions
+	for file in vim.fs.dir(java_candidates) do
+		local version = file:match("^(%d+%.%d+%.%d+%-tem)$") -- Match Temurin versions like 23.0.2-tem
+		if version then
+			table.insert(versions, version)
+		end
+	end
+
+	-- Sort versions in descending order
+	table.sort(versions, function(a, b)
+		local function parse_version(v)
+			local major, minor, patch = v:match("(%d+)%.(%d+)%.(%d+)")
+			return tonumber(major), tonumber(minor), tonumber(patch)
+		end
+		local a1, a2, a3 = parse_version(a)
+		local b1, b2, b3 = parse_version(b)
+		if a1 ~= b1 then
+			return a1 > b1
+		end
+		if a2 ~= b2 then
+			return a2 > b2
+		end
+		return a3 > b3
+	end)
+
+	-- Return the highest version found
+	return versions[1] or nil
+end
+
+local path_to_jar = find_jar()
 local path_to_lombok = jdtls_dir .. "/lombok.jar"
 -- see https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
 local path_to_java_dap = vim.fn.expand("$HOME/java-debug-0.48.0/com.microsoft.java.debug.plugin/target")
-local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/current")
+-- The JDK to run jdtls itself should be the latest Temurin (Adoptium) since Eclipse makes both JDTLS and Temurin (https://adoptium.net/)
+local highest_temurin = find_highest_temurin()
+
+if not highest_temurin then
+	vim.notify("Temurin SDK not found - please install the latest Temurin SDK with sdkman", vim.log.levels.ERROR)
+end
+local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/" .. find_highest_temurin())
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
 local status, jdtls_setup = pcall(require, "jdtls.setup")
@@ -76,7 +135,6 @@ local config = {
 				updateBuildConfiguration = "interactive",
 				runtimes = {
 					{
-						name = "JavaSE-17",
 						path = java_home,
 					},
 				},
@@ -141,7 +199,7 @@ local config = {
 	},
 	init_options = {
 		bundles = {
-			vim.fn.glob(path_to_java_dap .. "/com.microsoft.java.debug.plugin-0.48.0.jar", 1),
+			vim.fn.glob(path_to_java_dap .. "/com.microsoft.java.debug.plugin-0.48.0.jar", true),
 		},
 	},
 }
