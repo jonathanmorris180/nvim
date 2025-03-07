@@ -18,6 +18,8 @@ return {
 			{ "<leader>s", group = "Splits, Salesforce, switch" },
 			{ "<leader>b", group = "Buffer" },
 			{ "<leader>g", group = "Git, go to" },
+			{ "[g", group = "Git (previous)" },
+			{ "]g", group = "Git (next)" },
 			{ "<leader>gd", group = "Git diff" },
 			{ "<leader>h", group = "Harpoon" },
 			{ "<leader>m", group = "Markdown" },

@@ -55,9 +55,9 @@ return {
 				end
 
 				-- Navigation
-				map("n", "]c", function()
+				map("n", "]gc", function() -- prevents clash with nvim-treesitter-textobjects
 					if vim.wo.diff then
-						return "]c"
+						return "]c" -- move to next section of diff
 					end
 					vim.schedule(function()
 						gs.next_hunk()
@@ -65,7 +65,7 @@ return {
 					return "<Ignore>"
 				end, { expr = true, desc = "(Gitsigns) next hunk" })
 
-				map("n", "[c", function()
+				map("n", "[gc", function()
 					if vim.wo.diff then
 						return "[c"
 					end
