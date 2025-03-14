@@ -24,8 +24,7 @@ return {
 			sources = {
 				--  to disable file types use
 				--  "formatting.prettier.with({disabled_filetypes = {}})" (see null-ls docs)
-				require("none-ls.diagnostics.flake8"), -- shows ruff (not flake8) language server issues in buffer for some reason but seems to work
-				diagnostics.mypy, -- python types
+				diagnostics.mypy, -- python type checking (pyright doesn't provide as many type-checking features, so both should be enabled)
 				formatting.black, -- python formatting
 				formatting.sql_formatter.with({ -- install with Mason or npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
 					extra_args = { "--config", '{"language": "postgresql", "tabWidth": 2, "keywordCase": "upper"}' },

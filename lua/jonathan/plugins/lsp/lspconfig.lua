@@ -7,13 +7,13 @@ return {
 		-- disable lsp logs ("off") unless needed so it doesn't create a huge file (switch to "debug" if needed)
 		vim.lsp.set_log_level("off")
 
-		local lspconfig = require("lspconfig")
+		local lspconfig = require("lspconfig") -- Neovim's built-in LSP client (:h lspconfig)
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		local keymap = vim.keymap -- for conciseness
 
-		-- enable keybinds when lsp is available
-		local on_attach = function(_, bufnr)
+		-- First param is the client - it has all the properties from :h lsp-client
+		local on_attach = function(client, bufnr)
 			-- keybind options
 			local opts = function(desc)
 				return { desc = desc, buffer = bufnr, noremap = true, silent = true }
@@ -64,6 +64,7 @@ return {
 		end
 
 		-- used to enable autocompletion (assign to every lsp server config)
+		-- See https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#capabilities
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
@@ -82,28 +83,29 @@ return {
 		-- configure python server
 
 		if not vim.g.started_by_firenvim == true then
-			lspconfig["pyright"].setup({
+			lspconfig["pyright"].setup({ -- Can be customized with pyproject.toml or pyrightconfig.json (see https://github.com/microsoft/pyright/blob/main/docs/configuration.md)
 				capabilities = capabilities,
 				on_attach = on_attach,
 				filetypes = { "python" },
-				settings = {
-					pyright = { autoImportCompletion = true }, -- see settings here: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+				settings = { -- see settings here: https://github.com/microsoft/pyright/blob/main/docs/settings.md
 					python = {
 						analysis = {
+							autoImportCompletions = true,
 							autoSearchPaths = true,
-							diagnosticMode = "openFilesOnly",
 							useLibraryCodeForTypes = true,
+							diagnosticMode = "workspace",
 						},
 					},
-				}, -- could probably get it to work with pyproject.toml by overriding the "cmd" property and adding the -p flag (-p pyproject.toml)
-				-- see here: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
+				},
 			})
 
+			-- Pyright can't be replaced with this yet since it doesn't have all LSP features (like go to definition)
+			-- This is still useful for linting issues though
 			lspconfig["ruff"].setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
 				filetypes = { "python" },
-				cmd = { "ruff", "server", "--preview" },
+				cmd = { "ruff", "server" },
 			})
 		end
 

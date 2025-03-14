@@ -4,6 +4,8 @@ return {
 		-- import lspsaga safely
 		local saga = require("lspsaga")
 
+		-- See all options available here: https://github.com/nvimdev/lspsaga.nvim/blob/main/lua/lspsaga/init.lua
+		-- The docs aren't very good, so best to just look at the code
 		saga.setup({
 			-- keybinds for navigation in lspsaga window
 			scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
@@ -25,6 +27,9 @@ return {
 				colors = {
 					normal_bg = "#022746",
 				},
+			},
+			diagnostic = {
+				extend_relatedInformation = true,
 			},
 		})
 	end,

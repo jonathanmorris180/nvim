@@ -26,14 +26,14 @@ return {
 				"jdtls",
 				"emmet_ls",
 				"apex_ls",
+				"pyright", -- Provides go to definition (ruff doesn't support this yet)
 				"bashls",
 				"eslint",
-				"pyright",
 				"sqlls",
-				"ruff",
+				"ruff", -- python all-in-one - needs to be used in conjunction with pyright for now due to incomplete features
 			},
-			-- auto-install configured servers (with lspconfig)
-			automatic_installation = true, -- not the same as ensure_installed
+			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed. This is NOT the same as ensure_installed since that's just a static list.
+			automatic_installation = true,
 		})
 
 		mason_nvim_dap.setup({
