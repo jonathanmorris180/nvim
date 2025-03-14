@@ -55,6 +55,14 @@ return {
 				"<cmd>Lspsaga diagnostic_jump_next<CR>",
 				opts("(Lspsaga) Jump to next diagnostic in buffer")
 			)
+			keymap.set("n", "<leader>[d", vim.diagnostic.goto_prev, opts("Go to previous diagnostic (builtin)"))
+			keymap.set("n", "<leader>]d", vim.diagnostic.goto_next, opts("Go to next diagnostic (builtin)"))
+			keymap.set(
+				"n",
+				"]d",
+				"<cmd>Lspsaga diagnostic_jump_next<CR>",
+				opts("(Lspsaga) Jump to next diagnostic in buffer")
+			)
 			keymap.set(
 				"n",
 				"K",
@@ -93,7 +101,7 @@ return {
 							autoImportCompletions = true,
 							autoSearchPaths = true,
 							useLibraryCodeForTypes = true,
-							diagnosticMode = "workspace",
+							diagnosticMode = "openFilesOnly",
 						},
 					},
 				},

@@ -16,6 +16,15 @@ vim.filetype.add({
 	},
 })
 
+-- see :h vim.diagnostic.Opts
+-- Diagnostics can also be searched with :Telescope diagnostics
+vim.diagnostic.config({
+	float = {
+		source = true,
+		border = "rounded",
+	},
+})
+
 -- opt.conceallevel = 1 -- for obsidian.nvim (only use if markdown.nvim is diabled)
 
 -- line numbers

@@ -20,6 +20,8 @@ return {
 			{ "<leader>g", group = "Git, go to" },
 			{ "[g", group = "Git (previous)" },
 			{ "]g", group = "Git (next)" },
+			{ "<leader>]", group = "Diagnostic (next)" },
+			{ "<leader>[", group = "Diagnostic (prev)" },
 			{ "<leader>gd", group = "Git diff" },
 			{ "<leader>h", group = "Harpoon" },
 			{ "<leader>m", group = "Markdown" },

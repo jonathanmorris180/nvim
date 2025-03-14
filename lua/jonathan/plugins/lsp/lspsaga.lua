@@ -28,9 +28,6 @@ return {
 					normal_bg = "#022746",
 				},
 			},
-			diagnostic = {
-				extend_relatedInformation = true,
-			},
 		})
 	end,
 	dependencies = {
