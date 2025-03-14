@@ -24,6 +24,7 @@ return {
 			sources = {
 				--  to disable file types use
 				--  "formatting.prettier.with({disabled_filetypes = {}})" (see null-ls docs)
+				require("none-ls.diagnostics.flake8"), -- Use this for projects using flake8 to make diagnostics appear
 				diagnostics.mypy, -- python type checking (pyright doesn't provide as many type-checking features, so both should be enabled)
 				formatting.black, -- python formatting
 				formatting.sql_formatter.with({ -- install with Mason or npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
