@@ -15,6 +15,7 @@ return {
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
+		local compare = require("cmp.config.compare")
 
 		-- set keymaps for snippets
 		vim.keymap.set({ "i" }, "<C-s>", function()
@@ -48,13 +49,33 @@ return {
 			-- these are ranked in order of priority (first element is highest priority)
 			-- you can also set "priority" to rank results and "max_item_count" to limit the number of suggestions
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" }, -- lsp
-				{ name = "luasnip", keyword_length = 2 }, -- snippets
+				{
+					name = "nvim_lsp",
+					entry_filter = function(entry, ctx)
+						return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind() -- Disable snippets from the LSP
+					end,
+				}, -- lsp
 				{ name = "buffer", keyword_length = 5 }, -- text within current buffer but only if I've already typed 5 characters
 				{ name = "path" }, -- file system paths
+				{ name = "luasnip", keyword_length = 4 }, -- snippets
 				-- { name = "copilot" }, disable for now since it's getting annoying
 				{ name = "vimtex" },
 			}),
+			sorting = {
+				priority_weight = 2,
+				comparators = { -- defaults from https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua
+					compare.offset, -- these come from here: https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
+					compare.exact,
+					-- compare.scopes,
+					compare.score,
+					compare.recently_used,
+					compare.locality,
+					compare.kind,
+					compare.sort_text,
+					compare.length,
+					compare.order,
+				},
+			},
 			-- configure lspkind
 			formatting = {
 				format = lspkind.cmp_format({
