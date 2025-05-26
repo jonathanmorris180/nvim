@@ -25,7 +25,7 @@ return {
 				"lua_ls",
 				"jdtls",
 				"emmet_ls",
-				"apex_ls",
+				-- "apex_ls", (removing for now since it's not yet supported by Neovim core and also isn't supported by nvim-lspconfig)
 				"pyright", -- Provides go to definition (ruff doesn't support this yet)
 				"bashls",
 				"eslint",
