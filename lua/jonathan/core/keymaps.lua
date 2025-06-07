@@ -29,6 +29,9 @@ keymap.set("v", "P", "y'>p", { desc = "Duplicate selection below" })
 
 keymap.set("v", "q", "<Esc>", { desc = "Exit visual line mode" })
 
+-- <C-s> to decrement is right next to increment (<C-a>)
+keymap.set("n", "<C-s>", "<C-x>", { desc = "Decrement number", noremap = true })
+
 -- keep cursor in position
 keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move half page down but center cursor" })
 keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move half page up but center cursor" })
