@@ -2,6 +2,10 @@ return {
 	"rmagatti/auto-session",
 	lazy = true,
 	config = function()
+		local disable = os.getenv("NVIM_DISABLE_AUTOSESSION")
+		if disable == "1" then
+			return
+		end
 		if vim.g.started_by_firenvim == true then
 			return
 		end
