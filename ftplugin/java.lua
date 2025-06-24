@@ -313,7 +313,7 @@ local on_attach = function(_, bufnr)
 	-- set keybinds
 	keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts("(Lspsaga) Show definition/references"))
 	keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts("Go to declaration"))
-	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts("(Lspsaga) See definition and make edits in window"))
+	keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts("Go to definition")) -- remove <cmd>Lspsaga peek_definition<CR> as this fails with "Cursor position outside buffer" error
 	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts("Go to implementation"))
 	keymap.set("n", "<leader>ga", "<cmd>Lspsaga code_action<CR>", opts("(Lspsaga) Show available code actions"))
 	keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("(Lspsaga) Smart rename"))
