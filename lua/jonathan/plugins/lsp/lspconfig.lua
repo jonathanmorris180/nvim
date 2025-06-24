@@ -88,8 +88,23 @@ return {
 			on_attach = on_attach,
 		})
 
-		-- configure python server
+		lspconfig["kotlin_language_server"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "kotlin" },
+			init_options = {},
+			cmd = { "kotlin-language-server" },
+			root_markers = {
+				"settings.gradle",
+				"settings.gradle.kts",
+				"build.xml",
+				"pom.xml",
+				"build.gradle",
+				"build.gradle.kts",
+			},
+		})
 
+		-- configure python server
 		if not vim.g.started_by_firenvim == true then
 			lspconfig["pyright"].setup({ -- Can be customized with pyproject.toml or pyrightconfig.json (see https://github.com/microsoft/pyright/blob/main/docs/configuration.md)
 				capabilities = capabilities,
