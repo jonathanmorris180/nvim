@@ -151,14 +151,9 @@ return {
 			"<CMD>Telescope resume<CR>",
 			{ desc = "(Telescope) Resume the previous telescope search" }
 		)
-		keymap.set(
-			"n",
-			"<leader>fw",
-			find_worktree,
-			{
-				desc = "(Telescope) Find git worktree (<C-d> deletes a worktree, <C-f> toggles forcing of next deletion)",
-			}
-		)
+		keymap.set("n", "<leader>fw", find_worktree, {
+			desc = "(Telescope) Find git worktree (<C-d> deletes a worktree, <C-f> toggles forcing of next deletion)",
+		})
 		keymap.set("n", "<leader>fn", create_worktree, { desc = "(Telescope) Create git worktree" })
 	end,
 }

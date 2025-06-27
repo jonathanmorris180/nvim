@@ -27,7 +27,13 @@ return {
 			on_attach = function(bufnr)
 				local api = require("nvim-tree.api")
 				local opts = function(desc)
-					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+					return {
+						desc = "(nvim-tree) " .. desc,
+						buffer = bufnr,
+						noremap = true,
+						silent = true,
+						nowait = true,
+					}
 				end
 
 				local mark_copy = function()
@@ -52,6 +58,34 @@ return {
 
 				-- default mappings
 				api.config.mappings.default_on_attach(bufnr)
+
+				local function change_root_to_node(node)
+					if node == nil then
+						node = api.tree.get_node_under_cursor()
+					end
+
+					if node ~= nil and node.type == "directory" then
+						vim.api.nvim_set_current_dir(node.absolute_path)
+					end
+					api.tree.change_root_to_node(node)
+				end
+
+				local function change_root_to_parent(node)
+					local abs_path
+					if node == nil then
+						abs_path = api.tree.get_nodes().absolute_path
+					else
+						abs_path = node.absolute_path
+					end
+
+					local parent_path = vim.fs.dirname(abs_path)
+					vim.api.nvim_set_current_dir(parent_path)
+					api.tree.change_root(parent_path)
+				end
+
+				-- Could be useful for monorepo work (found here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#change-nvims-working-directory-with-nvim-tree)
+				vim.keymap.set("n", "<C-]>", change_root_to_node, opts("Change root to dir"))
+				vim.keymap.set("n", "<C-[", change_root_to_parent, opts("Change root to parent"))
 
 				-- collapse all: W
 				-- help: g?
