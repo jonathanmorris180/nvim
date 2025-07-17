@@ -3,10 +3,12 @@ return {
 	lazy = true,
 	config = function()
 		local disable = os.getenv("NVIM_DISABLE_AUTOSESSION")
+		local last_argument = vim.v.argv[#vim.v.argv]
 		if disable == "1" then
 			return
-		end
-		if vim.g.started_by_firenvim == true then
+		elseif vim.g.started_by_firenvim == true then
+			return
+		elseif last_argument == "leetcode.nvim" then
 			return
 		end
 		require("auto-session").setup({

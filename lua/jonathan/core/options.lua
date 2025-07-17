@@ -86,3 +86,14 @@ vim.api.nvim_create_autocmd("User", {
 	command = "setfiletype markdown",
 	group = group,
 })
+
+-- Add line numbers for scratch buffers (also used for leetcode.nvim)
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	callback = function()
+		if vim.bo.buftype == "nofile" and vim.wo.number ~= true then -- only set if not already set
+			vim.wo.number = true
+			vim.wo.relativenumber = true
+		end
+	end,
+})
