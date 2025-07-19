@@ -49,6 +49,9 @@ opt.undofile = true
 -- line wrapping
 opt.wrap = true
 
+-- default border for floating windows
+opt.winborder = "rounded"
+
 -- search settings
 opt.ignorecase = true
 opt.smartcase = true

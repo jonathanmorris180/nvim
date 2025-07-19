@@ -30,6 +30,7 @@ return {
 				"pyright", -- Provides go to definition (ruff doesn't support this yet)
 				"bashls",
 				"kotlin_language_server",
+				"java_language_server",
 				"eslint",
 				"sqlls",
 				"ruff", -- python all-in-one - needs to be used in conjunction with pyright for now due to incomplete features

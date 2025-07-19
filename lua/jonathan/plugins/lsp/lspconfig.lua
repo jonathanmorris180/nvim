@@ -88,6 +88,30 @@ return {
 			on_attach = on_attach,
 		})
 
+		-- set native log levels for LSP
+		-- vim.lsp.set_log_level("DEBUG")
+
+		-- configure java-language-server
+		vim.lsp.config.java_language_server = {
+			cmd = { vim.fn.stdpath("data") .. "/mason/packages/java-language-server/java-language-server" },
+			capabilities = capabilities,
+			filetypes = { "java" },
+			root_markers = { "BUILD.bazel" }, -- only for monorepo
+		}
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if not client then
+					return
+				end
+
+				if client.name == "java_language_server" then
+					on_attach(client, vim.api.nvim_get_current_buf())
+				end
+			end,
+		})
+		vim.lsp.enable("java_language_server")
+
 		lspconfig["kotlin_language_server"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
