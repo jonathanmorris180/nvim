@@ -17,13 +17,6 @@ return {
 		-- format on save (from null_ls docs)
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-		-- prevents the "Invalid server name 'null-ls'" when using the built-in vim.lsp API
-		vim.lsp.config["null-ls"] = {
-			cmd = {},
-			---@diagnostic disable-next-line: undefined-field
-			root_markers = { vim.uv.cwd() },
-		}
-
 		-- configure null_ls
 		null_ls.setup({
 			-- setup formatters & linters

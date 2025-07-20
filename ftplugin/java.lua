@@ -67,7 +67,7 @@ end
 local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/" .. find_highest_temurin())
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
-local bazel_root_markers = { ".bazelproject" }
+local bazel_root_markers = { "BUILD.bazel" }
 local status, jdtls_setup = pcall(require, "jdtls.setup")
 if not status then
 	vim.notify("Could not load jdtls.setup", vim.log.levels.ERROR)
