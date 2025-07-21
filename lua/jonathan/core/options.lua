@@ -49,8 +49,8 @@ opt.undofile = true
 -- line wrapping
 opt.wrap = true
 
--- default border for floating windows
-opt.winborder = "rounded"
+-- border for floating windows (disabling since this causes telescope bordering to be weird)
+-- opt.winborder = "rounded"
 
 -- search settings
 opt.ignorecase = true
