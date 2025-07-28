@@ -18,6 +18,10 @@ function M.is_obsidian_vault()
 	return M.parent_pattern_exists({ ".obsidian" }) ~= nil
 end
 
+------------------
+--- Treesitter ---
+------------------
+
 -- Find nodes by type
 local function find_parent_by_type(expr, type_name)
 	while expr do
@@ -120,6 +124,10 @@ function M.get_current_full_method_name(delimiter)
 	return full_class_name .. delimiter .. method_name
 end
 
+--------------------
+--- General util ---
+--------------------
+
 local function escape_pattern(text)
 	return text:gsub("([^%w])", "%%%1")
 end
@@ -217,6 +225,12 @@ function M.get_visual_selection_text()
 	end
 end
 
+function M.copy_path()
+	local path = vim.fn.expand("%:p")
+	vim.fn.setreg("+", path)
+	vim.notify('Copied "' .. path .. '" to the clipboard!')
+end
+
 function M.switch_case()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local word = vim.fn.expand("<cword>")
@@ -239,7 +253,7 @@ function M.switch_case()
 	end
 end
 
-function M.edit_visual_selection(formatted_string)
+local function edit_visual_selection(formatted_string)
 	local _, srow, scol = unpack(vim.fn.getpos("v"))
 	local _, erow, ecol = unpack(vim.fn.getpos("."))
 	-- in case we start selecting from the end of the selection
@@ -260,7 +274,7 @@ end
 
 -- unused because the nvim-markdown plugin has a better implementation but keeping for reference as replacing a highlighted selection in the future might be useful
 function M.add_markdown_link()
-	M.edit_visual_selection("[%s](%s)")
+	edit_visual_selection("[%s](%s)")
 	-- Exit visual mode
 	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
 	vim.api.nvim_feedkeys(esc, "x", false)
@@ -268,21 +282,21 @@ function M.add_markdown_link()
 end
 
 function M.markdown_bold()
-	M.edit_visual_selection("**%s**")
+	edit_visual_selection("**%s**")
 	-- Exit visual mode because selection is now different - TODO: Select the surrounded word instead
 	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
 	vim.api.nvim_feedkeys(esc, "x", false)
 end
 
 function M.markdown_italic()
-	M.edit_visual_selection("*%s*")
+	edit_visual_selection("*%s*")
 	-- Exit visual mode
 	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
 	vim.api.nvim_feedkeys(esc, "x", false)
 end
 
 function M.markdown_strikethrough()
-	M.edit_visual_selection("~~%s~~")
+	edit_visual_selection("~~%s~~")
 	-- Exit visual mode
 	local esc = vim.api.nvim_replace_termcodes("<esc>", true, false, true)
 	vim.api.nvim_feedkeys(esc, "x", false)

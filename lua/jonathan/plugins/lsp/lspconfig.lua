@@ -7,7 +7,8 @@ return {
 		-- disable lsp logs ("off") unless needed so it doesn't create a huge file (switch to "debug" if needed)
 		vim.lsp.set_log_level("off")
 
-		local lspconfig = require("lspconfig") -- Neovim's built-in LSP client (:h lspconfig)
+		local lspconfig = require("lspconfig")
+		local lspconfig_util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		local keymap = vim.keymap -- for conciseness
@@ -93,7 +94,7 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			filetypes = { "java" },
-			root_markers = { "BUILD.bazel" }, -- only for monorepo
+			root_dir = lspconfig_util.root_pattern("BUILD.bazel"),
 		})
 
 		-- Leaving this here as an example for a future migration...
@@ -109,7 +110,14 @@ return {
 		-- 	cmd = { vim.fn.stdpath("data") .. "/mason/packages/java-language-server/java-language-server" },
 		-- 	capabilities = capabilities,
 		-- 	filetypes = { "java" },
-		-- 	root_markers = { "BUILD.bazel" }, -- only for monorepo
+		-- 	root_dir = function(_, on_dir)
+		-- 		-- If no BUILD.bazel is found, the server will not be activated
+		-- 		local root = vim.fs.root(0, "BUILD.bazel")
+		--
+		-- 		if root then
+		-- 			on_dir(root)
+		-- 		end
+		-- 	end,
 		-- }
 		-- vim.api.nvim_create_autocmd("LspAttach", {
 		-- 	callback = function(args)
