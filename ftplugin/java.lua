@@ -68,6 +68,7 @@ local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/" .. find_highest
 
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
 local bazel_root_markers = { "BUILD.bazel" }
+local kotlin_root_markers = { "kls_database.db" }
 local status, jdtls_setup = pcall(require, "jdtls.setup")
 if not status then
 	vim.notify("Could not load jdtls.setup", vim.log.levels.ERROR)
@@ -75,7 +76,7 @@ if not status then
 end
 local root_dir = jdtls_setup.find_root(root_markers)
 local bazel_root_dir = jdtls_setup.find_root(bazel_root_markers)
-if bazel_root_dir ~= nil then
+if bazel_root_dir ~= nil or kotlin_root_markers ~= nil then
 	-- Don't activate in monorepo
 	return
 end
