@@ -76,7 +76,8 @@ if not status then
 end
 local root_dir = jdtls_setup.find_root(root_markers)
 local bazel_root_dir = jdtls_setup.find_root(bazel_root_markers)
-if bazel_root_dir ~= nil or kotlin_root_markers ~= nil then
+local kotlin_root_dir = jdtls_setup.find_root(kotlin_root_markers)
+if bazel_root_dir ~= nil or kotlin_root_dir ~= nil then
 	-- Don't activate in monorepo
 	return
 end
