@@ -134,6 +134,7 @@ return {
 		-- vim.lsp.enable("java_language_server")
 		----------------------------------------------
 
+		-- kotlin_language_server (unofficial Kotlin LSP)
 		lspconfig["kotlin_language_server"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
@@ -265,7 +266,8 @@ return {
 		})
 
 		lspconfig["apex_ls"].setup({
-			apex_jar_path = vim.fn.stdpath("data") .. "/mason/packages/apex-language-server/extension/dist/apex-jorje-lsp.jar",
+			apex_jar_path = vim.fn.stdpath("data")
+				.. "/mason/packages/apex-language-server/extension/dist/apex-jorje-lsp.jar",
 			apex_enable_semantic_errors = false, -- Whether to allow Apex Language Server to surface semantic errors
 			apex_enable_completion_statistics = false, -- Whether to allow Apex Language Server to collect telemetry on code completion usage
 			filetypes = { "apex" },

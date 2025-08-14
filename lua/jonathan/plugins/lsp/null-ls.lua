@@ -34,8 +34,8 @@ return {
 					extra_filetypes = { "apex" },
 				}), -- js/ts/apex formatter
 				formatting.stylua, -- lua formatter
-				formatting.ktlint,
-				diagnostics.ktlint, -- kotlin linter with built-in formatter
+				-- formatting.ktlint, -- disabling as it conflicts with formatting in monorepo
+				-- diagnostics.ktlint, -- kotlin linter with built-in formatter
 				diagnostics.pmd.with({
 					filetypes = { "apex" },
 					condition = function(utils)
