@@ -1,3 +1,22 @@
+local utils = require("jonathan.core.utils")
+local treesitter_utils = require("jonathan.core.treesitter-utils")
+
+local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
+local bazel_root_markers = { "BUILD.bazel" }
+local kotlin_root_markers = { ".gradlew.swp" }
+
+local root_dir = utils.parent_pattern_exists(root_markers)
+local bazel_root_dir = utils.parent_pattern_exists(bazel_root_markers)
+local kotlin_root_dir = utils.parent_pattern_exists(kotlin_root_markers)
+if bazel_root_dir ~= nil or kotlin_root_dir ~= nil then
+	-- Don't activate in monorepo
+	return
+end
+
+if root_dir == nil then
+	vim.notify("Could not find root dir for jdtls")
+	return
+end
 local jdtls_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
 
 local function get_config_dir()
@@ -64,29 +83,9 @@ local highest_temurin = find_highest_temurin()
 if not highest_temurin then
 	vim.notify("Temurin SDK not found - please install the latest Temurin SDK with sdkman", vim.log.levels.ERROR)
 end
-local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/" .. find_highest_temurin())
+local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/" .. highest_temurin)
 
-local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" } -- these tell the lsp that we are in a java project
-local bazel_root_markers = { "BUILD.bazel" }
-local kotlin_root_markers = { "kls_database.db" }
-local status, jdtls_setup = pcall(require, "jdtls.setup")
-if not status then
-	vim.notify("Could not load jdtls.setup", vim.log.levels.ERROR)
-	return
-end
-local root_dir = jdtls_setup.find_root(root_markers)
-local bazel_root_dir = jdtls_setup.find_root(bazel_root_markers)
-local kotlin_root_dir = jdtls_setup.find_root(kotlin_root_markers)
-if bazel_root_dir ~= nil or kotlin_root_dir ~= nil then
-	-- Don't activate in monorepo
-	return
-end
-if root_dir == "" then
-	vim.notify("Could not find root dir for jdtls")
-	return
-end
-
-local maven_module = require("jonathan.core.utils").get_maven_module()
+local maven_module = utils.get_maven_module()
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:h:t")
 	.. "_"
@@ -250,14 +249,12 @@ local on_attach = function(_, bufnr)
 	end
 
 	local function run_java_test_method(debug)
-		local utils = require("jonathan.core.utils")
-		local method_name = utils.get_current_full_method_name("#")
+		local method_name = treesitter_utils.get_current_full_method_name("#")
 		tmux_execute_in_next_window(get_test_runner(method_name, debug))
 	end
 
 	local function run_java_test_class(debug)
-		local utils = require("jonathan.core.utils")
-		local class_name = utils.get_current_full_class_name()
+		local class_name = treesitter_utils.get_current_full_class_name()
 		tmux_execute_in_next_window(get_test_runner(class_name, debug))
 	end
 
