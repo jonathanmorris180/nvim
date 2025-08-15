@@ -22,7 +22,7 @@ return {
 
 			-- set keybinds
 			keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts("(Lspsaga) Show definition/references"))
-			keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts("Go to declaration"))
+			keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts("Go to declaration"))
 			keymap.set(
 				"n",
 				"gd",
@@ -119,36 +119,21 @@ return {
 		-- 		end
 		-- 	end,
 		-- }
-		-- vim.api.nvim_create_autocmd("LspAttach", {
-		-- 	callback = function(args)
-		-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		-- 		if not client then
-		-- 			return
-		-- 		end
-		--
-		-- 		if client.name == "java_language_server" then
-		-- 			on_attach(client, vim.api.nvim_get_current_buf())
-		-- 		end
-		-- 	end,
-		-- })
 		-- vim.lsp.enable("java_language_server")
 		----------------------------------------------
 
-		-- kotlin_language_server (unofficial Kotlin LSP)
-		lspconfig["kotlin_language_server"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "kotlin" },
-			init_options = {},
-			cmd = { "kotlin-language-server" },
-			root_markers = {
-				"settings.gradle",
-				"settings.gradle.kts",
-				"build.xml",
-				"pom.xml",
-				"build.gradle",
-				"build.gradle.kts",
-			},
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if not client then
+					return
+				end
+
+				-- Set up keymaps for kotlin.nvim
+				if client.name == "kotlin_ls" then
+					on_attach(client, vim.api.nvim_get_current_buf())
+				end
+			end,
 		})
 
 		-- configure python server

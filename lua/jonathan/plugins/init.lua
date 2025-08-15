@@ -1,3 +1,4 @@
+local utils = require("jonathan.core.utils")
 return {
 	-- note: you can lazy load plugins on certain keybinds too with the "keys" property (see :h lazy.nvim)
 	{
@@ -45,7 +46,7 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 	},
 	-- java
-	{ "mfussenegger/nvim-jdtls" },
+	{ "mfussenegger/nvim-jdtls", enabled = not utils.is_kotlin_monorepo() },
 	-- markdown preview
 	{
 		"iamcco/markdown-preview.nvim",
