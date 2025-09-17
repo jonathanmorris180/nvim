@@ -1,6 +1,7 @@
 return {
 	"AlexandrosAlexiou/kotlin.nvim",
 	ft = { "kotlin" },
+	commit = "42131cb44fe151019a62667466b36c363a1bd1a2",
 	dependencies = { "mason.nvim", "mason-lspconfig.nvim" },
 	config = function()
 		require("kotlin").setup({
