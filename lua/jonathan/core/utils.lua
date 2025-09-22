@@ -1,5 +1,19 @@
 local M = {}
 
+function M.parent_dir_exists(pattern)
+	local current_dir = vim.fn.getcwd()
+
+	while current_dir ~= "/" do
+		local config_path = current_dir .. "/" .. pattern
+		if vim.fn.isdirectory(config_path) == 1 then
+			return config_path
+		end
+		current_dir = vim.fn.fnamemodify(current_dir, ":h")
+	end
+
+	return nil
+end
+
 function M.parent_pattern_exists(root_patterns)
 	return vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1])
 end

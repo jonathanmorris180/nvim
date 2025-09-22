@@ -10,6 +10,7 @@ return {
 		local lspconfig = require("lspconfig")
 		local lspconfig_util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		local utils = require("jonathan.core.utils")
 
 		local keymap = vim.keymap -- for conciseness
 
@@ -89,6 +90,11 @@ return {
 		--------------------------------
 		--- Natively managed configs ---
 		--------------------------------
+
+		local config_dir = utils.parent_dir_exists(".nvim")
+		if config_dir then
+			vim.opt.runtimepath:append(config_dir) -- per-project config with .nvim dir
+		end
 
 		vim.lsp.enable("gopls")
 
