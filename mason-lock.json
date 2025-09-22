@@ -4,6 +4,7 @@
   "css-lsp": "4.10.0",
   "emmet-ls": "0.4.2",
   "eslint-lsp": "4.10.0",
+  "gopls": "v0.20.0",
   "html-lsp": "4.10.0",
   "java-language-server": "v0.2.39",
   "jdtls": "v1.48.0",

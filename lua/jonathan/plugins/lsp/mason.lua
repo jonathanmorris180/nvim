@@ -34,6 +34,7 @@ return {
 				"eslint",
 				"sqlls",
 				"ruff", -- python all-in-one - needs to be used in conjunction with pyright for now due to incomplete features
+				"gopls",
 			},
 			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed. This is NOT the same as ensure_installed since that's just a static list.
 			automatic_installation = true,

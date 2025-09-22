@@ -75,6 +75,9 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		-- See https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#capabilities
 		local capabilities = cmp_nvim_lsp.default_capabilities()
+		vim.lsp.config("*", {
+			capablities = capabilities, -- defines nvim-cmp capabilities for all natively managed LSPs
+		})
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		local signs = { Error = " ", Warn = " ", Hint = "ﴞ ", Info = " " }
@@ -82,6 +85,30 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
+
+		--------------------------------
+		--- Natively managed configs ---
+		--------------------------------
+
+		vim.lsp.enable("gopls")
+
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if not client then
+					return
+				end
+
+				-- Set up keymaps
+				if vim.tbl_contains({ "kotlin_ls", "gopls" }, client.name) then
+					on_attach(client, vim.api.nvim_get_current_buf())
+				end
+			end,
+		})
+
+		------------------------------
+		--- nvim-lspconfig configs ---
+		------------------------------
 
 		-- configure html server
 		lspconfig["html"].setup({
@@ -103,8 +130,6 @@ return {
 		-- since that's what most people seem to be using
 		--
 		----------------------------------------------
-		-- set native log levels for LSP
-		-- vim.lsp.set_log_level("DEBUG")
 		-- configure java-language-server with native LSP APIs
 		-- vim.lsp.config.java_language_server = {
 		-- 	cmd = { vim.fn.stdpath("data") .. "/mason/packages/java-language-server/java-language-server" },
@@ -121,20 +146,6 @@ return {
 		-- }
 		-- vim.lsp.enable("java_language_server")
 		----------------------------------------------
-
-		vim.api.nvim_create_autocmd("LspAttach", {
-			callback = function(args)
-				local client = vim.lsp.get_client_by_id(args.data.client_id)
-				if not client then
-					return
-				end
-
-				-- Set up keymaps for kotlin.nvim
-				if client.name == "kotlin_ls" then
-					on_attach(client, vim.api.nvim_get_current_buf())
-				end
-			end,
-		})
 
 		-- configure python server
 		if not vim.g.started_by_firenvim == true then
