@@ -14,9 +14,6 @@ return {
 		local formatting = null_ls.builtins.formatting -- to setup formatters
 		local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
-		-- format on save (from null_ls docs)
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
 		-- configure null_ls
 		null_ls.setup({
 			-- setup formatters & linters
@@ -30,6 +27,7 @@ return {
 				formatting.sql_formatter.with({ -- install with Mason or npm -g (see https://github.com/sql-formatter-org/sql-formatter#readme)
 					extra_args = { "--config", '{"language": "postgresql", "tabWidth": 2, "keywordCase": "upper"}' },
 				}),
+				formatting.gofmt, -- golang formatting
 				formatting.prettier.with({
 					extra_filetypes = { "apex" },
 				}), -- js/ts/apex formatter
@@ -59,6 +57,9 @@ return {
 			-- configure format on save
 			on_attach = function(current_client, bufnr)
 				local utils = require("jonathan.core.utils")
+				-- format on save (from null_ls docs)
+				local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 				if current_client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 					vim.api.nvim_create_autocmd("BufWritePre", {
