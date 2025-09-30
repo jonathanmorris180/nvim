@@ -18,6 +18,7 @@ return {
 		null_ls.setup({
 			-- setup formatters & linters
 			debug = false,
+			-- log_level = "debug",
 			sources = {
 				--  to disable file types use
 				--  "formatting.prettier.with({disabled_filetypes = {}})" (see null-ls docs)
