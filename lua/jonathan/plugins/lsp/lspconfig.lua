@@ -7,7 +7,6 @@ return {
 		-- disable lsp logs ("off") unless needed so it doesn't create a huge file (switch to "debug" if needed)
 		vim.lsp.set_log_level("off")
 
-		local lspconfig = require("lspconfig")
 		local lspconfig_util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local utils = require("jonathan.core.utils")
@@ -15,6 +14,7 @@ return {
 		local keymap = vim.keymap -- for conciseness
 
 		-- First param is the client - it has all the properties from :h lsp-client
+		---@diagnostic disable-next-line: unused-local
 		local on_attach = function(client, bufnr)
 			-- keybind options
 			local opts = function(desc)
@@ -106,9 +106,7 @@ return {
 				end
 
 				-- Set up keymaps
-				if vim.tbl_contains({ "kotlin_ls", "gopls" }, client.name) then
-					on_attach(client, vim.api.nvim_get_current_buf())
-				end
+				on_attach(client, vim.api.nvim_get_current_buf())
 			end,
 		})
 
@@ -117,47 +115,18 @@ return {
 		------------------------------
 
 		-- configure html server
-		lspconfig["html"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
+		vim.lsp.enable("html")
 
-		lspconfig["java_language_server"].setup({
+		vim.lsp.config("java_language_server", {
 			cmd = { vim.fn.stdpath("data") .. "/mason/packages/java-language-server/java-language-server" },
-			capabilities = capabilities,
-			on_attach = on_attach,
 			filetypes = { "java" },
 			root_dir = lspconfig_util.root_pattern("BUILD.bazel"),
 		})
-
-		-- Leaving this here as an example for a future migration...
-		-- NOTE: This resulted in an "Invalid server name 'null-ls'" error since the native lsp tried to manage null-ls as an actual LSP
-		-- This means that when I migrate over eventually I'll probably have to also move to conform.nvim and nvim-lint as a replacemnt
-		-- since that's what most people seem to be using
-		--
-		----------------------------------------------
-		-- configure java-language-server with native LSP APIs
-		-- vim.lsp.config.java_language_server = {
-		-- 	cmd = { vim.fn.stdpath("data") .. "/mason/packages/java-language-server/java-language-server" },
-		-- 	capabilities = capabilities,
-		-- 	filetypes = { "java" },
-		-- 	root_dir = function(_, on_dir)
-		-- 		-- If no BUILD.bazel is found, the server will not be activated
-		-- 		local root = vim.fs.root(0, "BUILD.bazel")
-		--
-		-- 		if root then
-		-- 			on_dir(root)
-		-- 		end
-		-- 	end,
-		-- }
-		-- vim.lsp.enable("java_language_server")
-		----------------------------------------------
+		vim.lsp.enable("java_language_server")
 
 		-- configure python server
 		if not vim.g.started_by_firenvim == true then
-			lspconfig["pyright"].setup({ -- Can be customized with pyproject.toml or pyrightconfig.json (see https://github.com/microsoft/pyright/blob/main/docs/configuration.md)
-				capabilities = capabilities,
-				on_attach = on_attach,
+			vim.lsp.config("pyright", {
 				filetypes = { "python" },
 				settings = { -- see settings here: https://github.com/microsoft/pyright/blob/main/docs/settings.md
 					python = {
@@ -170,19 +139,18 @@ return {
 					},
 				},
 			})
-
+			vim.lsp.enable("pyright")
 			-- Pyright can't be replaced with this yet since it doesn't have all LSP features (like go to definition)
 			-- This is still useful for linting issues though
-			lspconfig["ruff"].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
+			vim.lsp.config("ruff", {
 				filetypes = { "python" },
 				cmd = { "ruff", "server" },
 			})
+			vim.lsp.enable("ruff")
 		end
 
 		-- configure typescript server with plugin
-		lspconfig["ts_ls"].setup({
+		vim.lsp.config("ts_ls", {
 			init_options = {
 				-- relative imports
 				preferences = {
@@ -198,83 +166,102 @@ return {
 				"javascriptreact",
 				"vue",
 			},
-			capabilities = capabilities,
-			on_attach = on_attach,
 		})
+		vim.lsp.enable("ts_ls")
 
 		-- configure css server
-		lspconfig["cssls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
+		vim.lsp.enable("cssls")
 
 		-- configure bash server
-		lspconfig["bashls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
+		vim.lsp.enable("bashls")
 
 		-- configure tailwindcss server
-		lspconfig["tailwindcss"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
+		vim.lsp.enable("tailwindcss")
 
 		-- configure emmet language server
-		lspconfig["emmet_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
+		vim.lsp.config("emmet_ls", {
 			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 		})
+		vim.lsp.enable("emmet_ls")
 
-		lspconfig["eslint"].setup({ -- search for current issues: https://github.com/neovim/nvim-lspconfig/issues?q=is%3Aissue+eslint (this has broken with new versions of eslint-lsp in the past, downgrade with :MasonInstall eslint-lsp@<version> if needed)
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
+		vim.lsp.enable("eslint")
 
 		-- configure lua server
-		lspconfig["lua_ls"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
+		vim.lsp.config("lua_ls", {
 			on_init = function(client)
-				local path = client.workspace_folders[1].name
-				if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-					client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-						Lua = {
-							runtime = {
-								-- Tell the language server which version of Lua you're using
-								-- (most likely LuaJIT in the case of Neovim)
-								version = "LuaJIT",
-							},
-							workspace = {
-								checkThirdParty = false,
-								library = {
-									vim.env.VIMRUNTIME .. "/lua",
-									"${3rd}/luv/library",
-									"${3rd}/busted/library",
-								},
-								-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-								-- library = vim.api.nvim_get_runtime_file("", true),
-							},
-							diagnostics = {
-								globals = { "vim" },
-							},
-						},
-					})
-
-					client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+				if client.workspace_folders then
+					local path = client.workspace_folders[1].name
+					if
+						path ~= vim.fn.stdpath("config")
+						and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+					then
+						return
+					end
 				end
-			end,
-		})
 
-		lspconfig["apex_ls"].setup({
-			apex_jar_path = vim.fn.stdpath("data")
-				.. "/mason/packages/apex-language-server/extension/dist/apex-jorje-lsp.jar",
-			apex_enable_semantic_errors = false, -- Whether to allow Apex Language Server to surface semantic errors
-			apex_enable_completion_statistics = false, -- Whether to allow Apex Language Server to collect telemetry on code completion usage
-			filetypes = { "apex" },
-			on_attach = on_attach,
-			capabilities = capabilities,
+				client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+					runtime = {
+						-- Tell the language server which version of Lua you're using (most
+						-- likely LuaJIT in the case of Neovim)
+						version = "LuaJIT",
+						-- Tell the language server how to find Lua modules same way as Neovim
+						-- (see `:h lua-module-load`)
+						path = {
+							"lua/?.lua",
+							"lua/?/init.lua",
+						},
+					},
+					-- Make the server aware of Neovim runtime files
+					workspace = {
+						checkThirdParty = false,
+						library = {
+							vim.env.VIMRUNTIME,
+							"${3rd}/luv/library",
+							-- '${3rd}/busted/library'
+						},
+						-- Or pull in all of 'runtimepath'.
+						-- NOTE: this is a lot slower and will cause issues when working on
+						-- your own configuration.
+						-- See https://github.com/neovim/nvim-lspconfig/issues/3189
+						-- library = {
+						--   vim.api.nvim_get_runtime_file('', true),
+						-- }
+					},
+				})
+			end,
+			settings = {
+				Lua = {},
+			},
 		})
+		vim.lsp.enable("lua_ls")
+
+		vim.lsp.config("apex_ls", {
+			cmd = function(dispatchers, _)
+				local apex_jar_path = vim.fn.stdpath("data")
+					.. "/mason/packages/apex-language-server/extension/dist/apex-jorje-lsp.jar"
+				local apex_enable_semantic_errors = false -- Whether to allow Apex Language Server to surface semantic errors
+				local apex_enable_completion_statistics = false -- Whether to allow Apex Language Server to collect telemetry on code completion usage
+				local local_cmd = {
+					vim.env.JAVA_HOME and (vim.env.JAVA_HOME .. "/bin/java") or "java",
+					"-cp",
+					apex_jar_path,
+					"-Ddebug.internal.errors=true",
+					"-Ddebug.semantic.errors=" .. tostring(apex_enable_semantic_errors or false),
+					"-Ddebug.completion.statistics=" .. tostring(apex_enable_completion_statistics or false),
+					"-Dlwc.typegeneration.disabled=true",
+				}
+				-- if config.apex_jvm_max_heap then
+				-- 	table.insert(local_cmd, "-Xmx" .. config.apex_jvm_max_heap)
+				-- end
+				table.insert(local_cmd, "apex.jorje.lsp.ApexLanguageServerLauncher")
+
+				return vim.lsp.rpc.start(local_cmd, dispatchers)
+			end,
+			filetypes = { "apex" },
+			root_markers = {
+				"sfdx-project.json",
+			},
+		})
+		vim.lsp.enable("apex_ls")
 	end,
 }

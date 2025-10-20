@@ -60,6 +60,10 @@ return {
 				{ name = "luasnip", keyword_length = 4 }, -- snippets
 				-- { name = "copilot" }, disable for now since it's getting annoying
 				{ name = "vimtex" },
+				{
+					name = "lazydev",
+					group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+				},
 			}),
 			sorting = {
 				priority_weight = 2,
