@@ -16,14 +16,19 @@ local function format_json()
 end
 
 local function format_file()
-	vim.lsp.buf.format()
+	local conform = require("conform")
+	conform.format({
+		lsp_format = "fallback",
+		async = false,
+		timeout_ms = 3000,
+	})
 end
 
 keymap.set("n", "<leader>fx", "<CMD>%!xmllint '%' --format<CR>", { desc = "Format XML" })
 
 keymap.set("n", "<leader>fj", format_json, { desc = "Format JSON" })
 
-keymap.set("n", "<leader>F", format_file, { desc = "Format file" })
+keymap.set("n", "<leader>F", format_file, { desc = "Format file with conform" })
 
 keymap.set("v", "P", "y'>p", { desc = "Duplicate selection below" })
 
