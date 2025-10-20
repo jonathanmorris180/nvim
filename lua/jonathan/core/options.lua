@@ -48,10 +48,14 @@ opt.autoindent = true
 opt.smartindent = true
 
 -- undo
+local undo_dir = vim.fn.stdpath("data") .. "/undo"
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+
 opt.swapfile = false
 opt.backup = false
----@diagnostic disable-next-line: assign-type-mismatch
-opt.undodir = os.getenv("HOME") .. "/.vim/.undo"
+opt.undodir = undo_dir
 opt.undofile = true
 
 -- line wrapping
