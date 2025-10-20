@@ -75,13 +75,6 @@ return {
       capablities = capabilities, -- defines nvim-cmp capabilities for all natively managed LSPs
     })
 
-    -- Change the Diagnostic symbols in the sign column (gutter)
-    local signs = { Error = " ", Warn = " ", Hint = "ﴞ ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
-
     --------------------------------
     --- Natively managed configs ---
     --------------------------------

@@ -19,6 +19,14 @@ vim.filetype.add({
 -- see :h vim.diagnostic.Opts
 -- Diagnostics can also be searched with :Telescope diagnostics
 vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.HINT] = "",
+    },
+  },
   float = {
     source = true,
     border = "rounded",
