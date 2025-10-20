@@ -3,12 +3,24 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local conform = require("conform")
+    local utils = require("jonathan.core.utils")
+
+    local augroup = vim.api.nvim_create_augroup("formatting", { clear = true })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      callback = function(args)
+        if utils.is_obsidian_vault() then
+          utils.format_bullet_list() -- format bullet list for Obsidian
+        end
+      end,
+    })
 
     conform.setup({
       formatters_by_ft = {
         lua = { "stylua" }, -- respects stylua.toml
         python = { "isort", "black" },
         javascript = { "prettier" },
+        typescript = { "prettier" },
         go = { "gofmt" },
         sql = { "sql_formatter" },
         apex = { "prettier" },
@@ -24,7 +36,7 @@ return {
       format_on_save = {
         lsp_format = "fallback",
         async = false,
-        timeout_ms = 3000,
+        timeout_ms = 3000, -- Apex prettier formatter is slow
       },
     })
   end,
