@@ -36,7 +36,7 @@ return {
       format_on_save = {
         lsp_format = "fallback",
         async = false,
-        timeout_ms = 3000, -- Apex prettier formatter is slow
+        timeout_ms = 5000, -- Apex prettier formatter is slow and so is Black
       },
     })
   end,
