@@ -1,6 +1,6 @@
 local is_tex_project = require("jonathan.core.utils").is_tex_project()
 if not is_tex_project then
-	return
+  return
 end
 
 vim.g.maplocalleader = " "

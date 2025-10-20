@@ -11,17 +11,17 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line down" })
 
 local function format_json()
-	vim.cmd(":set filetype=json")
-	vim.cmd(":%!jq '.'")
+  vim.cmd(":set filetype=json")
+  vim.cmd(":%!jq '.'")
 end
 
 local function format_file()
-	local conform = require("conform")
-	conform.format({
-		lsp_format = "fallback",
-		async = false,
-		timeout_ms = 3000,
-	})
+  local conform = require("conform")
+  conform.format({
+    lsp_format = "fallback",
+    async = false,
+    timeout_ms = 3000,
+  })
 end
 
 keymap.set("n", "<leader>fx", "<CMD>%!xmllint '%' --format<CR>", { desc = "Format XML" })
@@ -62,10 +62,10 @@ keymap.set("n", "<leader>th", "<CMD>tabp<CR>", { desc = "Go to previous tab" })
 -- allow copy to clipboard
 keymap.set("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 keymap.set(
-	"n",
-	"<leader>yp",
-	utils.copy_path,
-	{ desc = "Copy relative path of current buffer to the system clipboard" }
+  "n",
+  "<leader>yp",
+  utils.copy_path,
+  { desc = "Copy relative path of current buffer to the system clipboard" }
 )
 
 -- enable/disable diagnostics
@@ -73,10 +73,10 @@ keymap.set("n", "<leader>dd", "<CMD>DisableDiagnostics<CR>", { desc = "Disable d
 keymap.set("n", "<leader>de", "<CMD>EnableDiagnostics<CR>", { desc = "Enable diagnostics" })
 
 vim.api.nvim_create_user_command("DisableDiagnostics", function()
-	vim.diagnostic.enable(false)
+  vim.diagnostic.enable(false)
 end, {})
 vim.api.nvim_create_user_command("EnableDiagnostics", function()
-	vim.diagnostic.enable()
+  vim.diagnostic.enable()
 end, {})
 
 -- quickfix
@@ -105,10 +105,10 @@ keymap.set("n", "<leader>e", "<CMD>NvimTreeToggle<CR>", { desc = "(nvim-tree) To
 -- Git
 keymap.set("n", "<leader>gb", "<CMD>Git<Space>blame<CR>", { desc = "(Fugitive) Open git blame" })
 keymap.set(
-	"n",
-	"<leader>gg",
-	"<CMD>G<CR>",
-	{ desc = "(Fugitive) Opens the fugitive window (dd can be used for vertical diff)" }
+  "n",
+  "<leader>gg",
+  "<CMD>G<CR>",
+  { desc = "(Fugitive) Opens the fugitive window (dd can be used for vertical diff)" }
 )
 -- Note that it seems there are no plans to add an equivalent of "git add ." to fugitive: https://github.com/tpope/vim-fugitive/issues/2366
 keymap.set("n", "<leader>do", "<CMD>DiffviewOpen<CR>", { desc = "(Diffview) Open diffview (conflicts)" })
@@ -141,53 +141,53 @@ keymap.set("n", "<leader>sc", "<CMD>SwitchCase<CR>", { desc = "Switch from camel
 
 -- conditional file type for .cls files
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*.cls" },
-	callback = function()
-		local is_tex_project = utils.is_tex_project()
-		if not is_tex_project then
-			vim.bo.filetype = "apex"
-		end
-	end,
+  pattern = { "*.cls" },
+  callback = function()
+    local is_tex_project = utils.is_tex_project()
+    if not is_tex_project then
+      vim.bo.filetype = "apex"
+    end
+  end,
 })
 
 -- set filetype to markdown for all firenvim GitHub buffers
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = "github.com_*.txt",
-	command = "set filetype=markdown",
+  pattern = "github.com_*.txt",
+  command = "set filetype=markdown",
 })
 
 -- cool commands to capture the output of a command
 -- see here: https://www.reddit.com/r/neovim/comments/1g1xyi3/capture_the_command_output/
 vim.keymap.set("n", "y:", function()
-	local ok, input_cmd = pcall(vim.fn.input, {
-		prompt = "(yank) :",
-		default = "",
-		completion = "command",
-		cancelreturn = "",
-	})
-	if not ok or input_cmd == "" then
-		return
-	end
-	local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
-	vim.fn.setreg(vim.v.register, output)
+  local ok, input_cmd = pcall(vim.fn.input, {
+    prompt = "(yank) :",
+    default = "",
+    completion = "command",
+    cancelreturn = "",
+  })
+  if not ok or input_cmd == "" then
+    return
+  end
+  local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
+  vim.fn.setreg(vim.v.register, output)
 end, { desc = "Yank output of command mode command" })
 
 vim.keymap.set("n", "<C-W>:", function()
-	local ok, input_cmd = pcall(vim.fn.input, {
-		prompt = "(capture) :",
-		default = "",
-		completion = "command",
-		cancelreturn = "",
-	})
-	if not ok or input_cmd == "" then
-		return
-	end
-	local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
-	local buf = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, "\n"))
-	vim.api.nvim_open_win(buf, true, {
-		height = vim.o.cmdwinheight,
-		split = "right",
-		win = 0,
-	})
+  local ok, input_cmd = pcall(vim.fn.input, {
+    prompt = "(capture) :",
+    default = "",
+    completion = "command",
+    cancelreturn = "",
+  })
+  if not ok or input_cmd == "" then
+    return
+  end
+  local output = vim.api.nvim_exec2(input_cmd, { output = true }).output
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, "\n"))
+  vim.api.nvim_open_win(buf, true, {
+    height = vim.o.cmdwinheight,
+    split = "right",
+    win = 0,
+  })
 end, { desc = "Open output of command-mode command in new buffer" })

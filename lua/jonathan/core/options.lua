@@ -3,26 +3,26 @@ vim.g.mapleader = " "
 
 -- file types
 vim.filetype.add({
-	extension = {
-		cls = "apex",
-		apex = "apex",
-		trigger = "apex",
-		soql = "soql",
-		sosl = "sosl",
-		page = "html",
-		cmp = "html",
-		auradoc = "html",
-		design = "html",
-	},
+  extension = {
+    cls = "apex",
+    apex = "apex",
+    trigger = "apex",
+    soql = "soql",
+    sosl = "sosl",
+    page = "html",
+    cmp = "html",
+    auradoc = "html",
+    design = "html",
+  },
 })
 
 -- see :h vim.diagnostic.Opts
 -- Diagnostics can also be searched with :Telescope diagnostics
 vim.diagnostic.config({
-	float = {
-		source = true,
-		border = "rounded",
-	},
+  float = {
+    source = true,
+    border = "rounded",
+  },
 })
 
 -- opt.conceallevel = 1 -- for obsidian.nvim (only use if markdown.nvim is diabled)
@@ -85,18 +85,18 @@ vim.g.nvim_ghost_python_executable = "/Users/jonathanmorris/.pyenv/shims/python"
 local group = vim.api.nvim_create_augroup("nvim_ghost_user_autocommands", { clear = true })
 
 vim.api.nvim_create_autocmd("User", {
-	pattern = { "*github.com" },
-	command = "setfiletype markdown",
-	group = group,
+  pattern = { "*github.com" },
+  command = "setfiletype markdown",
+  group = group,
 })
 
 -- Add line numbers for scratch buffers (also used for leetcode.nvim)
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
-	callback = function()
-		if vim.bo.buftype == "nofile" and vim.wo.number ~= true then -- only set if not already set
-			vim.wo.number = true
-			vim.wo.relativenumber = true
-		end
-	end,
+  pattern = "*",
+  callback = function()
+    if vim.bo.buftype == "nofile" and vim.wo.number ~= true then -- only set if not already set
+      vim.wo.number = true
+      vim.wo.relativenumber = true
+    end
+  end,
 })
