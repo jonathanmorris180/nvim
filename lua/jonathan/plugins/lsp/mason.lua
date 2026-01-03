@@ -1,5 +1,5 @@
 return {
-  "williamboman/mason.nvim", -- LSP server, linter, and formatter manager
+  "williamboman/mason.nvim",             -- LSP server, linter, and formatter manager
   dependencies = {
     "williamboman/mason-lspconfig.nvim", -- ties mason with nvim-lspconfig
     "jay-babu/mason-nvim-dap.nvim",
