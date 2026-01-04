@@ -1,5 +1,5 @@
 return {
-  "nvim-tree/nvim-tree.lua", -- file explorer
+  "nvim-tree/nvim-tree.lua",                        -- file explorer
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- icons in file explorer
   config = function()
     local nvimtree = require("nvim-tree")

@@ -13,7 +13,7 @@ return {
   -- },
   {
     "zapling/mason-lock.nvim", -- Adds lockfile support to Mason until this is resolved: https://github.com/williamboman/mason.nvim/issues/1701
-    config = true, -- Config written to vim.fn.stdpath("config") .. "/mason-lock.json"
+    config = true,             -- Config written to vim.fn.stdpath("config") .. "/mason-lock.json"
   },
   { "echasnovski/mini.nvim", version = "*" },
   { "ixru/nvim-markdown" },
@@ -35,12 +35,12 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {},
   },
-  { "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { "sindrets/diffview.nvim",         dependencies = { "nvim-tree/nvim-web-devicons" } },
   { "christoomey/vim-tmux-navigator", lazy = false },
   "mbbill/undotree",
   "tpope/vim-fugitive",
   -- makes resolving merge conflicts easy ([x maps to next conflict)
-  { "metakirby5/codi.vim", event = { "BufReadPre", "BufNewFile" } },
+  { "metakirby5/codi.vim",     event = { "BufReadPre", "BufNewFile" } },
   {
     "rcarriga/cmp-dap",
     event = { "BufReadPre", "BufNewFile" },

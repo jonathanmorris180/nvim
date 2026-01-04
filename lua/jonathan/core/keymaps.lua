@@ -100,7 +100,7 @@ keymap.set("n", "<Down>", "10<C-w><", { desc = "Decrease window width" })
 ---------------------
 -- Plugin Keybinds --
 ---------------------
-keymap.set("n", "<leader>e", "<CMD>NvimTreeToggle<CR>", { desc = "(nvim-tree) Toggle nvim-tree" })
+keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "(Oil) Open oil" })
 
 -- Git
 keymap.set("n", "<leader>gb", "<CMD>Git<Space>blame<CR>", { desc = "(Fugitive) Open git blame" })
