@@ -64,7 +64,7 @@ return {
       -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
       delete_to_trash = false,
       -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
-      skip_confirm_for_simple_edits = false,
+      skip_confirm_for_simple_edits = true,
       -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
       -- (:help prompt_save_on_select_new_entry)
       prompt_save_on_select_new_entry = true,
@@ -100,6 +100,7 @@ return {
         ["<C-t>"] = { "actions.select", opts = { tab = true } },
         ["<C-c>"] = { "actions.close", mode = "n" },
         ["<C-l>"] = false,
+        ["<C-h>"] = false,
         ["R"] = "actions.refresh",
         ["-"] = { "actions.parent", mode = "n" },
         ["H"] = { "actions.parent", mode = "n" },
@@ -115,7 +116,7 @@ return {
       use_default_keymaps = true,
       view_options = {
         -- Show files and directories that start with "."
-        show_hidden = false,
+        show_hidden = true,
         -- This function defines what is considered a "hidden" file
         is_hidden_file = function(name, bufnr)
           local m = name:match("^%.")

@@ -74,11 +74,16 @@ opt.cursorline = true
 -- time before vim waits to trigger an event (after typing, for example)
 opt.updatetime = 50
 
+-- enable project-specific configuration via :h 'exrc'
+opt.exrc = true
+opt.secure = true
+
 -- appearance
 opt.scrolloff = 8 -- no fewer than 8 lines from bottom or top when you scroll down/up
 opt.termguicolors = true
 opt.background = "dark"
-opt.signcolumn = "yes" -- ensures that the column for icons is always present so that line numbers don't move when icons appear/disappear
+opt.signcolumn =
+"yes" -- ensures that the column for icons is always present so that line numbers don't move when icons appear/disappear
 
 -- makes backspace work correctly
 opt.backspace = "indent,eol,start"

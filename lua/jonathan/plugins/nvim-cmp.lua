@@ -2,13 +2,13 @@ return {
   "hrsh7th/nvim-cmp", -- autocompletion
   event = "InsertEnter",
   dependencies = {
-    "hrsh7th/cmp-buffer", -- source for text in buffer
-    "hrsh7th/cmp-path", -- source for file system paths
-    "L3MON4D3/LuaSnip", -- snippet engine
-    "saadparwaiz1/cmp_luasnip", -- for autocompletion
+    "hrsh7th/cmp-buffer",           -- source for text in buffer
+    "hrsh7th/cmp-path",             -- source for file system paths
+    "L3MON4D3/LuaSnip",             -- snippet engine
+    "saadparwaiz1/cmp_luasnip",     -- for autocompletion
     "rafamadriz/friendly-snippets", -- useful snippets
-    "onsails/lspkind.nvim", -- vs-code like pictograms
-    "micangl/cmp-vimtex", -- autocompletion for vimtex
+    "onsails/lspkind.nvim",         -- vs-code like pictograms
+    "micangl/cmp-vimtex",           -- autocompletion for vimtex
   },
   config = function()
     -- import nvim-cmp plugin safely for autocompletion
@@ -25,7 +25,8 @@ return {
     -- load vs-code like snippets from plugins (e.g. friendly-snippets)
     require("luasnip/loaders/from_vscode").lazy_load()
 
-    vim.opt.completeopt = "menu,menuone,noinsert" -- sets the way the autocompletion behaves (whether a menu appears, etc.)
+    vim.opt.completeopt =
+    "menu,menuone,noinsert"                       -- sets the way the autocompletion behaves (whether a menu appears, etc.)
 
     cmp.setup({
       snippet = {
@@ -40,8 +41,8 @@ return {
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
         ["<C-u>"] = cmp.mapping.select_prev_item({ count = 10 }), -- see https://github.com/hrsh7th/nvim-cmp/issues/307
         ["<C-d>"] = cmp.mapping.select_next_item({ count = 10 }),
-        ["<C-o>"] = cmp.mapping.complete(), -- show completion suggestions
-        ["<C-e>"] = cmp.mapping.abort(), -- close completion window
+        ["<C-o>"] = cmp.mapping.complete(),                       -- show completion suggestions
+        ["<C-e>"] = cmp.mapping.abort(),                          -- close completion window
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
 
@@ -54,10 +55,10 @@ return {
           entry_filter = function(entry, ctx)
             return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind() -- Disable snippets from the LSP
           end,
-        }, -- lsp
-        { name = "buffer", keyword_length = 5 }, -- text within current buffer but only if I've already typed 5 characters
-        { name = "path" }, -- file system paths
-        { name = "luasnip", keyword_length = 4 }, -- snippets
+        },                                                                           -- lsp
+        { name = "buffer",  keyword_length = 5 },                                    -- text within current buffer but only if I've already typed 5 characters
+        { name = "path" },                                                           -- file system paths
+        { name = "luasnip", keyword_length = 4 },                                    -- snippets
         -- { name = "copilot" }, disable for now since it's getting annoying
         { name = "vimtex" },
         {
@@ -67,7 +68,7 @@ return {
       }),
       sorting = {
         priority_weight = 2,
-        comparators = { -- defaults from https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua
+        comparators = {   -- defaults from https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua
           compare.offset, -- these come from here: https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
           compare.exact,
           -- compare.scopes,
@@ -98,6 +99,13 @@ return {
       sources = {
         { name = "dap" },
       },
+    })
+
+    cmp.setup.filetype({ "sql" }, {
+      sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" }
+      }
     })
   end,
 }

@@ -33,6 +33,10 @@ end
 --------------------
 --- General util ---
 --------------------
+function M.clear_prompt()
+  vim.cmd("redraw")
+end
+
 function M.del_qf_item()
   local items = vim.fn.getqflist()
   local line = vim.fn.line(".")

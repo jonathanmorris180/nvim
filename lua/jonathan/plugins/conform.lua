@@ -22,7 +22,7 @@ return {
         javascript = { "prettier" },
         typescript = { "prettier" },
         go = { "gofmt" },
-        sql = { "sql_formatter" },
+        sql = { "pg_format" }, -- Needs pgformatter to be installed: https://github.com/darold/pgFormatter (`brew install pgformatter`)
         apex = { "prettier" },
         javascriptreact = { "prettier" },
         typescriptreact = { "prettier" },
