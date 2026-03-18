@@ -9,11 +9,6 @@ return {
     })
     worktree.on_tree_change(function(op, metadata)
       vim.notify("Worktree updated")
-      if op == worktree.Operations.Switch then
-        vim.api.nvim_command("AutoSession restore")
-        vim.fn.system("tmux-windowizer " .. metadata.path)
-        vim.notify("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
-      end
     end)
   end,
 }

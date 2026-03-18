@@ -82,8 +82,7 @@ opt.secure = true
 opt.scrolloff = 8 -- no fewer than 8 lines from bottom or top when you scroll down/up
 opt.termguicolors = true
 opt.background = "dark"
-opt.signcolumn =
-"yes" -- ensures that the column for icons is always present so that line numbers don't move when icons appear/disappear
+opt.signcolumn = "yes" -- ensures that the column for icons is always present so that line numbers don't move when icons appear/disappear
 
 -- makes backspace work correctly
 opt.backspace = "indent,eol,start"
@@ -115,5 +114,33 @@ vim.api.nvim_create_autocmd("BufEnter", {
       vim.wo.number = true
       vim.wo.relativenumber = true
     end
+  end,
+})
+
+local function trim(s)
+  return (s:gsub("%s+$", ""))
+end
+
+local function tmux_session_id()
+  if not vim.env.TMUX then
+    return nil
+  end
+  local out = vim.fn.system({ "tmux", "display-message", "-p", "#{session_id}" })
+  if vim.v.shell_error ~= 0 then
+    return nil
+  end
+  return trim(out)
+end
+
+-- Set the socket information for this Neovim instance in tmux so it can be used by worktrunk
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local session_id = tmux_session_id()
+    if not session_id then
+      return
+    end
+
+    local sock = vim.v.servername
+    vim.fn.system({ "tmux", "set-option", "-q", "-t", session_id, "@nvim_socket", sock })
   end,
 })
