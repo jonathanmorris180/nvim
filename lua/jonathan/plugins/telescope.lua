@@ -73,10 +73,6 @@ return {
     telescope.load_extension("git_worktree")
     local function is_valid_for_worktree()
       local utils = require("jonathan.core.utils")
-      if not utils.is_worktree() then
-        vim.notify("Not in bare repository", vim.log.levels.ERROR)
-        return false
-      end
       if utils.is_submodule() then
         vim.notify("Cannot create worktree with submodules", vim.log.levels.ERROR)
         return false
@@ -90,14 +86,6 @@ return {
       end
       local worktree = require("telescope").extensions.git_worktree
       worktree.git_worktrees()
-    end
-    local function create_worktree()
-      local continue = is_valid_for_worktree()
-      if not continue then
-        return
-      end
-      local worktree = require("telescope").extensions.git_worktree
-      worktree.create_git_worktree()
     end
 
     -- keymaps
@@ -149,6 +137,5 @@ return {
     keymap.set("n", "<leader>fw", find_worktree, {
       desc = "(Telescope) Find git worktree (<C-d> deletes a worktree, <C-f> toggles forcing of next deletion)",
     })
-    keymap.set("n", "<leader>fn", create_worktree, { desc = "(Telescope) Create git worktree" })
   end,
 }

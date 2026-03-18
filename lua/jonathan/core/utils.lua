@@ -18,10 +18,6 @@ function M.parent_pattern_exists(root_patterns)
   return vim.fs.dirname(vim.fs.find(root_patterns, { upward = true })[1])
 end
 
-function M.is_worktree()
-  return M.parent_pattern_exists({ "packed-refs" }) ~= nil
-end
-
 function M.is_submodule()
   return M.parent_pattern_exists({ ".gitmodules" }) ~= nil
 end
