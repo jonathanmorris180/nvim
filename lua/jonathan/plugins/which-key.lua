@@ -17,7 +17,7 @@ return {
       { "<leader>d", group = "Dap, diffview, diagnostics" },
       { "<leader>s", group = "Splits, Salesforce, switch" },
       { "<leader>b", group = "Buffer" },
-      { "<leader>g", group = "Git, go to" },
+      { "<leader>g", group = "Git, go to, Golang commands" },
       { "[g", group = "Git (previous)" },
       { "]g", group = "Git (next)" },
       { "<leader>]", group = "Diagnostic (next)" },
