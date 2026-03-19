@@ -120,14 +120,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- Set the socket information for this Neovim instance in tmux so it can be used by worktrunk
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    local session_id = utils.tmux_session_id()
-    if not session_id then
-      return
-    end
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = utils.publish_nvim_socket,
+})
 
-    local sock = vim.v.servername
-    vim.fn.system({ "tmux", "set-option", "-q", "-t", session_id, "@nvim_socket", sock })
-  end,
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = utils.unpublish_nvim_socket,
 })

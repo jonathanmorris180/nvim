@@ -270,20 +270,62 @@ function M.format_bullet_list()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 end
 
--- Tmux
-local function trim(s)
-  return (s:gsub("%s+$", ""))
-end
+-- Tmux + worktrunk
+local last_tmux_key = nil -- used to track the window number for cleanup
 
-function M.tmux_session_id()
-  if not vim.env.TMUX then
-    return nil
-  end
-  local out = vim.fn.system({ "tmux", "display-message", "-p", "#{session_id}" })
+local function tmux_fmt(fmt)
+  local out = vim.fn.system({ "tmux", "display-message", "-p", fmt })
   if vim.v.shell_error ~= 0 then
     return nil
   end
-  return trim(out)
+
+  out = vim.trim(out)
+  if out == "" then
+    return nil
+  end
+
+  return out
+end
+
+function M.publish_nvim_socket()
+  if vim.v.servername == nil or vim.v.servername == "" then
+    return
+  end
+
+  local session_id = tmux_fmt("#{session_id}")
+  local window_index = tmux_fmt("#{window_index}")
+  if not session_id or not window_index then
+    return
+  end
+
+  local key = "@nvim_session_window_" .. window_index
+
+  vim.fn.system({
+    "tmux",
+    "set-option",
+    "-q",
+    "-t",
+    session_id,
+    key,
+    vim.v.servername,
+  })
+end
+
+function M.unpublish_nvim_socket()
+  local session_id = tmux_fmt("#{session_id}")
+  if not session_id or not last_tmux_key then
+    return
+  end
+
+  vim.fn.system({
+    "tmux",
+    "set-option",
+    "-q",
+    "-u",
+    "-t",
+    session_id,
+    last_tmux_key,
+  })
 end
 
 return M
