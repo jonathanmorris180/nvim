@@ -136,6 +136,9 @@ keymap.set("n", "<leader>dr", "<CMD>lua require('dap').repl.open()<CR>", { desc 
 keymap.set("n", "<leader>md", "<CMD>MarkdownPreview<CR>", { desc = "(markdown-preview) Markdown preview" })
 keymap.set("n", "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", { desc = "(markdown-preview) Stop markdown preview" })
 
+-- Claude Code pending sessions
+keymap.set("n", "<leader>oc", utils.open_pending_sessions, { desc = "Open pending Claude sessions" })
+
 -- switch from camelCase to snake_case and vice versa
 vim.api.nvim_create_user_command("SwitchCase", utils.switch_case, {})
 keymap.set("n", "<leader>sc", "<CMD>SwitchCase<CR>", { desc = "Switch from camelCase to snake_case and back" })

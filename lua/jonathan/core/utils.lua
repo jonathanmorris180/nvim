@@ -328,4 +328,34 @@ function M.unpublish_nvim_socket()
   })
 end
 
+-- Claude Code pending sessions
+local pending_sessions_path = vim.fn.stdpath("data") .. "/tmux/pending-sessions.txt"
+
+function M.open_pending_sessions()
+  if vim.fn.filereadable(pending_sessions_path) == 0 then
+    vim.notify("No pending sessions", vim.log.levels.INFO)
+    return
+  end
+  vim.cmd("split " .. pending_sessions_path)
+  vim.keymap.set("n", "<CR>", function()
+    M.jump_to_pending_session()
+  end, { buffer = true, desc = "Jump to Claude session" })
+end
+
+function M.jump_to_pending_session()
+  local line = vim.api.nvim_get_current_line()
+  if line == "" then
+    return
+  end
+  local session, window = line:match("^(.+):(%d+)%s")
+  if not session or not window then
+    vim.notify("Could not parse session from line", vim.log.levels.WARN)
+    return
+  end
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, {})
+  vim.cmd("write")
+  vim.fn.system(string.format("tmux switch-client -t '%s:%s'", session, window))
+end
+
 return M
