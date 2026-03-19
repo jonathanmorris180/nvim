@@ -270,4 +270,20 @@ function M.format_bullet_list()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 end
 
+-- Tmux
+local function trim(s)
+  return (s:gsub("%s+$", ""))
+end
+
+function M.tmux_session_id()
+  if not vim.env.TMUX then
+    return nil
+  end
+  local out = vim.fn.system({ "tmux", "display-message", "-p", "#{session_id}" })
+  if vim.v.shell_error ~= 0 then
+    return nil
+  end
+  return trim(out)
+end
+
 return M

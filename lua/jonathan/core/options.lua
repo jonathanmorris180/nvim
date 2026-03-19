@@ -1,3 +1,5 @@
+local utils = require("jonathan.core.utils")
+
 local opt = vim.opt
 vim.g.mapleader = " "
 
@@ -117,25 +119,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
-local function trim(s)
-  return (s:gsub("%s+$", ""))
-end
-
-local function tmux_session_id()
-  if not vim.env.TMUX then
-    return nil
-  end
-  local out = vim.fn.system({ "tmux", "display-message", "-p", "#{session_id}" })
-  if vim.v.shell_error ~= 0 then
-    return nil
-  end
-  return trim(out)
-end
-
 -- Set the socket information for this Neovim instance in tmux so it can be used by worktrunk
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    local session_id = tmux_session_id()
+    local session_id = utils.tmux_session_id()
     if not session_id then
       return
     end
