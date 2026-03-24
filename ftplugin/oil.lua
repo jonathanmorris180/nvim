@@ -15,20 +15,16 @@ local function yank_oil_path(mode)
   vim.notify("Yanked: " .. path)
 end
 
-vim.keymap.set("n", "y", function()
+vim.keymap.set("n", "yp", function()
   yank_oil_path("rel")
 end, {
-  nowait = true,
   desc = "(Oil) Yank relative path",
   buffer = true,
-  remap = true,
 })
 
-vim.keymap.set("n", "Y", function()
+vim.keymap.set("n", "YP", function()
   yank_oil_path("abs")
 end, {
-  nowait = true,
   desc = "(Oil) Yank absolute path",
   buffer = true,
-  remap = true,
 })
