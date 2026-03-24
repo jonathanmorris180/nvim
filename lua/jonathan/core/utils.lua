@@ -328,6 +328,65 @@ function M.unpublish_nvim_socket()
   })
 end
 
+-- Project-local LSP config refresh (for worktree switching)
+
+--- Reload cached Lua modules that reside under a .nvim/lua/ directory.
+--- Uses dofile() to bypass vim.loader's bytecode cache, ensuring modules
+--- are loaded fresh from the given path with the current CWD.
+--- @param nvim_dir string Absolute path to a .nvim directory
+local function reload_nvim_dir_modules(nvim_dir)
+  local lua_dir = nvim_dir .. "/lua"
+  local stat = vim.uv.fs_stat(lua_dir)
+  if not stat or stat.type ~= "directory" then
+    return
+  end
+
+  local lua_files = vim.fs.find(function(name)
+    return name:match("%.lua$")
+  end, { path = lua_dir, type = "file", limit = math.huge })
+
+  for _, file_path in ipairs(lua_files) do
+    local rel = file_path:sub(#lua_dir + 2)
+    local mod_name = rel:gsub("%.lua$", ""):gsub("/init$", ""):gsub("/", ".")
+    if package.loaded[mod_name] then
+      local ok, result = pcall(dofile, file_path)
+      if ok then
+        package.loaded[mod_name] = result
+      else
+        package.loaded[mod_name] = nil
+      end
+    end
+  end
+end
+
+--- Refresh project-specific LSP configuration after a worktree switch.
+---
+--- When switching worktrees, the CWD changes but Lua module caches and
+--- runtimepath entries still point to the old worktree. This function:
+---   1. Removes old .nvim paths from runtimepath
+---   2. Adds the new .nvim directory (if found) to runtimepath
+---   3. Reloads project-specific Lua modules via dofile (bypasses vim.loader)
+---   4. Restarts LSP so configs are re-resolved with fresh modules
+function M.refresh_project_lsp_config()
+  -- Remove old .nvim paths from runtimepath
+  for _, entry in ipairs(vim.opt.runtimepath:get()) do
+    if entry:match("/.nvim$") then
+      vim.opt.runtimepath:remove(entry)
+    end
+  end
+
+  -- Find new .nvim directory from current CWD and add to runtimepath
+  local new_nvim_dir = M.parent_dir_exists(".nvim")
+  if new_nvim_dir then
+    vim.opt.runtimepath:append(new_nvim_dir)
+    reload_nvim_dir_modules(new_nvim_dir)
+  end
+
+  -- Restart LSP — re-resolves config via loadfile(), and require() calls
+  -- now find fresh modules in package.loaded
+  vim.cmd("LspRestart")
+end
+
 -- Claude Code pending sessions
 local pending_sessions_path = vim.fn.stdpath("data") .. "/tmux/pending-sessions.txt"
 

@@ -9,6 +9,9 @@ return {
     })
     worktree.on_tree_change(function(op, metadata)
       vim.notify("Worktree updated")
+      if op == "switch" then
+        require("jonathan.core.utils").refresh_project_lsp_config()
+      end
     end)
   end,
 }
