@@ -96,6 +96,8 @@ keymap.set("n", "<leader>c", "<CMD>q!<CR>", { desc = "Close the current buffer" 
 keymap.set("n", "<leader>r", "<CMD>e!<CR>", { desc = "Refresh the current buffer" })
 keymap.set("n", "<Up>", "10<C-w>>", { desc = "Increase window width" })
 keymap.set("n", "<Down>", "10<C-w><", { desc = "Decrease window width" })
+keymap.set("n", "<M-Up>", "10<C-w>+", { desc = "Increase window width" })
+keymap.set("n", "<M-Down>", "10<C-w>-", { desc = "Decrease window width" })
 
 ---------------------
 -- Plugin Keybinds --
@@ -108,7 +110,7 @@ keymap.set("n", "<leader>gb", "<CMD>Git<Space>blame<CR>", { desc = "(Fugitive) O
 keymap.set(
   "n",
   "<leader>gg",
-  "<CMD>G<CR>",
+  "<CMD>:vert G<CR>",
   { desc = "(Fugitive) Opens the fugitive window (dd can be used for vertical diff)" }
 )
 -- Note that it seems there are no plans to add an equivalent of "git add ." to fugitive: https://github.com/tpope/vim-fugitive/issues/2366
