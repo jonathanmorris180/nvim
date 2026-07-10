@@ -84,6 +84,11 @@ return {
       vim.opt.runtimepath:append(config_dir) -- per-project config with .nvim dir
     end
 
+    vim.lsp.config("gopls", {
+      cmd = { "gopls" },
+      filetypes = { "go", "gomod", "gowork", "gotmpl" }, -- prevents issues with gopls trying to start in fugitive buffers
+    })
+
     vim.lsp.enable("gopls")
 
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -180,8 +185,8 @@ return {
         if client.workspace_folders then
           local path = client.workspace_folders[1].name
           if
-              path ~= vim.fn.stdpath("config")
-              and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+            path ~= vim.fn.stdpath("config")
+            and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
           then
             return
           end
@@ -226,8 +231,8 @@ return {
     vim.lsp.config("apex_ls", {
       cmd = function(dispatchers, _)
         local apex_jar_path = vim.fn.stdpath("data")
-            .. "/mason/packages/apex-language-server/extension/dist/apex-jorje-lsp.jar"
-        local apex_enable_semantic_errors = false       -- Whether to allow Apex Language Server to surface semantic errors
+          .. "/mason/packages/apex-language-server/extension/dist/apex-jorje-lsp.jar"
+        local apex_enable_semantic_errors = false -- Whether to allow Apex Language Server to surface semantic errors
         local apex_enable_completion_statistics = false -- Whether to allow Apex Language Server to collect telemetry on code completion usage
         local local_cmd = {
           vim.env.JAVA_HOME and (vim.env.JAVA_HOME .. "/bin/java") or "java",
