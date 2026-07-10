@@ -71,7 +71,7 @@ return {
       "gitignore",
       "go",
     }
-    local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+    local alreadyInstalled = require("nvim-treesitter").get_installed()
     local parsersToInstall = vim
       .iter(ensureInstalled)
       :filter(function(parser)
