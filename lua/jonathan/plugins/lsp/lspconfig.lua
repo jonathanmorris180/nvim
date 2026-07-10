@@ -5,7 +5,7 @@ return {
   },
   config = function()
     -- disable lsp logs ("off") unless needed so it doesn't create a huge file (switch to "debug" if needed)
-    vim.lsp.set_log_level("off")
+    vim.lsp.log.set_level("off")
 
     local lspconfig_util = require("lspconfig.util")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
