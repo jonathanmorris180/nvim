@@ -1,6 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
+  branch = "master", -- previous iterations recommended pinning to a different version, but this issue now recommends master: https://github.com/nvim-telescope/telescope.nvim/issues/3487#issuecomment-3181667722
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-live-grep-args.nvim",
