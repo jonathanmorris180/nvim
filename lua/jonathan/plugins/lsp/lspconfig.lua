@@ -86,7 +86,20 @@ return {
 
     vim.lsp.config("gopls", {
       cmd = { "gopls" },
-      filetypes = { "go", "gomod", "gowork", "gotmpl" }, -- prevents issues with gopls trying to start in fugitive buffers
+      filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      -- prevent issues with trying to attach to fugitive:/// files
+      root_dir = function(bufnr, on_dir)
+        local uri = vim.uri_from_bufnr(bufnr)
+
+        if not uri:match("^file:") then -- if this is does not begin with file:/// (i.e., normal files, not fugitive files), don't attach
+          return
+        end
+
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        local root = vim.fs.root(filename, { "go.work", "go.mod", ".git" })
+
+        on_dir(root or vim.fs.dirname(filename)) -- fall back to attach to current file directory if root can't be found
+      end,
     })
 
     vim.lsp.enable("gopls")
