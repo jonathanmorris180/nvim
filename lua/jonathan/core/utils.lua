@@ -384,7 +384,9 @@ function M.refresh_project_lsp_config()
 
   -- Restart LSP — re-resolves config via loadfile(), and require() calls
   -- now find fresh modules in package.loaded
-  vim.cmd("lsp restart")
+  if next(vim.lsp.get_clients({ bufnr = 0 })) then
+    vim.cmd("lsp restart")
+  end
 end
 
 -- Claude Code pending sessions
