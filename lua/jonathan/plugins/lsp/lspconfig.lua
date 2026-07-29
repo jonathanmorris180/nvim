@@ -190,8 +190,6 @@ return {
     })
     vim.lsp.enable("emmet_ls")
 
-    vim.lsp.enable("eslint")
-
     -- configure lua server
     vim.lsp.config("lua_ls", {
       on_init = function(client)
