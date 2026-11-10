@@ -26,6 +26,12 @@ return {
     keymap.set("n", "<leader>lr", "<CMD>:Leet run<CR>", { desc = "(leetcode.nvim) Run the test cases" })
     keymap.set(
       "n",
+      "<leader>lx",
+      "<CMD>:Leet reset<CR>",
+      { desc = "(leetcode.nvim) Reset the current challenge to the default snippet" }
+    )
+    keymap.set(
+      "n",
       "<leader>li",
       "<CMD>:Leet info<CR>",
       { desc = "(leetcode.nvim) Get information about the current challenge" }
