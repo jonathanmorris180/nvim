@@ -130,6 +130,12 @@ return {
     })
     vim.lsp.enable("java_language_server")
 
+    -- Allows auto-completions via `$schema`
+    vim.lsp.config("jsonls", {
+      filetypes = { "json" },
+    })
+    vim.lsp.enable("jsonls")
+
     -- configure python server
     if not vim.g.started_by_firenvim == true then
       vim.lsp.config("pyright", {

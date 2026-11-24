@@ -1,19 +1,21 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
   branch = "main",
-  event = { "BufReadPre", "BufNewFile" },
+  lazy = false,
+  build = ":TSUpdate",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
-  init = function()
-    -- see https://www.qu8n.com/posts/treesitter-migration-guide-for-nvim-0-12
+  config = function()
+    -- main doesn't auto-install parsers
+    require("nvim-treesitter").install({ "lua" })
+
     vim.api.nvim_create_autocmd("FileType", {
       callback = function()
-        -- Enable treesitter highlighting and disable regex syntax
-        pcall(vim.treesitter.start)
-        -- Enable treesitter-based indentation
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        -- only enable TS indent if a parser actually started for this buffer
+        if pcall(vim.treesitter.start) then
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
       end,
     })
   end,
